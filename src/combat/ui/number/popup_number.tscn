@@ -1,0 +1,15 @@
+[gd_scene load_steps=3 format=3 uid="uid://bwes6f5rvtaep"]
+
+[ext_resource type="Theme" uid="uid://dbtpqwsmsli2p" path="res://theme/default_ui.tres" id="1_ow6dy"]
+[ext_resource type="Script" uid="uid://1140emgn7jtf" path="res://src/combat/ui/number/popup_number.gd" id="2_ct5fu"]
+
+[node name="PopupNumber" type="Marker2D"]
+script = ExtResource("2_ct5fu")
+
+[node name="Label" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 24.0
+theme = ExtResource("1_ow6dy")
+theme_override_colors/font_outline_color = Color(0, 0, 0, 1)
+theme_override_constants/outline_size = 5
+text = "100"

@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://do05pxfcwas8t"]
+
+[ext_resource type="Theme" uid="uid://dbtpqwsmsli2p" path="res://theme/default_ui.tres" id="1_6udyr"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_crdu6"]
+bg_color = Color(0.21, 0.7, 0.275333, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[node name="ManaBar" type="ProgressBar"]
+offset_right = 100.0
+offset_bottom = 28.0
+theme = ExtResource("1_6udyr")
+theme_override_styles/fill = SubResource("StyleBoxFlat_crdu6")
+value = 100.0
+show_percentage = false

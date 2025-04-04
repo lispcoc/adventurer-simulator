@@ -1,0 +1,45 @@
+[gd_resource type="Theme" load_steps=8 format=3 uid="uid://dbtpqwsmsli2p"]
+
+[ext_resource type="FontFile" uid="uid://cx16unmbxv2s0" path="res://theme/Mplus2-Light.ttf" id="1_73qds"]
+[ext_resource type="FontFile" uid="uid://bu1kqtxjab801" path="res://theme/Mplus2-Bold.ttf" id="1_ubjm2"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_73qds"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ka6i3"]
+bg_color = Color(1, 1, 1, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_isr6h"]
+bg_color = Color(0.504, 0.5216, 0.6, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ubjm2"]
+bg_color = Color(0, 0, 0, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0hprx"]
+bg_color = Color(0.7, 0.21, 0.21, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(1, 1, 1, 1)
+
+[resource]
+default_font = ExtResource("1_73qds")
+default_font_size = 16
+Button/styles/focus = SubResource("StyleBoxFlat_73qds")
+Button/styles/normal = SubResource("StyleBoxFlat_ka6i3")
+Label/colors/font_shadow_color = Color(0, 0, 0, 1)
+Label/fonts/font = ExtResource("1_ubjm2")
+Panel/styles/panel = SubResource("StyleBoxFlat_isr6h")
+ProgressBar/styles/background = SubResource("StyleBoxFlat_ubjm2")
+ProgressBar/styles/fill = SubResource("StyleBoxFlat_0hprx")
