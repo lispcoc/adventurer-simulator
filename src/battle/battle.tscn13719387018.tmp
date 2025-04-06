@@ -1,0 +1,233 @@
+[gd_scene load_steps=9 format=3 uid="uid://doy7c5cwvl737"]
+
+[ext_resource type="PackedScene" uid="uid://bwxpon7slc7v1" path="res://src/common/character_panel/character_panel.tscn" id="1_buusn"]
+[ext_resource type="Script" uid="uid://dfvrfddsxt8ge" path="res://src/battle/battle_manager.gd" id="1_i4wed"]
+[ext_resource type="Script" uid="uid://dti4easxqvrgw" path="res://src/battle/ui/enemy_selecter.gd" id="2_80tbf"]
+[ext_resource type="Theme" uid="uid://coqyw0byiv6pq" path="res://theme/cursor.tres" id="2_ewtd0"]
+[ext_resource type="Script" uid="uid://bjc4or0d5jcgj" path="res://src/battle/battle_actor.gd" id="2_u3ckx"]
+[ext_resource type="Texture2D" uid="uid://pkp6t20skjpe" path="res://battlers/bear/bear.png" id="2_wssn5"]
+[ext_resource type="Theme" uid="uid://maubimkkvxdm" path="res://theme/battle_command.tres" id="4_wssn5"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ewtd0"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[node name="Battle" type="Node2D" node_paths=PackedStringArray("enemy_container")]
+script = ExtResource("1_i4wed")
+enemy_container = NodePath("CanvasLayer/EnemyContainer")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="EnemyContainer" type="CenterContainer" parent="CanvasLayer" node_paths=PackedStringArray("front_container", "back_container")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -64.0
+offset_right = 300.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_ewtd0")
+script = ExtResource("2_80tbf")
+front_container = NodePath("GridV/Front/FrontGrid")
+back_container = NodePath("GridV/Back/BackGrid")
+
+[node name="GridV" type="VBoxContainer" parent="CanvasLayer/EnemyContainer"]
+layout_mode = 2
+
+[node name="Back" type="CenterContainer" parent="CanvasLayer/EnemyContainer/GridV"]
+layout_mode = 2
+
+[node name="BackGrid" type="HBoxContainer" parent="CanvasLayer/EnemyContainer/GridV/Back"]
+layout_mode = 2
+
+[node name="BattleActor11" type="Control" parent="CanvasLayer/EnemyContainer/GridV/Back/BackGrid"]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+script = ExtResource("2_u3ckx")
+
+[node name="BattleActor21" type="Control" parent="CanvasLayer/EnemyContainer/GridV/Back/BackGrid"]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+script = ExtResource("2_u3ckx")
+
+[node name="Sprite" type="Sprite2D" parent="CanvasLayer/EnemyContainer/GridV/Back/BackGrid/BattleActor21"]
+texture = ExtResource("2_wssn5")
+
+[node name="Button21" type="Button" parent="CanvasLayer/EnemyContainer/GridV/Back/BackGrid/BattleActor21"]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+
+[node name="Front" type="CenterContainer" parent="CanvasLayer/EnemyContainer/GridV"]
+layout_mode = 2
+
+[node name="FrontGrid" type="HBoxContainer" parent="CanvasLayer/EnemyContainer/GridV/Front"]
+layout_mode = 2
+
+[node name="BattleActor11" type="Control" parent="CanvasLayer/EnemyContainer/GridV/Front/FrontGrid"]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+script = ExtResource("2_u3ckx")
+
+[node name="Sprite" type="Sprite2D" parent="CanvasLayer/EnemyContainer/GridV/Front/FrontGrid/BattleActor11"]
+texture = ExtResource("2_wssn5")
+
+[node name="Button11" type="Button" parent="CanvasLayer/EnemyContainer/GridV/Front/FrontGrid/BattleActor11"]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+
+[node name="BattleActor21" type="Control" parent="CanvasLayer/EnemyContainer/GridV/Front/FrontGrid"]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+script = ExtResource("2_u3ckx")
+
+[node name="Sprite" type="Sprite2D" parent="CanvasLayer/EnemyContainer/GridV/Front/FrontGrid/BattleActor21"]
+texture = ExtResource("2_wssn5")
+
+[node name="Button21" type="Button" parent="CanvasLayer/EnemyContainer/GridV/Front/FrontGrid/BattleActor21"]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2
+
+[node name="Lines" type="VBoxContainer" parent="CanvasLayer/EnemyContainer"]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="CanvasLayer/EnemyContainer/Lines"]
+visible = false
+custom_minimum_size = Vector2(600, 64)
+layout_mode = 2
+
+[node name="Front" type="Button" parent="CanvasLayer/EnemyContainer/Lines"]
+visible = false
+custom_minimum_size = Vector2(600, 64)
+layout_mode = 2
+
+[node name="PartyContainer" type="GridContainer" parent="CanvasLayer"]
+offset_top = 312.0
+offset_right = 640.0
+offset_bottom = 480.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 3
+
+[node name="PanelContainer11" type="PanelContainer" parent="CanvasLayer/PartyContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ewtd0")
+
+[node name="CharacterPanel" parent="CanvasLayer/PartyContainer/PanelContainer11" instance=ExtResource("1_buusn")]
+show_behind_parent = true
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/PartyContainer/PanelContainer11/CharacterPanel"]
+custom_minimum_size = Vector2(128, 84)
+layout_mode = 2
+offset_right = 128.0
+offset_bottom = 84.0
+theme = ExtResource("2_ewtd0")
+
+[node name="PanelContainer12" type="PanelContainer" parent="CanvasLayer/PartyContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ewtd0")
+
+[node name="CharacterPanel" parent="CanvasLayer/PartyContainer/PanelContainer12" instance=ExtResource("1_buusn")]
+show_behind_parent = true
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/PartyContainer/PanelContainer12/CharacterPanel"]
+custom_minimum_size = Vector2(128, 84)
+layout_mode = 2
+offset_right = 128.0
+offset_bottom = 84.0
+theme = ExtResource("2_ewtd0")
+
+[node name="PanelContainer13" type="PanelContainer" parent="CanvasLayer/PartyContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ewtd0")
+
+[node name="CharacterPanel" parent="CanvasLayer/PartyContainer/PanelContainer13" instance=ExtResource("1_buusn")]
+show_behind_parent = true
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/PartyContainer/PanelContainer13/CharacterPanel"]
+custom_minimum_size = Vector2(128, 84)
+layout_mode = 2
+offset_right = 128.0
+offset_bottom = 84.0
+theme = ExtResource("2_ewtd0")
+
+[node name="PanelContainer21" type="PanelContainer" parent="CanvasLayer/PartyContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ewtd0")
+
+[node name="CharacterPanel" parent="CanvasLayer/PartyContainer/PanelContainer21" instance=ExtResource("1_buusn")]
+show_behind_parent = true
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/PartyContainer/PanelContainer21/CharacterPanel"]
+custom_minimum_size = Vector2(128, 84)
+layout_mode = 2
+offset_right = 128.0
+offset_bottom = 84.0
+theme = ExtResource("2_ewtd0")
+
+[node name="PanelContainer22" type="PanelContainer" parent="CanvasLayer/PartyContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ewtd0")
+
+[node name="CharacterPanel" parent="CanvasLayer/PartyContainer/PanelContainer22" instance=ExtResource("1_buusn")]
+show_behind_parent = true
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/PartyContainer/PanelContainer22/CharacterPanel"]
+custom_minimum_size = Vector2(128, 84)
+layout_mode = 2
+offset_right = 128.0
+offset_bottom = 84.0
+theme = ExtResource("2_ewtd0")
+
+[node name="PanelContainer23" type="PanelContainer" parent="CanvasLayer/PartyContainer"]
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_ewtd0")
+
+[node name="CharacterPanel" parent="CanvasLayer/PartyContainer/PanelContainer23" instance=ExtResource("1_buusn")]
+show_behind_parent = true
+layout_mode = 2
+
+[node name="Button" type="Button" parent="CanvasLayer/PartyContainer/PanelContainer23/CharacterPanel"]
+custom_minimum_size = Vector2(128, 84)
+layout_mode = 2
+offset_right = 128.0
+offset_bottom = 84.0
+theme = ExtResource("2_ewtd0")
+
+[node name="BattleCommand" type="PanelContainer" parent="CanvasLayer"]
+visible = false
+offset_left = 96.0
+offset_top = 108.0
+offset_right = 136.0
+offset_bottom = 108.0
+theme = ExtResource("4_wssn5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BattleCommand"]
+layout_mode = 2
+
+[node name="Attack" type="Button" parent="CanvasLayer/BattleCommand/VBoxContainer"]
+layout_mode = 2
+text = "Attack"
+alignment = 0
+
+[node name="Skill" type="Button" parent="CanvasLayer/BattleCommand/VBoxContainer"]
+layout_mode = 2
+text = "Skill"
+alignment = 0
+
+[node name="Defence" type="Button" parent="CanvasLayer/BattleCommand/VBoxContainer"]
+layout_mode = 2
+text = "Defence"
+alignment = 0
+
+[node name="Escape" type="Button" parent="CanvasLayer/BattleCommand/VBoxContainer"]
+layout_mode = 2
+text = "Escape"
+alignment = 0

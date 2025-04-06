@@ -15,7 +15,7 @@
 [ext_resource type="Script" uid="uid://b37wjm17ojlas" path="res://addons/dialogic/Modules/Text/node_dialog_text.gd" id="20_g8d34"]
 [ext_resource type="Script" uid="uid://dtxa5nedjnq7p" path="res://src/field/ui/dialogue_window.gd" id="20_lk3dv"]
 [ext_resource type="Script" uid="uid://ufd1c0jowal0" path="res://addons/dialogic/Modules/Character/node_portrait_container.gd" id="21_f53lt"]
-[ext_resource type="Script" uid="uid://b8smf2lsk6p3u" path="res://src/field/ui/selector/ui_selector.gd" id="23_jitvu"]
+[ext_resource type="Script" uid="uid://b8smf2lsk6p3u" path="res://src/common/ui/selector/ui_selector.gd" id="23_jitvu"]
 [ext_resource type="Theme" uid="uid://dbtpqwsmsli2p" path="res://theme/default_ui.tres" id="27_c2usk"]
 [ext_resource type="Script" uid="uid://dicuhk0w84mdt" path="res://src/field/ui/inventory/ui_inventory.gd" id="34_tk01t"]
 [ext_resource type="Script" uid="uid://yveno6dv71hn" path="res://addons/dialogic/Modules/Text/node_type_sound.gd" id="53_atrmf"]

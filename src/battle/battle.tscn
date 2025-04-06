@@ -1,0 +1,138 @@
+[gd_scene load_steps=6 format=3 uid="uid://doy7c5cwvl737"]
+
+[ext_resource type="Script" uid="uid://dfvrfddsxt8ge" path="res://src/battle/battle_manager.gd" id="1_i4wed"]
+[ext_resource type="Theme" uid="uid://coqyw0byiv6pq" path="res://theme/cursor.tres" id="2_ewtd0"]
+[ext_resource type="Theme" uid="uid://maubimkkvxdm" path="res://theme/battle_command.tres" id="4_wssn5"]
+[ext_resource type="Script" uid="uid://d1qlb1kponobm" path="res://src/battle/ui/battle_actor_container.gd" id="5_i4wed"]
+[ext_resource type="Texture2D" uid="uid://w55nt3s833tb" path="res://assets/arenas/steppes.png" id="6_80tbf"]
+
+[node name="Battle" type="Node2D" node_paths=PackedStringArray("party_container", "enemy_container", "message")]
+script = ExtResource("1_i4wed")
+party_container = NodePath("CanvasLayer/PartyPanelContainer")
+enemy_container = NodePath("CanvasLayer/EnemyContainer")
+message = NodePath("CanvasLayer/PanelContainer/RichTextLabel")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Steppes" type="Sprite2D" parent="CanvasLayer"]
+position = Vector2(320, 240)
+scale = Vector2(0.333333, 0.444444)
+texture = ExtResource("6_80tbf")
+
+[node name="EnemyContainer" type="CenterContainer" parent="CanvasLayer" node_paths=PackedStringArray("front_container", "back_container")]
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -300.0
+offset_top = -64.0
+offset_right = 300.0
+offset_bottom = 64.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_ewtd0")
+script = ExtResource("5_i4wed")
+front_container = NodePath("GridV/Front/FrontGrid")
+back_container = NodePath("GridV/Back/BackGrid")
+
+[node name="GridV" type="VBoxContainer" parent="CanvasLayer/EnemyContainer"]
+layout_mode = 2
+
+[node name="Back" type="CenterContainer" parent="CanvasLayer/EnemyContainer/GridV"]
+layout_mode = 2
+
+[node name="BackGrid" type="HBoxContainer" parent="CanvasLayer/EnemyContainer/GridV/Back"]
+layout_mode = 2
+
+[node name="Front" type="CenterContainer" parent="CanvasLayer/EnemyContainer/GridV"]
+layout_mode = 2
+
+[node name="FrontGrid" type="HBoxContainer" parent="CanvasLayer/EnemyContainer/GridV/Front"]
+layout_mode = 2
+
+[node name="Lines" type="VBoxContainer" parent="CanvasLayer/EnemyContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Front" type="Button" parent="CanvasLayer/EnemyContainer/Lines"]
+custom_minimum_size = Vector2(600, 64)
+layout_mode = 2
+
+[node name="Back" type="Button" parent="CanvasLayer/EnemyContainer/Lines"]
+custom_minimum_size = Vector2(600, 64)
+layout_mode = 2
+
+[node name="PartyPanelContainer" type="CenterContainer" parent="CanvasLayer" node_paths=PackedStringArray("front_container", "back_container")]
+offset_top = 312.0
+offset_right = 640.0
+offset_bottom = 480.0
+theme = ExtResource("2_ewtd0")
+script = ExtResource("5_i4wed")
+front_container = NodePath("GridV/Front/FrontGrid")
+back_container = NodePath("GridV/Back/BackGrid")
+
+[node name="GridV" type="VBoxContainer" parent="CanvasLayer/PartyPanelContainer"]
+layout_mode = 2
+
+[node name="Front" type="CenterContainer" parent="CanvasLayer/PartyPanelContainer/GridV"]
+layout_mode = 2
+
+[node name="FrontGrid" type="HBoxContainer" parent="CanvasLayer/PartyPanelContainer/GridV/Front"]
+layout_mode = 2
+
+[node name="Back" type="CenterContainer" parent="CanvasLayer/PartyPanelContainer/GridV"]
+layout_mode = 2
+
+[node name="BackGrid" type="HBoxContainer" parent="CanvasLayer/PartyPanelContainer/GridV/Back"]
+layout_mode = 2
+
+[node name="Lines" type="VBoxContainer" parent="CanvasLayer/PartyPanelContainer"]
+visible = false
+layout_mode = 2
+
+[node name="Front" type="Button" parent="CanvasLayer/PartyPanelContainer/Lines"]
+custom_minimum_size = Vector2(600, 64)
+layout_mode = 2
+
+[node name="Back" type="Button" parent="CanvasLayer/PartyPanelContainer/Lines"]
+custom_minimum_size = Vector2(600, 64)
+layout_mode = 2
+
+[node name="BattleCommand" type="PanelContainer" parent="CanvasLayer"]
+visible = false
+offset_left = 96.0
+offset_top = 108.0
+offset_right = 136.0
+offset_bottom = 108.0
+theme = ExtResource("4_wssn5")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BattleCommand"]
+layout_mode = 2
+
+[node name="Attack" type="Button" parent="CanvasLayer/BattleCommand/VBoxContainer"]
+layout_mode = 2
+text = "Attack"
+alignment = 0
+
+[node name="Skill" type="Button" parent="CanvasLayer/BattleCommand/VBoxContainer"]
+layout_mode = 2
+text = "Skill"
+alignment = 0
+
+[node name="Defence" type="Button" parent="CanvasLayer/BattleCommand/VBoxContainer"]
+layout_mode = 2
+text = "Defence"
+alignment = 0
+
+[node name="Escape" type="Button" parent="CanvasLayer/BattleCommand/VBoxContainer"]
+layout_mode = 2
+text = "Escape"
+alignment = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+offset_right = 640.0
+offset_bottom = 64.0
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2

@@ -23,7 +23,12 @@ FieldEvents="*res://src/field/field_events.gd"
 Music="*res://src/common/music/music_player.tscn"
 Transition="*res://src/common/screen_transitions/ScreenTransition.tscn"
 Game="*res://src/game/game_manager.gd"
+StaticData="*res://src/game/game_static_data.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+
+[debug]
+
+gdscript/warnings/integer_division=0
 
 [dialogic]
 

@@ -1,0 +1,67 @@
+[gd_scene load_steps=3 format=3 uid="uid://dj1sh2pvrr556"]
+
+[ext_resource type="PackedScene" uid="uid://bwxpon7slc7v1" path="res://src/common/character_panel/character_panel.tscn" id="1_ti5kx"]
+[ext_resource type="Theme" uid="uid://coqyw0byiv6pq" path="res://theme/cursor.tres" id="2_xpxvx"]
+
+[node name="Test" type="Node2D"]
+
+[node name="GridContainer" type="GridContainer" parent="."]
+offset_right = 384.0
+offset_bottom = 168.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 3
+
+[node name="CharacterPanel" parent="GridContainer" instance=ExtResource("1_ti5kx")]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="GridContainer/CharacterPanel"]
+layout_mode = 2
+offset_right = 128.0
+offset_bottom = 84.0
+theme = ExtResource("2_xpxvx")
+
+[node name="CharacterPanel2" parent="GridContainer" instance=ExtResource("1_ti5kx")]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="GridContainer/CharacterPanel2"]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 84.0
+theme = ExtResource("2_xpxvx")
+
+[node name="CharacterPanel3" parent="GridContainer" instance=ExtResource("1_ti5kx")]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="GridContainer/CharacterPanel3"]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 84.0
+theme = ExtResource("2_xpxvx")
+
+[node name="CharacterPanel4" parent="GridContainer" instance=ExtResource("1_ti5kx")]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="GridContainer/CharacterPanel4"]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 84.0
+theme = ExtResource("2_xpxvx")
+
+[node name="CharacterPanel5" parent="GridContainer" instance=ExtResource("1_ti5kx")]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="GridContainer/CharacterPanel5"]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 84.0
+theme = ExtResource("2_xpxvx")
+
+[node name="CharacterPanel6" parent="GridContainer" instance=ExtResource("1_ti5kx")]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="GridContainer/CharacterPanel6"]
+layout_mode = 0
+offset_right = 128.0
+offset_bottom = 84.0
+theme = ExtResource("2_xpxvx")

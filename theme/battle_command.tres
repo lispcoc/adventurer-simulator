@@ -1,0 +1,25 @@
+[gd_resource type="Theme" load_steps=4 format=3 uid="uid://maubimkkvxdm"]
+
+[ext_resource type="FontFile" uid="uid://bu1kqtxjab801" path="res://theme/Mplus2-Bold.ttf" id="1_120fd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_120fd"]
+bg_color = Color(1, 1, 0, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_wssn5"]
+bg_color = Color(0.504, 0.5216, 0.6, 1)
+border_width_left = 2
+border_width_top = 2
+border_width_right = 2
+border_width_bottom = 2
+border_color = Color(0, 0, 0, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
+
+[resource]
+Button/colors/font_focus_color = Color(0, 0, 0, 1)
+Button/fonts/font = ExtResource("1_120fd")
+Button/styles/focus = SubResource("StyleBoxFlat_120fd")
+PanelContainer/styles/panel = SubResource("StyleBoxFlat_wssn5")

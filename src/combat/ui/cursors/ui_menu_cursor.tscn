@@ -51,6 +51,6 @@ offset = Vector2(-67, 0)
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 libraries = {
-"": SubResource("AnimationLibrary_xs2hl")
+&"": SubResource("AnimationLibrary_xs2hl")
 }
 autoplay = "bounce"

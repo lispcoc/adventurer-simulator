@@ -5,9 +5,6 @@ func _ready() -> void:
 	_change_panel_size()
 
 func _change_panel_size() -> void:
-	print("resized")
-	print(size.x)
-	print(size.y)
 	var cont = get_parent() as Control
 	if self.size.y == 0:
 		cont.custom_minimum_size.x = 0

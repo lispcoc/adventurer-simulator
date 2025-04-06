@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://dh261ire6rrc1"]
+
+[ext_resource type="Script" uid="uid://bjc4or0d5jcgj" path="res://src/battle/battle_actor.gd" id="1_7smgo"]
+[ext_resource type="Texture2D" uid="uid://pkp6t20skjpe" path="res://battlers/bear/bear.png" id="2_g7vlu"]
+
+[node name="BattleActor" type="Control"]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("1_7smgo")
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture = ExtResource("2_g7vlu")
+
+[node name="Button" type="Button" parent="."]
+custom_minimum_size = Vector2(200, 64)
+layout_mode = 2

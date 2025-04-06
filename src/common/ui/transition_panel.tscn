@@ -1,0 +1,17 @@
+[gd_scene load_steps=5 format=3 uid="uid://ct1q0q72ofi3f"]
+
+[ext_resource type="Shader" uid="uid://be0lo21ubq6k7" path="res://src/battle/battle.gdshader" id="1_4t8uc"]
+[ext_resource type="Texture2D" uid="uid://deu22dkf7ih6a" path="res://assets/gui/1080p_rule11_2.webp" id="2_3ixod"]
+[ext_resource type="Script" uid="uid://b4ffjb41vkd1v" path="res://src/common/ui/transition_panel.gd" id="3_imaid"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_qkyk6"]
+shader = ExtResource("1_4t8uc")
+shader_parameter/SoftRange = 0.02
+shader_parameter/Value = 0.0
+shader_parameter/Mask = ExtResource("2_3ixod")
+
+[node name="TransitionPanel" type="Panel"]
+material = SubResource("ShaderMaterial_qkyk6")
+offset_right = 640.0
+offset_bottom = 480.0
+script = ExtResource("3_imaid")
