@@ -1,6 +1,8 @@
-[gd_resource type="Theme" load_steps=4 format=3 uid="uid://maubimkkvxdm"]
+[gd_resource type="Theme" load_steps=5 format=3 uid="uid://maubimkkvxdm"]
 
 [ext_resource type="FontFile" uid="uid://bu1kqtxjab801" path="res://theme/Mplus2-Bold.ttf" id="1_120fd"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ijr3a"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_120fd"]
 bg_color = Color(1, 1, 0, 1)
@@ -21,5 +23,6 @@ corner_radius_bottom_left = 2
 [resource]
 Button/colors/font_focus_color = Color(0, 0, 0, 1)
 Button/fonts/font = ExtResource("1_120fd")
+Button/styles/disabled = SubResource("StyleBoxFlat_ijr3a")
 Button/styles/focus = SubResource("StyleBoxFlat_120fd")
 PanelContainer/styles/panel = SubResource("StyleBoxFlat_wssn5")

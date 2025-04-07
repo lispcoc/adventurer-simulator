@@ -25,6 +25,7 @@ Transition="*res://src/common/screen_transitions/ScreenTransition.tscn"
 Game="*res://src/game/game_manager.gd"
 StaticData="*res://src/game/game_static_data.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+DiceRoller="*res://addons/ninetailsrabbit.indie_blueprint_rpg/src/probability/dice/dice_roller.gd"
 
 [debug]
 
@@ -126,7 +127,7 @@ project/assembly_name="OpenRPG"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogic/plugin.cfg")
+enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/gloot/plugin.cfg")
 
 [filesystem]
 

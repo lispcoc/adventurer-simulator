@@ -3,10 +3,12 @@ class_name GameStaticData extends Node
 signal loaded
 
 var classes : Dictionary = {}
+var skills : Dictionary = {}
 
 func _ready() -> void:
 	print("GameStaticData._ready")
 	load_classes()
+	load_skills()
 	emit_signal("loaded")
 
 func load_classes():
@@ -20,5 +22,12 @@ func load_classes():
 			classes[e.id].from_json(e)
 		file.close()
 	else:
-		print("failed to load class.")
+		print("failed to load classes.")
 	print(classes)
+
+func load_skills():
+	SkillData.load(skills, "res://data/json/skills.cfg")
+	print(skills)
+
+func skill_from_id(id : String) -> SkillData:
+	return skills[id]

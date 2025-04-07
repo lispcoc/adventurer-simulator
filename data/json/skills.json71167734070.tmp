@@ -1,0 +1,8 @@
+[
+	{
+		"id": "majin_giri",
+		"type": "Melee",
+		"melee_damage_mul": 5,
+		"melee_time_override": 1
+	}	
+]

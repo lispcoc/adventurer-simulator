@@ -8,10 +8,9 @@
 [ext_resource type="Script" uid="uid://yc63p1wq6g5" path="res://src/battle/ui/command_selector.gd" id="6_i4wed"]
 [ext_resource type="Script" uid="uid://x8l6hms4ax1r" path="res://src/battle/ui/command.gd" id="7_i4wed"]
 
-[node name="Battle" type="Node2D" node_paths=PackedStringArray("battle_command", "skill_select", "party_container", "enemy_container", "message")]
+[node name="Battle" type="Node2D" node_paths=PackedStringArray("battle_command", "party_container", "enemy_container", "message")]
 script = ExtResource("1_i4wed")
 battle_command = NodePath("CanvasLayer/BattleCommand")
-skill_select = NodePath("CanvasLayer/SkillSelect")
 party_container = NodePath("CanvasLayer/PartyPanelContainer")
 enemy_container = NodePath("CanvasLayer/EnemyContainer")
 message = NodePath("CanvasLayer/PanelContainer/RichTextLabel")
@@ -103,14 +102,13 @@ layout_mode = 2
 custom_minimum_size = Vector2(600, 64)
 layout_mode = 2
 
-[node name="BattleCommand" type="PanelContainer" parent="CanvasLayer" node_paths=PackedStringArray("container", "commands")]
+[node name="BattleCommand" type="PanelContainer" parent="CanvasLayer" node_paths=PackedStringArray("commands")]
 offset_left = 96.0
 offset_top = 112.0
 offset_right = 165.0
 offset_bottom = 224.0
 theme = ExtResource("4_wssn5")
 script = ExtResource("6_i4wed")
-container = NodePath("VBoxContainer")
 commands = [NodePath("VBoxContainer/Attack"), NodePath("VBoxContainer/Skill"), NodePath("VBoxContainer/Defence"), NodePath("VBoxContainer/Escape")]
 
 [node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BattleCommand"]
@@ -130,7 +128,7 @@ layout_mode = 2
 text = "Skill"
 alignment = 0
 script = ExtResource("7_i4wed")
-nested_command_selector = NodePath("../../../SkillSelect")
+nested_command_selector = NodePath("../../../BattleCommand2")
 variable = {
 "command": "Skill"
 }
@@ -153,18 +151,54 @@ variable = {
 "command": "Escape"
 }
 
-[node name="SkillSelect" type="PanelContainer" parent="CanvasLayer" node_paths=PackedStringArray("container")]
+[node name="BattleCommand2" type="PanelContainer" parent="CanvasLayer" node_paths=PackedStringArray("commands")]
 offset_left = 176.0
 offset_top = 112.0
-offset_right = 180.0
-offset_bottom = 116.0
+offset_right = 245.0
+offset_bottom = 224.0
 theme = ExtResource("4_wssn5")
 script = ExtResource("6_i4wed")
-container = NodePath("VBoxContainer")
+commands = [NodePath("VBoxContainer/Attack"), NodePath("VBoxContainer/Skill"), NodePath("VBoxContainer/Defence"), NodePath("VBoxContainer/Escape")]
 cancelable = true
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/SkillSelect"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/BattleCommand2"]
 layout_mode = 2
+
+[node name="Attack" type="Button" parent="CanvasLayer/BattleCommand2/VBoxContainer"]
+layout_mode = 2
+text = "Attack"
+alignment = 0
+script = ExtResource("7_i4wed")
+variable = {
+"command": "Attack"
+}
+
+[node name="Skill" type="Button" parent="CanvasLayer/BattleCommand2/VBoxContainer"]
+layout_mode = 2
+text = "Skill"
+alignment = 0
+script = ExtResource("7_i4wed")
+variable = {
+"command": "Skill"
+}
+
+[node name="Defence" type="Button" parent="CanvasLayer/BattleCommand2/VBoxContainer"]
+layout_mode = 2
+text = "Defence"
+alignment = 0
+script = ExtResource("7_i4wed")
+variable = {
+"command": "Defence"
+}
+
+[node name="Escape" type="Button" parent="CanvasLayer/BattleCommand2/VBoxContainer"]
+layout_mode = 2
+text = "Escape"
+alignment = 0
+script = ExtResource("7_i4wed")
+variable = {
+"command": "Escape"
+}
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
 offset_right = 640.0

@@ -45,3 +45,6 @@ func on_dead():
 
 func is_enemy() -> bool:
 	return true
+
+func get_center_pos() -> Vector2:
+	return sprite.position

@@ -1,16 +1,18 @@
-extends Marker2D
+class_name FloatingDamage extends Marker2D
 
-class_name FloatingDamage
+var label : Label
 
-var velocity = Vector2(0,-90)
+var velocity = Vector2(0,-120)
 var gravity = Vector2(0,2)
 var mass = 100
 var text_scale = Vector2.ONE * 1
 var text: String:
-	get:
-		return $Label.text
-	set(value):
-		$Label.text = value
+	get: return $Label.text
+	set(value): $Label.text = value
+
+func _init() -> void:
+	label = Label.new()
+	add_child(label)
 
 func _ready() -> void:
 	# 左右にずらす

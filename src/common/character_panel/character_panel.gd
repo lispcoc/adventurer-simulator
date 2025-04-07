@@ -1,8 +1,44 @@
-class_name CharacterPanel extends Node
+class_name CharacterPanel extends Control
+
+@export var name_label : Label
+var lighter : ColorRect
+var timer : Timer
+var actor : Actor
 
 func _ready() -> void:
 	set_hp(100, 120)
 	add_condition(StatusCondision.Burn)
+
+	lighter = ColorRect.new()
+	add_child(lighter)
+	lighter.color = Color(1.0, 1.0, 1.0, 0.3)
+	lighter.size = size
+	lighter.hide()
+
+	timer = Timer.new()
+	add_child(timer)
+
+func update():
+	set_character_name(actor.actor_name)
+	set_hp(actor.hp, actor.hp_max)
+	set_mp(actor.mp, actor.mp_max)
+
+func highlight(on = true, blink = false):
+	if timer.timeout.is_connected(toggle_highlight):
+		timer.timeout.disconnect(toggle_highlight)
+	if on:
+		lighter.show()
+		if blink:
+			timer.timeout.connect(toggle_highlight)
+			timer.start(0.2)
+	else: lighter.hide()
+
+func toggle_highlight():
+	if lighter.is_visible_in_tree(): lighter.hide()
+	else: lighter.show()
+
+func set_character_name(_name):
+	name_label.text = _name
 
 func set_hp(val : int, max_val : int):
 	var label := find_child("HPVal") as Label

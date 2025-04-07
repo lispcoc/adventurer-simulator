@@ -15,14 +15,23 @@ func _ready():
 	super._ready()
 	custom_minimum_size = panel.custom_minimum_size
 	button.size = custom_minimum_size
-	update_panel()
-
-func update_panel():
-	panel.set_hp(hp, hp_max)
+	panel.update()
 
 func on_set_hp(val : int):
-	print(val, hp_max)
-	update_panel()
+	panel.update()
+
+func on_set_mp(val : int):
+	panel.update()
+
+func on_set_actor():
+	panel.actor = actor
+	panel.update()
+
+func on_main_entered():
+	panel.highlight()
+
+func on_main_exit():
+	panel.highlight(false)
 
 func is_player() -> bool:
 	return true
