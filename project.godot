@@ -24,8 +24,8 @@ Music="*res://src/common/music/music_player.tscn"
 Transition="*res://src/common/screen_transitions/ScreenTransition.tscn"
 Game="*res://src/game/game_manager.gd"
 StaticData="*res://src/game/game_static_data.gd"
-Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 DiceRoller="*res://addons/ninetailsrabbit.indie_blueprint_rpg/src/probability/dice/dice_roller.gd"
+Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 [debug]
 

@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=3 uid="uid://bcko0upe14xrk"]
+
+[ext_resource type="Script" uid="uid://42hs02smel1t" path="res://addons/gloot/ui/ctrl_inventory_item.gd" id="1_jth2t"]
+
+[node name="Button" type="Button"]
+script = ExtResource("1_jth2t")

@@ -1,16 +1,18 @@
 class_name Item extends Node
 
-var tname : String = ""
-var stackable : bool = true
+var id = "null"
 
-var melee := MeleeData.new()
+var data : ItemData:
+	get: return StaticData.items[id]
+	set(_v): pass
 
-var wgt : int = 0
+var wgt : int:
+	get: return data.wgt
+	set(_v): pass
 
-class MeleeData:
-	var base_times = 2
-	var base_amount = 2
-	var base_sides = 4
-	var base_attack = 0
-	func roll_damage():
-		return DiceRoller.roll_dices(base_amount, base_sides) + base_attack
+func melee＿roll_damage():
+	var amount = data.melee_base_amount
+	var sides = data.melee_base_sides
+	var attack = data.melee_base_attack
+	return DiceRoller.roll_dices(amount, sides) + attack
+	

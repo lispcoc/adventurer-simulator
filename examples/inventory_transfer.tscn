@@ -1,0 +1,142 @@
+[gd_scene load_steps=8 format=3 uid="uid://dwu4vhba7uc2m"]
+
+[ext_resource type="Theme" uid="uid://dbtpqwsmsli2p" path="res://theme/default_ui.tres" id="1_s3yk2"]
+[ext_resource type="Script" uid="uid://3jcgm8004upx" path="res://addons/gloot/core/inventory.gd" id="2"]
+[ext_resource type="Script" uid="uid://c4347bn1cvyjc" path="res://examples/inventory_transfer.gd" id="4"]
+[ext_resource type="Script" uid="uid://clip8lxle5ouc" path="res://addons/gloot/ui/ctrl_inventory.gd" id="4_0by68"]
+[ext_resource type="Script" uid="uid://vwb4minj3jkb" path="res://addons/gloot/ui/ctrl_item_slot.gd" id="6_bfwo4"]
+[ext_resource type="JSON" path="res://tests/data/protoset_basic.json" id="6_yy1r8"]
+[ext_resource type="Script" uid="uid://bcu5wrau0gype" path="res://addons/gloot/core/item_slot.gd" id="8_v60ia"]
+
+[node name="InventoryTransfer" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -256.0
+offset_top = -128.0
+offset_right = -384.0
+offset_bottom = -288.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("1_s3yk2")
+script = ExtResource("4")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="CtrlInventoryLeft" type="ItemList" parent="VBoxContainer/HBoxContainer" node_paths=PackedStringArray("inventory")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 2
+max_columns = 2
+same_column_width = true
+fixed_column_width = 10
+item_0/text = "item 1"
+item_1/text = "item 2"
+script = ExtResource("4_0by68")
+inventory = NodePath("../../../InventoryLeft")
+
+[node name="CtrlInventoryRight" type="ItemList" parent="VBoxContainer/HBoxContainer" node_paths=PackedStringArray("inventory")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+item_count = 2
+item_0/text = "item 1"
+item_1/text = "item 2"
+script = ExtResource("4_0by68")
+inventory = NodePath("../../../InventoryRight")
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer3/HBoxContainer"]
+layout_mode = 2
+
+[node name="CtrlItemSlot" type="Control" parent="VBoxContainer/HBoxContainer3/HBoxContainer/PanelContainer" node_paths=PackedStringArray("item_slot")]
+custom_minimum_size = Vector2(32, 32)
+layout_mode = 2
+script = ExtResource("6_bfwo4")
+item_slot = NodePath("../../../../../ItemSlot")
+
+[node name="BtnEquipL" type="Button" parent="VBoxContainer/HBoxContainer3/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Equip"
+
+[node name="BtnUnequipL" type="Button" parent="VBoxContainer/HBoxContainer3/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+text = "Unequip"
+
+[node name="Label" type="Label" parent="VBoxContainer"]
+layout_mode = 2
+text = "Use the buttons above to equip/unequip an item from the left inventory.
+Use the buttons below to transfer items from one inventory to the other."
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer"]
+layout_mode = 2
+
+[node name="BtnRToL" type="Button" parent="VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = "<<<"
+
+[node name="BtnLToR" type="Button" parent="VBoxContainer/HBoxContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+text = ">>>"
+
+[node name="InventoryLeft" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2")
+protoset = ExtResource("6_yy1r8")
+_serialized_format = {
+"items": [{
+"protoset": "res://tests/data/protoset_basic.json",
+"prototype_id": "item1"
+}, {
+"protoset": "res://tests/data/protoset_basic.json",
+"prototype_id": "item_2"
+}],
+"node_name": "InventoryLeft",
+"protoset": "res://tests/data/protoset_basic.json"
+}
+
+[node name="InventoryRight" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("2")
+protoset = ExtResource("6_yy1r8")
+_serialized_format = {
+"items": [{
+"protoset": "res://tests/data/protoset_basic.json",
+"prototype_id": "item1"
+}, {
+"protoset": "res://tests/data/protoset_basic.json",
+"prototype_id": "item_2"
+}],
+"node_name": "InventoryRight",
+"protoset": "res://tests/data/protoset_basic.json"
+}
+
+[node name="ItemSlot" type="Node" parent="."]
+unique_name_in_owner = true
+script = ExtResource("8_v60ia")
+protoset = ExtResource("6_yy1r8")

@@ -63,10 +63,10 @@ func get_melee_times(sk : Skill = null) -> int:
 		if sk.data.melee_time_override: return sk.data.melee_time_override
 	# =($D$3+20) * MAX(1, 8 + $B$3 - B9) / 3000
 	var grow_rate = (dexterity + 20) * max(1, 8 + strength - get_weapon().wgt) / 3000.0 
-	return get_weapon().melee.base_times + grow_rate * level
+	return get_weapon().data.melee_base_times + grow_rate * level
 
 func roll_melee_damage(sk : Skill = null) -> Damage:
-	var val = get_weapon().melee.roll_damage() + get_atk()
+	var val = get_weapon().melee＿roll_damage() + get_atk()
 	if sk:
 		val *= sk.data.melee_damage_mul
 	return Damage.new(val, Attribute.Type.Bash)
