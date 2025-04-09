@@ -13,17 +13,17 @@ var party_back : Array[BattleActor]
 var enemies_front : Array[BattleActor]
 var enemies_back : Array[BattleActor]
 
+var can_escape : bool = true
+
 var current_actor : BattleActor
 
 func _ready() -> void:
-	await Transition.cover(0)
-	Transition.clear(1)
-	test()
+	pass
 
 func _process(_delta: float) -> void:
 	pass
 
-func test():
+func init_test_data():
 	party_front.append(BattleActorPlayer.new())
 	party_front.append(BattleActorPlayer.new())
 	party_front.append(BattleActorPlayer.new())
@@ -32,14 +32,13 @@ func test():
 	a.actor.level = 1
 	enemies_front.append(a)
 	enemies_back.append(BattleActorEnemy.new())
-	start() 
 
 func start() -> void:
 	reflesh_container()
 	await main_loop()
 	await Transition.cover(0.5)
-	queue_free()
 	exit_battle.emit()
+	queue_free.call_deferred()
 
 func reflesh_container():
 	party_container.erase_actors()
@@ -169,8 +168,11 @@ func main_loop() -> BattleResult:
 								c.defence = true
 								accept = true
 							"Escape":
-								return BattleResult.Run
-								accept = true
+								if can_escape:
+									return BattleResult.Run
+									accept = true
+								else:
+									set_msg("逃げられない")
 				if c.is_enemy():
 					await process_melee_attack(c, party_container.pick_random(true, false))
 				c.on_main_exit()

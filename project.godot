@@ -26,6 +26,8 @@ Game="*res://src/game/game_manager.gd"
 StaticData="*res://src/game/game_static_data.gd"
 DiceRoller="*res://addons/ninetailsrabbit.indie_blueprint_rpg/src/probability/dice/dice_roller.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+DialogUi="*res://src/common/ui/dialog/dialog_ui.tscn"
+DialogFunctions="*res://src/dialog/dialog_functions.gd"
 
 [debug]
 
@@ -50,6 +52,9 @@ text/autopauses={}
 glossary/default_case_sensitive=true
 layout/mode=2
 variables={
+"Battle": {
+"Result": ""
+},
 "BlueWandCount": 0,
 "GreenWandCount": 0,
 "HasMonkToken": 0,
@@ -88,6 +93,7 @@ directories/dch_directory={
 "wizard": "res://maps/town/wizard.dch"
 }
 directories/dtl_directory={
+"battle": "res://data/dialog/test/battle.dtl",
 "encounter_before_combat": "res://maps/town/encounter_before_combat.dtl",
 "encounter_on_loss": "res://maps/town/encounter_on_loss.dtl",
 "encounter_on_victory": "res://maps/town/encounter_on_victory.dtl",

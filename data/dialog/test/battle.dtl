@@ -1,0 +1,4 @@
+Start battle test.
+set 
+do DialogFunctions.start_battle("test")
+{Battle.Result}. End battle test.
