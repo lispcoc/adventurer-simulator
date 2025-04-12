@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.spriteframes-split-layer"
+type="SpriteFrames"
+uid="uid://2vufsvgchwx4"
+path="res://.godot/imported/test_l_eyelid.ase_layer-446b636ef78fe74b44341953d4f95b1a.res"
+
+[deps]
+
+files=["res://.godot/imported/test_l_eyelid.ase_layer-446b636ef78fe74b44341953d4f95b1a.eyelid.texture.res"]
+
+source_file="res://assets/characters/portraits/parts/test_l_eyelid.ase_layer"
+dest_files=["res://.godot/imported/test_l_eyelid.ase_layer-446b636ef78fe74b44341953d4f95b1a.res", "res://.godot/imported/test_l_eyelid.ase_layer-446b636ef78fe74b44341953d4f95b1a.eyelid.texture.res"]
+
+[params]
+

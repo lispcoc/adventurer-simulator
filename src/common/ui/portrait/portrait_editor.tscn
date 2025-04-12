@@ -1,0 +1,40 @@
+[gd_scene load_steps=3 format=3 uid="uid://bicqagcipue1o"]
+
+[ext_resource type="PackedScene" uid="uid://ckj8nx2ww3lvi" path="res://src/common/ui/portrait/portrait.tscn" id="1_iw4ei"]
+[ext_resource type="Script" uid="uid://x7ib5qgmi38o" path="res://src/common/ui/portrait/portrait_editor.gd" id="1_na2xr"]
+
+[node name="PortraitEditor" type="Node2D"]
+script = ExtResource("1_na2xr")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Portrait" parent="CanvasLayer" instance=ExtResource("1_iw4ei")]
+position = Vector2(384, 192)
+flip_h = true
+
+[node name="Tab" type="TabContainer" parent="CanvasLayer"]
+offset_right = 144.0
+offset_bottom = 480.0
+current_tab = 0
+
+[node name="Types" type="ScrollContainer" parent="CanvasLayer/Tab"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="Grid" type="GridContainer" parent="CanvasLayer/Tab/Types"]
+layout_mode = 2
+columns = 3
+
+[node name="Colors" type="ScrollContainer" parent="CanvasLayer/Tab"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="Grid" type="GridContainer" parent="CanvasLayer/Tab/Colors"]
+layout_mode = 2
+columns = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+visible = false
+offset_right = 144.0
+offset_bottom = 480.0

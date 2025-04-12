@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.spriteframes-split-layer"
+type="SpriteFrames"
+uid="uid://b2s4ccj1mml7x"
+path="res://.godot/imported/test_l_clothing.ase_layer-c572897fa8cc0e700d8e86b88d38f63d.res"
+
+[deps]
+
+files=["res://.godot/imported/test_l_clothing.ase_layer-c572897fa8cc0e700d8e86b88d38f63d.clothing.texture.res"]
+
+source_file="res://assets/characters/portraits/parts/test_l_clothing.ase_layer"
+dest_files=["res://.godot/imported/test_l_clothing.ase_layer-c572897fa8cc0e700d8e86b88d38f63d.res", "res://.godot/imported/test_l_clothing.ase_layer-c572897fa8cc0e700d8e86b88d38f63d.clothing.texture.res"]
+
+[params]
+

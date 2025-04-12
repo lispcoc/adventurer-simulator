@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.spriteframes-split-layer"
+type="SpriteFrames"
+uid="uid://ccjkhgmd2ucdd"
+path="res://.godot/imported/test_l_hair_front.ase_layer-68fa84e953b8782dc6aca7a8b9f01dbf.res"
+
+[deps]
+
+files=["res://.godot/imported/test_l_hair_front.ase_layer-68fa84e953b8782dc6aca7a8b9f01dbf.hair_front.texture.res"]
+
+source_file="res://assets/characters/portraits/parts/test_l_hair_front.ase_layer"
+dest_files=["res://.godot/imported/test_l_hair_front.ase_layer-68fa84e953b8782dc6aca7a8b9f01dbf.res", "res://.godot/imported/test_l_hair_front.ase_layer-68fa84e953b8782dc6aca7a8b9f01dbf.hair_front.texture.res"]
+
+[params]
+

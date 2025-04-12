@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.spriteframes-split-layer"
+type="SpriteFrames"
+uid="uid://dfgn76nmc4khm"
+path="res://.godot/imported/test_l_hat.ase_layer-23f8c1944d670029386006b0f7eb3fc5.res"
+
+[deps]
+
+files=["res://.godot/imported/test_l_hat.ase_layer-23f8c1944d670029386006b0f7eb3fc5.hat.texture.res"]
+
+source_file="res://assets/characters/portraits/parts/test_l_hat.ase_layer"
+dest_files=["res://.godot/imported/test_l_hat.ase_layer-23f8c1944d670029386006b0f7eb3fc5.res", "res://.godot/imported/test_l_hat.ase_layer-23f8c1944d670029386006b0f7eb3fc5.hat.texture.res"]
+
+[params]
+

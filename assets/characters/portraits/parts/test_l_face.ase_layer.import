@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.spriteframes-split-layer"
+type="SpriteFrames"
+uid="uid://c01ie7e4somt3"
+path="res://.godot/imported/test_l_face.ase_layer-0e5608280a5e0b894365ce6ce46bc564.res"
+
+[deps]
+
+files=["res://.godot/imported/test_l_face.ase_layer-0e5608280a5e0b894365ce6ce46bc564.face.texture.res"]
+
+source_file="res://assets/characters/portraits/parts/test_l_face.ase_layer"
+dest_files=["res://.godot/imported/test_l_face.ase_layer-0e5608280a5e0b894365ce6ce46bc564.res", "res://.godot/imported/test_l_face.ase_layer-0e5608280a5e0b894365ce6ce46bc564.face.texture.res"]
+
+[params]
+

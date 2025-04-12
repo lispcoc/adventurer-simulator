@@ -15,6 +15,12 @@ run/main_scene="uid://mahwnxxrar"
 config/features=PackedStringArray("4.4", "GL Compatibility")
 config/icon="res://icon.svg"
 
+[aseprite]
+
+animation/layers/exclusion_pattern="^_"
+animation/layers/only_include_visible_layers_by_default=true
+import/import_plugin/default_automatic_importer="SpriteFrames (Split By Layer)"
+
 [autoload]
 
 Camera="*res://src/field/field_camera.gd"
@@ -25,9 +31,9 @@ Transition="*res://src/common/screen_transitions/ScreenTransition.tscn"
 Game="*res://src/game/game_manager.gd"
 StaticData="*res://src/game/game_static_data.gd"
 DiceRoller="*res://addons/ninetailsrabbit.indie_blueprint_rpg/src/probability/dice/dice_roller.gd"
-Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 DialogUi="*res://src/common/ui/dialog/dialog_ui.tscn"
 DialogFunctions="*res://src/dialog/dialog_functions.gd"
+Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 [debug]
 
@@ -133,7 +139,7 @@ project/assembly_name="OpenRPG"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/dialogic/plugin.cfg", "res://addons/gloot/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/gloot/plugin.cfg")
 
 [filesystem]
 
@@ -144,6 +150,12 @@ import/fbx/enabled=false
 
 theme/custom="uid://dbtpqwsmsli2p"
 theme/custom_font="uid://cx16unmbxv2s0"
+
+[importer_defaults]
+
+aseprite_wizard.plugin.spriteframes-split={
+&"layer/only_visible_layers": true
+}
 
 [input]
 

@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.spriteframes-split-layer"
+type="SpriteFrames"
+uid="uid://ck3bj4tqyqapv"
+path="res://.godot/imported/test_l_mouth.ase_layer-f5db07468465534121a1b75b6504f0be.res"
+
+[deps]
+
+files=["res://.godot/imported/test_l_mouth.ase_layer-f5db07468465534121a1b75b6504f0be.mouth.texture.res"]
+
+source_file="res://assets/characters/portraits/parts/test_l_mouth.ase_layer"
+dest_files=["res://.godot/imported/test_l_mouth.ase_layer-f5db07468465534121a1b75b6504f0be.res", "res://.godot/imported/test_l_mouth.ase_layer-f5db07468465534121a1b75b6504f0be.mouth.texture.res"]
+
+[params]
+

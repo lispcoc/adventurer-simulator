@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.spriteframes-split-layer"
+type="SpriteFrames"
+uid="uid://h6v2bx8rwflj"
+path="res://.godot/imported/test_l_eyebrow.ase_layer-f2aa5cb6d610d6c7a0105c3f4d7e77e3.res"
+
+[deps]
+
+files=["res://.godot/imported/test_l_eyebrow.ase_layer-f2aa5cb6d610d6c7a0105c3f4d7e77e3.eyebrow.texture.res"]
+
+source_file="res://assets/characters/portraits/parts/test_l_eyebrow.ase_layer"
+dest_files=["res://.godot/imported/test_l_eyebrow.ase_layer-f2aa5cb6d610d6c7a0105c3f4d7e77e3.res", "res://.godot/imported/test_l_eyebrow.ase_layer-f2aa5cb6d610d6c7a0105c3f4d7e77e3.eyebrow.texture.res"]
+
+[params]
+

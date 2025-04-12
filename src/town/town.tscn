@@ -1,7 +1,6 @@
-[gd_scene load_steps=8 format=3 uid="uid://chcaf8joypjej"]
+[gd_scene load_steps=7 format=3 uid="uid://chcaf8joypjej"]
 
 [ext_resource type="Script" uid="uid://d0cmv2dceg234" path="res://src/town/town.gd" id="1_sf2ax"]
-[ext_resource type="Texture2D" uid="uid://da8xa6fkwyv4r" path="res://assets/characters/thief.atlastex" id="1_ytyet"]
 [ext_resource type="Script" uid="uid://b2m81xdsv3udj" path="res://src/common/ui/selector/ui_generic_selector.gd" id="3_cc5o0"]
 [ext_resource type="PackedScene" uid="uid://bwxpon7slc7v1" path="res://src/common/character_panel/character_panel.tscn" id="4_6j3an"]
 
@@ -62,10 +61,6 @@ alignment = 1
 
 [node name="CharacterPanel" parent="HBoxContainer" instance=ExtResource("4_6j3an")]
 layout_mode = 2
-
-[node name="Thief" type="Sprite2D" parent="."]
-position = Vector2(160, 96)
-texture = ExtResource("1_ytyet")
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 offset_right = 40.0

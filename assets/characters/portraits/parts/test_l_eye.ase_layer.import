@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.spriteframes-split-layer"
+type="SpriteFrames"
+uid="uid://dnvqyuix147kw"
+path="res://.godot/imported/test_l_eye.ase_layer-6351475a3191e8602df0eca391e9edd9.res"
+
+[deps]
+
+files=["res://.godot/imported/test_l_eye.ase_layer-6351475a3191e8602df0eca391e9edd9.eye.texture.res"]
+
+source_file="res://assets/characters/portraits/parts/test_l_eye.ase_layer"
+dest_files=["res://.godot/imported/test_l_eye.ase_layer-6351475a3191e8602df0eca391e9edd9.res", "res://.godot/imported/test_l_eye.ase_layer-6351475a3191e8602df0eca391e9edd9.eye.texture.res"]
+
+[params]
+

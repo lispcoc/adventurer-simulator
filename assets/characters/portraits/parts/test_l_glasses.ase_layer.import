@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.spriteframes-split-layer"
+type="SpriteFrames"
+uid="uid://dt0nsmoosr1vs"
+path="res://.godot/imported/test_l_glasses.ase_layer-ce7ea7437be17258be2a24992dd53871.res"
+
+[deps]
+
+files=["res://.godot/imported/test_l_glasses.ase_layer-ce7ea7437be17258be2a24992dd53871.glasses.texture.res"]
+
+source_file="res://assets/characters/portraits/parts/test_l_glasses.ase_layer"
+dest_files=["res://.godot/imported/test_l_glasses.ase_layer-ce7ea7437be17258be2a24992dd53871.res", "res://.godot/imported/test_l_glasses.ase_layer-ce7ea7437be17258be2a24992dd53871.glasses.texture.res"]
+
+[params]
+
