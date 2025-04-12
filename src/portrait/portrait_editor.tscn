@@ -1,12 +1,13 @@
 [gd_scene load_steps=3 format=3 uid="uid://bicqagcipue1o"]
 
-[ext_resource type="PackedScene" uid="uid://ckj8nx2ww3lvi" path="res://src/common/ui/portrait/portrait.tscn" id="1_iw4ei"]
-[ext_resource type="Script" uid="uid://x7ib5qgmi38o" path="res://src/common/ui/portrait/portrait_editor.gd" id="1_na2xr"]
+[ext_resource type="PackedScene" uid="uid://ckj8nx2ww3lvi" path="res://src/portrait/portrait.tscn" id="1_iw4ei"]
+[ext_resource type="Script" uid="uid://x7ib5qgmi38o" path="res://src/portrait/portrait_editor.gd" id="1_na2xr"]
 
 [node name="PortraitEditor" type="Node2D"]
 script = ExtResource("1_na2xr")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 2
 
 [node name="Portrait" parent="CanvasLayer" instance=ExtResource("1_iw4ei")]
 position = Vector2(384, 192)

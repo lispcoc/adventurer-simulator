@@ -1,21 +1,21 @@
 [gd_scene load_steps=22 format=3 uid="uid://ckj8nx2ww3lvi"]
 
-[ext_resource type="Script" uid="uid://c820blkb4e4i3" path="res://src/common/ui/portrait/portrait.gd" id="1_nopd3"]
-[ext_resource type="SpriteFrames" uid="uid://cyoymqfbwhbtd" path="res://assets/characters/portraits/parts/test_l_body.ase_layer" id="2_1srbf"]
-[ext_resource type="SpriteFrames" uid="uid://drjunvlyk34ar" path="res://assets/characters/portraits/parts/test_l_hair_back.ase_layer" id="2_01wiw"]
-[ext_resource type="SpriteFrames" uid="uid://du07d5hlue7dc" path="res://assets/characters/portraits/parts/test_l_hat_back.ase_layer" id="2_b7wet"]
-[ext_resource type="SpriteFrames" uid="uid://c01ie7e4somt3" path="res://assets/characters/portraits/parts/test_l_face.ase_layer" id="3_ym1tx"]
-[ext_resource type="SpriteFrames" uid="uid://dnvqyuix147kw" path="res://assets/characters/portraits/parts/test_l_eye.ase_layer" id="4_yr8g5"]
-[ext_resource type="SpriteFrames" uid="uid://h6v2bx8rwflj" path="res://assets/characters/portraits/parts/test_l_eyebrow.ase_layer" id="5_yr8g5"]
-[ext_resource type="SpriteFrames" uid="uid://2vufsvgchwx4" path="res://assets/characters/portraits/parts/test_l_eyelid.ase_layer" id="7_gywy8"]
-[ext_resource type="SpriteFrames" uid="uid://b2s4ccj1mml7x" path="res://assets/characters/portraits/parts/test_l_clothing.ase_layer" id="8_xw80p"]
-[ext_resource type="SpriteFrames" uid="uid://ck3bj4tqyqapv" path="res://assets/characters/portraits/parts/test_l_mouth.ase_layer" id="9_2lwib"]
-[ext_resource type="SpriteFrames" uid="uid://ccjkhgmd2ucdd" path="res://assets/characters/portraits/parts/test_l_hair_front.ase_layer" id="9_hmk5t"]
-[ext_resource type="SpriteFrames" uid="uid://cprcf3annchqj" path="res://assets/characters/portraits/parts/test_l_cheek.ase_layer" id="10_ahuyi"]
-[ext_resource type="SpriteFrames" uid="uid://dfgn76nmc4khm" path="res://assets/characters/portraits/parts/test_l_hat.ase_layer" id="10_b7wet"]
-[ext_resource type="SpriteFrames" uid="uid://dt0nsmoosr1vs" path="res://assets/characters/portraits/parts/test_l_glasses.ase_layer" id="11_37xmf"]
+[ext_resource type="Script" uid="uid://c820blkb4e4i3" path="res://src/portrait/portrait.gd" id="1_nopd3"]
+[ext_resource type="SpriteFrames" uid="uid://cv2peqpu60ype" path="res://assets/characters/portraits/parts/test_l_body.ase_layer" id="2_1srbf"]
+[ext_resource type="SpriteFrames" uid="uid://cciisolqmj4pk" path="res://assets/characters/portraits/parts/test_l_hair_back.ase_layer" id="2_01wiw"]
+[ext_resource type="SpriteFrames" uid="uid://dtm5kniw7ye2f" path="res://assets/characters/portraits/parts/test_l_hat_back.ase_layer" id="2_b7wet"]
+[ext_resource type="SpriteFrames" uid="uid://ctx7muknor2pj" path="res://assets/characters/portraits/parts/test_l_face.ase_layer" id="3_ym1tx"]
+[ext_resource type="SpriteFrames" uid="uid://qejcv5kplcwp" path="res://assets/characters/portraits/parts/test_l_eye.ase_layer" id="4_yr8g5"]
+[ext_resource type="SpriteFrames" uid="uid://btf1te8sollb7" path="res://assets/characters/portraits/parts/test_l_eyebrow.ase_layer" id="5_yr8g5"]
+[ext_resource type="SpriteFrames" uid="uid://k62qd06s67ap" path="res://assets/characters/portraits/parts/test_l_eyelid.ase_layer" id="7_gywy8"]
+[ext_resource type="SpriteFrames" uid="uid://da4rj407mh4cd" path="res://assets/characters/portraits/parts/test_l_clothing.ase_layer" id="8_xw80p"]
+[ext_resource type="SpriteFrames" uid="uid://dgm8lf4q5b5y0" path="res://assets/characters/portraits/parts/test_l_mouth.ase_layer" id="9_2lwib"]
+[ext_resource type="SpriteFrames" uid="uid://dsa5qcc113iy4" path="res://assets/characters/portraits/parts/test_l_hair_front.ase_layer" id="9_hmk5t"]
+[ext_resource type="SpriteFrames" uid="uid://cbbxvptoy0qa2" path="res://assets/characters/portraits/parts/test_l_cheek.ase_layer" id="10_ahuyi"]
+[ext_resource type="SpriteFrames" uid="uid://cin6did1bbm1p" path="res://assets/characters/portraits/parts/test_l_hat.ase_layer" id="10_b7wet"]
+[ext_resource type="SpriteFrames" uid="uid://10gbew7o1pv7" path="res://assets/characters/portraits/parts/test_l_glasses.ase_layer" id="11_37xmf"]
 [ext_resource type="Shader" uid="uid://de1ufp1ju1847" path="res://assets/material/portrait.gdshader" id="13_iqhcp"]
-[ext_resource type="Script" uid="uid://b0vr4n4lcly41" path="res://src/common/ui/portrait/part.gd" id="15_1xxpq"]
+[ext_resource type="Script" uid="uid://b0vr4n4lcly41" path="res://src/portrait/part.gd" id="15_1xxpq"]
 [ext_resource type="Texture2D" uid="uid://ks5ufqqv2r0u" path="res://assets/characters/portraits/pelettes.png" id="16_c0ulj"]
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c0ulj"]
@@ -127,7 +127,6 @@ metadata/_aseprite_wizard_config_ = {
 metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 
 [node name="body" type="AnimatedSprite2D" parent="."]
-modulate = Color(0.431373, 0.6, 0.6, 1)
 texture_filter = 1
 sprite_frames = ExtResource("2_1srbf")
 frame = 4
@@ -152,7 +151,6 @@ metadata/_aseprite_wizard_config_ = {
 metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 
 [node name="face" type="AnimatedSprite2D" parent="."]
-modulate = Color(0.431373, 0.6, 0.6, 1)
 texture_filter = 1
 sprite_frames = ExtResource("3_ym1tx")
 frame = 3
@@ -177,7 +175,6 @@ metadata/_aseprite_wizard_config_ = {
 metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 
 [node name="cheek" type="AnimatedSprite2D" parent="."]
-modulate = Color(0.431373, 0.6, 0.6, 1)
 texture_filter = 1
 sprite_frames = ExtResource("10_ahuyi")
 frame = 1
@@ -249,7 +246,6 @@ metadata/_aseprite_wizard_config_ = {
 metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 
 [node name="eyelid" type="AnimatedSprite2D" parent="."]
-modulate = Color(0.431373, 0.6, 0.6, 1)
 texture_filter = 1
 sprite_frames = ExtResource("7_gywy8")
 frame = 4
@@ -274,7 +270,6 @@ metadata/_aseprite_wizard_config_ = {
 metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 
 [node name="mouth" type="AnimatedSprite2D" parent="."]
-modulate = Color(0.431373, 0.6, 0.6, 1)
 texture_filter = 1
 sprite_frames = ExtResource("9_2lwib")
 frame = 1

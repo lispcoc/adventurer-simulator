@@ -1,7 +1,10 @@
-extends Node2D
+class_name PortraitEditor extends Node2D
+
+signal exit
 
 var skin_slider : HSlider
 var color_sliders : Dictionary
+var color_slider_values : Dictionary
 var skin_label_value : Label
 var sliders : Dictionary
 var values : Dictionary
@@ -39,9 +42,9 @@ func _ready() -> void:
 		label_value = Label.new()
 		colors_grid.add_child(label_value)
 		slider.value_changed.connect(_on_update)
-		color_sliders[k] = slider
-		values[k] = label_value
 		slider.value = portrait.colors[k]
+		color_sliders[k] = slider
+		color_slider_values[k] = label_value
 
 	for k in portrait.get_keys():
 		label_name = Label.new()
@@ -53,20 +56,30 @@ func _ready() -> void:
 		label_value = Label.new()
 		grid.add_child(label_value)
 		slider.value_changed.connect(_on_update)
+		slider.value = portrait.data[k]
 		sliders[k] = slider
 		values[k] = label_value
-		slider.value = portrait.data[k]
 	_on_update(0)
+	var tc = $CanvasLayer/Tab as TabContainer
+	tc.get_tab_bar().grab_focus()
+
+func _process(_delta):
+	if Input.is_action_pressed("ui_accept"):
+		exit.emit()
+		queue_free.call_deferred()
+	if Input.is_action_pressed("ui_cancel"):
+		exit.emit()
+		queue_free.call_deferred()
 
 func _on_update(_value : float):
 	skin_label_value.text = String.num_int64(skin_slider.value)
 	portrait.skin_color = skin_slider.value
-	
-	for k in portrait.data.keys():
-		if not sliders.has(k): continue
+	for k in color_sliders.keys():
+		portrait.set_color(k, color_sliders[k].value)
+		color_slider_values[k].text = String.num_int64(color_sliders[k].value)
+	for k in sliders.keys():
 		var slider : HSlider = sliders[k]
-		slider.max_value = portrait.num_parts[k] - 1
-		var label_value : Label = values[k]
-		label_value.text = String.num_int64(slider.value)
-		portrait.set_type(k, slider.value)
+		sliders[k].max_value = portrait.num_parts[k] - 1
+		values[k].text = String.num_int64(sliders[k].value)
+		portrait.set_type(k, sliders[k].value)
 	portrait.reflesh()

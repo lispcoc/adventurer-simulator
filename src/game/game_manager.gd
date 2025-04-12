@@ -4,6 +4,7 @@ const PATH_SAVEDATA = "user://savedata.gdsave"
 var game_data : GameData
 
 var scene_battle : PackedScene = load("res://src/battle/battle.tscn")
+var scene_portrait_edit : PackedScene = load("res://src/portrait/portrait_editor.tscn")
 
 func _ready() -> void:
 	StaticData.loaded.connect(on_game_loaded)
@@ -40,5 +41,14 @@ func start_battle() -> bool:
 	battle.init_test_data()
 	await Transition.clear(0.5)
 	await battle.start()
+	await Transition.clear(0.5)
+	return true
+
+func start_portrait_edit() -> bool:
+	var portrait_editor = scene_portrait_edit.instantiate() as PortraitEditor
+	await Transition.clear(0.5)
+	get_tree().root.add_child(portrait_editor)
+	await Transition.clear(0.5)
+	await portrait_editor.exit
 	await Transition.clear(0.5)
 	return true

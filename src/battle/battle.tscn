@@ -7,7 +7,7 @@
 [ext_resource type="Texture2D" uid="uid://w55nt3s833tb" path="res://assets/arenas/steppes.png" id="6_80tbf"]
 [ext_resource type="Script" uid="uid://yc63p1wq6g5" path="res://src/battle/ui/command_selector.gd" id="6_i4wed"]
 [ext_resource type="Script" uid="uid://x8l6hms4ax1r" path="res://src/battle/ui/command.gd" id="7_i4wed"]
-[ext_resource type="PackedScene" uid="uid://ckj8nx2ww3lvi" path="res://src/common/ui/portrait/portrait.tscn" id="8_qkyk6"]
+[ext_resource type="PackedScene" uid="uid://ckj8nx2ww3lvi" path="res://src/portrait/portrait.tscn" id="8_qkyk6"]
 
 [node name="Battle" type="Node2D" node_paths=PackedStringArray("battle_command", "skill_select", "party_container", "enemy_container", "message")]
 script = ExtResource("1_i4wed")
