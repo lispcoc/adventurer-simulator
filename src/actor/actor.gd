@@ -2,6 +2,8 @@ class_name Actor
 
 var actor_name : String = "名無し"
 
+var portrait : String = ""
+
 var skills : Array[Skill]
 var eqip : Equip = Equip.new()
 var inventory : Array[Item] = []

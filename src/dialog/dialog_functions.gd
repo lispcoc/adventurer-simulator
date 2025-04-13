@@ -12,3 +12,8 @@ func start_battle(monster_group : String) -> bool:
 	DialogUi.show()
 	Dialogic.VAR.Battle.Result = "Run"
 	return ret
+
+func add_party(character_templete_id : String) -> bool:
+	var actor = Actor.new()
+	Dialogic.VAR.RetVal.Success = Game.add_party(actor)
+	return Dialogic.VAR.RetVal.Success

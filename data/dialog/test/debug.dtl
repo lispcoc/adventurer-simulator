@@ -1,0 +1,6 @@
+character: 何をテストしますか？
+- 戦闘
+	jump battle/
+- 仲間
+	jump party/
+- 終了

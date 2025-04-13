@@ -1,10 +1,15 @@
 @tool
-class_name Portrait extends Node2D
+class_name Portrait extends DialogicPortrait
 #@export_tool_button("btn", "")
 
 @export var timed_update : bool = false
 
-@export var data : Dictionary = {
+@export var skin_color : int = 0:
+	set(v):
+		skin_color = v
+		_on_update()
+
+var data : Dictionary = {
 	"hat_back": 1,
 	"hair_back": 1,
 	"body": 1,
@@ -23,7 +28,7 @@ class_name Portrait extends Node2D
 		for k in v.keys().filter(func(k): return data[k] != v[k]):
 			set_type(k, v[k])
 
-@export var colors : Dictionary = {
+var parts_color : Dictionary = {
 	"hat_back": 0,
 	"hair_back": 0,
 	"body": 0,
@@ -39,10 +44,10 @@ class_name Portrait extends Node2D
 	"hat": 0,
 }:
 	set(v):
-		for k in v.keys().filter(func(k): return colors[k] != v[k]):
+		for k in v.keys().filter(func(k): return parts_color[k] != v[k]):
 			set_color(k, v[k])
 
-@export var offset_y : Dictionary = {
+var parts_offset_y : Dictionary = {
 	"hat_back": 0,
 	"hair_back": 0,
 	"body": 0,
@@ -58,18 +63,17 @@ class_name Portrait extends Node2D
 	"hat": 0,
 }:
 	set(v):
-		offset_y = v
+		parts_offset_y = v
 		_on_update()
 
-@export var color_interlock_set : Array[String] = [
+var color_interlock_set : Array[String] = [
 	"hair_front:hair_back",
 	"hat:hat_back",
 ]
 
-@export var type_interlock_set : Array[String] = [
+var type_interlock_set : Array[String] = [
 	"hat:hat_back",
 ]
-
 
 var name_dict : Dictionary = {
 	"hat_back": "後帽子",
@@ -93,17 +97,12 @@ var name_dict : Dictionary = {
 	set(v):
 		flip_h = v
 		for p in get_parts(): p.flip_h = v
-@export var flip_w : bool = false:
+@export var flip_v : bool = false:
 	set(v):
-		flip_w = v
-		for p in get_parts(): p.flip_w = v
+		flip_v = v
+		for p in get_parts(): p.flip_v = v
 
-@export var skin_color : int = 0:
-	set(v):
-		skin_color = v
-		_on_update()
-
-@export var skin_color_list : PackedColorArray = [
+var skin_color_list : PackedColorArray = [
 	Color("#FFFFFF"),
 	Color("#ffdbcc"),
 	Color("#99593d"),
@@ -123,6 +122,11 @@ func _process(delta: float) -> void:
 		print(delta)
 		reflesh()
 
+func _update_portrait(passed_character:DialogicCharacter, passed_portrait:String) -> void:
+	print("_update_portrait")
+	print(passed_character)
+	print(passed_portrait)
+
 func reflesh():
 	for c in get_children():
 		c = c as AnimatedSprite2D
@@ -133,17 +137,17 @@ func reflesh():
 		var s = find_child(k) as AnimatedSprite2D
 		if s:
 			s.frame = data[k]
-	for k in colors.keys():
+	for k in parts_color.keys():
 		var part = find_child(k) as PortraitPart
 		if part:
-			if part.validate_color_index(colors[k]):
-				part.color_index = colors[k]
+			if part.validate_color_index(parts_color[k]):
+				part.color_index = parts_color[k]
 			else:
-				colors[k] = part.color_index
-	for k in offset_y.keys():
+				parts_color[k] = part.color_index
+	for k in parts_offset_y.keys():
 		var s = find_child(k) as AnimatedSprite2D
 		if s:
-			s.position.y = offset_y[k]
+			s.position.y = parts_offset_y[k]
 	reflesh_skin()
 
 func _on_update():
@@ -173,20 +177,24 @@ func set_type(key : String, val : int):
 	_on_update()
 
 func set_color(key : String, val : int):
-	colors[key] = val
+	parts_color[key] = val
 	# interlock
 	for str in color_interlock_set:
 		var a = str.split(":")
 		if a.has(key):
 			for key_2 in a:
-				colors[key_2] = val
+				parts_color[key_2] = val
 			break
 	_on_update()
 
+func get_color(part : String) -> int:
+	if parts_color[part] : return parts_color[part]
+	return 0
+
 func get_color_count(key : String) -> int:
-		var part = find_child(key) as PortraitPart
-		if part: return part.get_color_count()
-		return 0
+	var part = find_child(key) as PortraitPart
+	if part: return part.get_color_count()
+	return 0
 
 func get_keys() -> Array[String]:
 	var keys : Array[String]
@@ -204,7 +212,24 @@ func get_key_name(key : String) -> String:
 	return name_dict[key]
 
 func get_parts() -> Array[AnimatedSprite2D]:
-	var parts : Array[AnimatedSprite2D]
+	var _parts : Array[AnimatedSprite2D]
 	for c in get_children():
-		if c as AnimatedSprite2D: parts.append(c)
-	return parts
+		if c as AnimatedSprite2D: _parts.append(c)
+	return _parts
+
+func _to_string() -> String:
+	var parameters : Dictionary = {
+		"skin_color" : skin_color,
+		"parts" : data,
+		"parts_color" : parts_color,
+		"parts_offset_y" : parts_offset_y,
+	}
+	return var_to_str(parameters)
+
+func from_string(str : String) -> void:
+	var parameters : Dictionary = str_to_var(str)
+	skin_color = parameters.skin_color
+	data = parameters.parts
+	parts_color = parameters.parts_color
+	parts_offset_y = parameters.parts_offset_y
+	reflesh()

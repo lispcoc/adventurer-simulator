@@ -1,0 +1,16 @@
+[gd_scene load_steps=3 format=3 uid="uid://cydxsp48mlt4l"]
+
+[ext_resource type="Script" uid="uid://t0py0jbapxxn" path="res://src/common/character_panel/character_panel_ui.gd" id="1_joi0j"]
+[ext_resource type="PackedScene" uid="uid://bwxpon7slc7v1" path="res://src/common/character_panel/character_panel.tscn" id="2_emql6"]
+
+[node name="CharacterPanelUi" type="CanvasLayer"]
+layer = 3
+script = ExtResource("1_joi0j")
+character_panel_scene = ExtResource("2_emql6")
+
+[node name="Container" type="HBoxContainer" parent="."]
+offset_top = 392.0
+offset_right = 640.0
+offset_bottom = 472.0
+theme_override_constants/separation = 0
+alignment = 1

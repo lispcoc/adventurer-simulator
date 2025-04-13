@@ -1,41 +1,57 @@
-[gd_scene load_steps=3 format=3 uid="uid://bicqagcipue1o"]
+[gd_scene load_steps=4 format=3 uid="uid://bicqagcipue1o"]
 
 [ext_resource type="PackedScene" uid="uid://ckj8nx2ww3lvi" path="res://src/portrait/portrait.tscn" id="1_iw4ei"]
 [ext_resource type="Script" uid="uid://x7ib5qgmi38o" path="res://src/portrait/portrait_editor.gd" id="1_na2xr"]
+[ext_resource type="Theme" uid="uid://dbtpqwsmsli2p" path="res://theme/default_ui.tres" id="2_g4oy6"]
 
-[node name="PortraitEditor" type="Node2D"]
+[node name="PortraitEditor" type="Node2D" node_paths=PackedStringArray("parts_grid", "colors_grid", "portrait", "tab")]
 script = ExtResource("1_na2xr")
+parts_grid = NodePath("CanvasLayer/PanelContainer/HBoxContainer/Tab/Parts/Grid")
+colors_grid = NodePath("CanvasLayer/PanelContainer/HBoxContainer/Tab/Colors/Grid")
+portrait = NodePath("CanvasLayer/PanelContainer/Portrait")
+tab = NodePath("CanvasLayer/PanelContainer/HBoxContainer/Tab")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
 layer = 2
 
-[node name="Portrait" parent="CanvasLayer" instance=ExtResource("1_iw4ei")]
-position = Vector2(384, 192)
-flip_h = true
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme = ExtResource("2_g4oy6")
 
-[node name="Tab" type="TabContainer" parent="CanvasLayer"]
-offset_right = 144.0
-offset_bottom = 480.0
+[node name="Portrait" parent="CanvasLayer/PanelContainer" instance=ExtResource("1_iw4ei")]
+position = Vector2(411, 237)
+flip_v = false
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+
+[node name="Tab" type="TabContainer" parent="CanvasLayer/PanelContainer/HBoxContainer"]
+custom_minimum_size = Vector2(160, 0)
+layout_mode = 2
 current_tab = 0
 
-[node name="Types" type="ScrollContainer" parent="CanvasLayer/Tab"]
+[node name="Parts" type="ScrollContainer" parent="CanvasLayer/PanelContainer/HBoxContainer/Tab"]
 layout_mode = 2
 metadata/_tab_index = 0
 
-[node name="Grid" type="GridContainer" parent="CanvasLayer/Tab/Types"]
+[node name="Grid" type="GridContainer" parent="CanvasLayer/PanelContainer/HBoxContainer/Tab/Parts"]
 layout_mode = 2
 columns = 3
 
-[node name="Colors" type="ScrollContainer" parent="CanvasLayer/Tab"]
+[node name="Colors" type="ScrollContainer" parent="CanvasLayer/PanelContainer/HBoxContainer/Tab"]
 visible = false
 layout_mode = 2
 metadata/_tab_index = 1
 
-[node name="Grid" type="GridContainer" parent="CanvasLayer/Tab/Colors"]
+[node name="Grid" type="GridContainer" parent="CanvasLayer/PanelContainer/HBoxContainer/Tab/Colors"]
 layout_mode = 2
 columns = 3
 
-[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+[node name="PanelContainer" type="CenterContainer" parent="CanvasLayer/PanelContainer/HBoxContainer"]
 visible = false
-offset_right = 144.0
-offset_bottom = 480.0
+layout_mode = 2
+size_flags_horizontal = 3

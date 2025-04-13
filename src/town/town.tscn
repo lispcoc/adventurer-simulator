@@ -1,66 +1,29 @@
-[gd_scene load_steps=7 format=3 uid="uid://chcaf8joypjej"]
+[gd_scene load_steps=5 format=3 uid="uid://chcaf8joypjej"]
 
 [ext_resource type="Script" uid="uid://d0cmv2dceg234" path="res://src/town/town.gd" id="1_sf2ax"]
+[ext_resource type="Theme" uid="uid://dbtpqwsmsli2p" path="res://theme/default_ui.tres" id="2_6j3an"]
 [ext_resource type="Script" uid="uid://b2m81xdsv3udj" path="res://src/common/ui/selector/ui_generic_selector.gd" id="3_cc5o0"]
-[ext_resource type="PackedScene" uid="uid://bwxpon7slc7v1" path="res://src/common/character_panel/character_panel.tscn" id="4_6j3an"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cc5o0"]
-bg_color = Color(1, 1, 0, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sf2ax"]
-bg_color = Color(0.937255, 0.933333, 0.843137, 1)
-border_width_left = 2
-border_width_top = 2
-border_width_right = 2
-border_width_bottom = 2
-border_color = Color(0, 0, 0, 1)
-border_blend = true
-corner_radius_top_left = 1
-corner_radius_top_right = 1
-corner_radius_bottom_right = 1
-corner_radius_bottom_left = 1
-
-[sub_resource type="Theme" id="Theme_cc5o0"]
-Button/colors/font_color = Color(0, 0, 0, 1)
-Button/colors/font_focus_color = Color(0, 0, 0, 1)
-Button/styles/focus = SubResource("StyleBoxFlat_cc5o0")
-Button/styles/normal = SubResource("StyleBoxFlat_sf2ax")
-GridContainer/constants/h_separation = 0
-GridContainer/constants/v_separation = 0
+[ext_resource type="Texture2D" uid="uid://cqu727ntqio20" path="res://assets/backgrounds/Village landscape Free Pixel Art Background.png" id="4_6j3an"]
 
 [node name="Town" type="CanvasLayer" node_paths=PackedStringArray("town_commands")]
 script = ExtResource("1_sf2ax")
 town_commands = NodePath("TownCommands")
+
+[node name="Background" type="Sprite2D" parent="."]
+position = Vector2(320, 240)
+scale = Vector2(0.277778, 0.37037)
+texture = ExtResource("4_6j3an")
 
 [node name="TownCommands" type="ScrollContainer" parent="."]
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 128.0
 offset_bottom = 384.0
-theme = SubResource("Theme_cc5o0")
+theme = ExtResource("2_6j3an")
 follow_focus = true
 scroll_vertical_custom_step = 32.0
 script = ExtResource("3_cc5o0")
 button_height = 32
-
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-offset_top = 400.0
-offset_right = 640.0
-offset_bottom = 480.0
-alignment = 1
-
-[node name="CharacterPanel" parent="HBoxContainer" instance=ExtResource("4_6j3an")]
-layout_mode = 2
 
 [node name="CenterContainer" type="CenterContainer" parent="."]
 offset_right = 40.0

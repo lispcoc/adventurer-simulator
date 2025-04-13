@@ -3,7 +3,10 @@ class_name CharacterPanel extends Control
 @export var name_label : Label
 var lighter : ColorRect
 var timer : Timer
-var actor : Actor
+var actor : Actor:
+	set(v):
+		actor = v
+		update()
 
 func _ready() -> void:
 	set_hp(100, 120)
@@ -37,7 +40,7 @@ func toggle_highlight():
 	if lighter.is_visible_in_tree(): lighter.hide()
 	else: lighter.show()
 
-func set_character_name(_name):
+func set_character_name(_name : String):
 	name_label.text = _name
 
 func set_hp(val : int, max_val : int):

@@ -21,7 +21,7 @@
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_c0ulj"]
 shader = ExtResource("13_iqhcp")
 shader_parameter/og_color = PackedColorArray(0.4, 0.278431, 0.317647, 1, 0.25098, 0.14902, 0.235294, 1, 0.2, 0.109804, 0.2, 1, 0.2, 0.109804, 0.2, 0, 0.2, 0.109804, 0.2, 0, 0.2, 0.109804, 0.2, 0, 0.2, 0.109804, 0.2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-shader_parameter/new_color = PackedColorArray(0.898039, 0.898039, 0.627451, 1, 0.752941, 0.592157, 0.447059, 1, 0.701961, 0.490196, 0.384314, 1, 0.701961, 0.490196, 0.384314, 0, 0.701961, 0.490196, 0.384314, 0, 0.701961, 0.490196, 0.384314, 0, 0.701961, 0.490196, 0.384314, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/new_color = PackedColorArray(0.4, 0.278431, 0.317647, 1, 0.25098, 0.14902, 0.235294, 1, 0.2, 0.109804, 0.2, 1, 0.2, 0.109804, 0.2, 0, 0.2, 0.109804, 0.2, 0, 0.2, 0.109804, 0.2, 0, 0.2, 0.109804, 0.2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_qdlo0"]
 shader = ExtResource("13_iqhcp")
@@ -31,7 +31,7 @@ shader_parameter/new_color = PackedColorArray(0.4, 0.278431, 0.317647, 1, 0.2509
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_uxjvr"]
 shader = ExtResource("13_iqhcp")
 shader_parameter/og_color = PackedColorArray(0.4, 0.278431, 0.317647, 1, 0.25098, 0.14902, 0.235294, 1, 0.2, 0.109804, 0.2, 1, 0.2, 0.109804, 0.2, 0, 0.2, 0.109804, 0.2, 0, 0.2, 0.109804, 0.2, 0, 0.2, 0.109804, 0.2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
-shader_parameter/new_color = PackedColorArray(0.898039, 0.898039, 0.627451, 1, 0.752941, 0.592157, 0.447059, 1, 0.701961, 0.490196, 0.384314, 1, 0.701961, 0.490196, 0.384314, 0, 0.701961, 0.490196, 0.384314, 0, 0.701961, 0.490196, 0.384314, 0, 0.701961, 0.490196, 0.384314, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
+shader_parameter/new_color = PackedColorArray(0.4, 0.278431, 0.317647, 1, 0.25098, 0.14902, 0.235294, 1, 0.2, 0.109804, 0.2, 1, 0.2, 0.109804, 0.2, 0, 0.2, 0.109804, 0.2, 0, 0.2, 0.109804, 0.2, 0, 0.2, 0.109804, 0.2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_vnlt0"]
 shader = ExtResource("13_iqhcp")
@@ -40,38 +40,8 @@ shader_parameter/new_color = PackedColorArray(0.4, 0.278431, 0.317647, 1, 0.2509
 
 [node name="Portrait" type="Node2D"]
 script = ExtResource("1_nopd3")
-data = {
-"body": 4,
-"cheek": 1,
-"clothing": 4,
-"eye": 4,
-"eyebrow": 4,
-"eyelid": 4,
-"face": 3,
-"glasses": 0,
-"hair_back": 4,
-"hair_front": 3,
-"hat": 2,
-"hat_back": 2,
-"mouth": 1
-}
-colors = {
-"body": 0,
-"cheek": 0,
-"clothing": 0,
-"eye": 0,
-"eyebrow": 0,
-"eyelid": 0,
-"face": 0,
-"glasses": 0,
-"hair_back": 2,
-"hair_front": 2,
-"hat": 0,
-"hat_back": 0,
-"mouth": 0
-}
 default_palette = ExtResource("16_c0ulj")
-skin_color_list = PackedColorArray(1, 1, 1, 1, 1, 0.858824, 0.8, 1, 0.6, 0.34902, 0.239216, 1, 0.431373, 0.6, 0.6, 1)
+flip_v = null
 
 [node name="hat_back" type="AnimatedSprite2D" parent="."]
 texture_filter = 1

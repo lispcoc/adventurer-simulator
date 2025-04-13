@@ -1,0 +1,6 @@
+新しいメンバーを追加します。
+do DialogFunctions.add_party("")
+if {RetVal.Success} == true:
+	成功。
+else:
+	失敗。

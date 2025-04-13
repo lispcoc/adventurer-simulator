@@ -31,6 +31,7 @@ Transition="*res://src/common/screen_transitions/ScreenTransition.tscn"
 Game="*res://src/game/game_manager.gd"
 StaticData="*res://src/game/game_static_data.gd"
 DiceRoller="*res://addons/ninetailsrabbit.indie_blueprint_rpg/src/probability/dice/dice_roller.gd"
+CharacterPanelUi="*res://src/common/character_panel/character_panel_ui.tscn"
 DialogUi="*res://src/common/ui/dialog/dialog_ui.tscn"
 DialogFunctions="*res://src/dialog/dialog_functions.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
@@ -69,6 +70,9 @@ variables={
 "HasWizardToken": 0,
 "Hint": 0,
 "RedWandCount": 0,
+"RetVal": {
+"Success": false
+},
 "StrangeTreeExamined": 0,
 "TokenCount": 0,
 "TokenQuestStatus": 0
@@ -88,6 +92,7 @@ animations/leave_default="res://addons/dialogic/Modules/Character/DefaultAnimati
 text/autocolor_names=true
 settings/text_speed=1.0
 directories/dch_directory={
+"character": "res://data/dialog/character/character.dch",
 "enemy_ghost": "res://maps/town/enemy_ghost.dch",
 "fan_of_four": "res://maps/town/fan_of_four.dch",
 "ghost": "res://maps/grove/ghost.dch",
@@ -100,6 +105,7 @@ directories/dch_directory={
 }
 directories/dtl_directory={
 "battle": "res://data/dialog/test/battle.dtl",
+"debug": "res://data/dialog/test/debug.dtl",
 "encounter_before_combat": "res://maps/town/encounter_before_combat.dtl",
 "encounter_on_loss": "res://maps/town/encounter_on_loss.dtl",
 "encounter_on_victory": "res://maps/town/encounter_on_victory.dtl",
@@ -107,6 +113,7 @@ directories/dtl_directory={
 "ghost": "res://maps/grove/ghost.dtl",
 "monk": "res://maps/town/monk.dtl",
 "opening_cutscene": "res://maps/opening_cutscene.dtl",
+"party": "res://data/dialog/test/party.dtl",
 "runner": "res://maps/town/runner.dtl",
 "sign": "res://maps/town/sign.dtl",
 "smith": "res://maps/town/smith.dtl",
@@ -123,7 +130,7 @@ text/autoadvance_per_character_delay=0.1
 text/autoadvance_ignored_characters_enabled=true
 save/encryption_on_exports_only=true
 text/advance_delay=0.1
-portraits/default_portrait=""
+portraits/default_portrait="res://src/portrait/portrait.tscn"
 layout/style_list=[]
 
 [display]
@@ -149,7 +156,7 @@ import/fbx/enabled=false
 [gui]
 
 theme/custom="uid://dbtpqwsmsli2p"
-theme/custom_font="uid://cx16unmbxv2s0"
+theme/custom_font="uid://bvsq0cqgf54y7"
 
 [importer_defaults]
 

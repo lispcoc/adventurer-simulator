@@ -24,16 +24,20 @@ func _process(_delta: float) -> void:
 	pass
 
 func init_test_data():
-	party_front.append(BattleActorPlayer.new())
-	party_front.append(BattleActorPlayer.new())
-	party_front.append(BattleActorPlayer.new())
-	party_back.append(BattleActorPlayer.new())
 	var a = BattleActorEnemy.new()
 	a.actor.level = 1
 	enemies_front.append(a)
 	enemies_back.append(BattleActorEnemy.new())
 
 func start() -> void:
+	for ch in Game.game_data.party_front:
+		var ac = BattleActorPlayer.new()
+		ac.actor = ch
+		party_front.append(ac)
+	for ch in Game.game_data.party_back:
+		var ac = BattleActorPlayer.new()
+		ac.actor = ch
+		party_back.append(ac)
 	reflesh_container()
 	await main_loop()
 	await Transition.cover(0.5)

@@ -163,4 +163,4 @@ func pick_random(front : bool = true, back : bool = true) -> BattleActor:
 	elif front: array = get_actors_front()
 	elif back: array = get_actors_back()
 	else: return null
-	return array[DiceRoller.roll_dices(1, array.size()) - 1]
+	return array.pick_random()

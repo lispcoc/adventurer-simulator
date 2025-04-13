@@ -12,6 +12,7 @@ func _ready() -> void:
 		add_child(inst)
 
 func _reset_custom_max() -> void:
+	return
 	if self.size.y < custom_max_size:
 		get_parent().size.y = self.size.y
 	else:
