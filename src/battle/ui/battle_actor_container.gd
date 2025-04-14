@@ -92,7 +92,7 @@ func enable_target(allow_front := true, allow_back := true):
 	elif allow_front: array = get_actors_front()
 	else: array = get_actors_back()
 	for e in array:
-		e.selectable = true
+		e.set_selectable(true)
 		if !e.selected.is_connected(end_select_target):
 			e.selected.connect(end_select_target)
 		if !e.button.focus_entered.is_connected(on_change_focus):
@@ -102,13 +102,14 @@ func enable_target(allow_front := true, allow_back := true):
 
 func disable_target():
 	for e in get_actors():
-		e.selectable = false
+		e.set_selectable(false)
 		if e.selected.is_connected(end_select_target):
 			e.selected.disconnect(end_select_target)
 		if e.button.focus_entered.is_connected(on_change_focus):
 			e.button.focus_entered.disconnect(on_change_focus)
 
 func start_select_target(front := true, back := true) -> Array[BattleActor]:
+	selected_actors.clear()
 	enable_target(front, back)
 	# 前列1番目をフォーカス
 	if !get_actors_front().is_empty():

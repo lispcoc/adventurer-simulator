@@ -1,5 +1,10 @@
 class_name GameManager extends Control
 
+signal battle_started
+signal battle_ended
+signal editor_started
+signal editor_ended
+
 const MAX_PARTY_MEMBER = 5
 const MAX_LINE_MEMBER = 3
 const PATH_SAVEDATA = "user://savedata.gdsave"
@@ -14,8 +19,12 @@ func _ready() -> void:
 	StaticData.loaded.connect(on_game_loaded)
 	sort_ui()
 	get_viewport().gui_focus_changed.connect(watch_focus)
-	Dialogic.timeline_started.connect(func (): hide_ui())
-	Dialogic.timeline_ended.connect(func (): show_ui())
+	Dialogic.timeline_started.connect(hide_ui)
+	Dialogic.timeline_ended.connect(show_ui)
+	battle_started.connect(hide_ui)
+	battle_ended.connect(show_ui)
+	editor_started.connect(hide_ui)
+	editor_ended.connect(show_ui)
 
 func watch_focus(node : Control) -> void:
 	current_focus = node
@@ -53,6 +62,7 @@ func make_dummy_data() -> void:
 	game_data.add_people(Actor.new())
 
 func start_battle() -> bool:
+	battle_started.emit()
 	await Transition.cover(0.5)
 	var battle = scene_battle.instantiate() as BattleManager
 	get_tree().root.add_child(battle)
@@ -60,15 +70,18 @@ func start_battle() -> bool:
 	await Transition.clear(0.5)
 	await battle.start()
 	await Transition.clear(0.5)
+	battle_ended.emit()
 	return true
 
 func start_portrait_edit(ch : Actor) -> bool:
+	editor_started.emit()
 	var portrait_editor = scene_portrait_edit.instantiate() as PortraitEditor
 	portrait_editor.target = ch
 	await menu_delay()
 	get_tree().root.add_child(portrait_editor)
 	await portrait_editor.exit
 	await menu_delay()
+	editor_ended.emit()
 	return true
 
 func menu_delay() -> void:

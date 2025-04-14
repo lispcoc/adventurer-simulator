@@ -6,7 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://do05pxfcwas8t" path="res://src/combat/ui/health_bar/mana_bar.tscn" id="2_yfmuk"]
 [ext_resource type="Script" uid="uid://co1xt4r7qttvp" path="res://src/common/character_panel/status_condition.gd" id="6_ebrwm"]
 
-[node name="CharacterPanel" type="Panel" node_paths=PackedStringArray("name_label")]
+[node name="CharacterPanel" type="Button" node_paths=PackedStringArray("name_label")]
 custom_minimum_size = Vector2(128, 84)
 offset_right = 128.0
 offset_bottom = 84.0

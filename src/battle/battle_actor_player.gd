@@ -8,14 +8,14 @@ var panel : CharacterPanel
 func _init() -> void:
 	panel_scene = load(panel_path)
 	panel = panel_scene.instantiate()
-	add_child(panel)
+	button = panel
 	super._init()
 
 func _ready():
-	super._ready()
 	custom_minimum_size = panel.custom_minimum_size
 	button.size = custom_minimum_size
 	panel.update()
+	super._ready()
 
 func on_set_hp(val : int):
 	panel.update()
@@ -32,6 +32,9 @@ func on_main_entered():
 
 func on_main_exit():
 	panel.highlight(false)
+
+func set_selectable(v : bool):
+	panel.selectable = v
 
 func is_player() -> bool:
 	return true

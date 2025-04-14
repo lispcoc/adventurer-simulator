@@ -1,4 +1,4 @@
-class_name CharacterPanel extends Control
+class_name CharacterPanel extends Button
 
 @export var name_label : Label
 var lighter : ColorRect
@@ -8,15 +8,25 @@ var actor : Actor:
 		actor = v
 		update()
 
+var selectable : bool = false:
+	set(v):
+		selectable = v
+		if selectable:
+			focus_mode = Control.FOCUS_ALL
+			mouse_filter = Control.MOUSE_FILTER_STOP
+		else:
+			focus_mode = Control.FOCUS_NONE
+			mouse_filter = Control.MOUSE_FILTER_IGNORE
+
 func _ready() -> void:
 	lighter = ColorRect.new()
 	add_child(lighter)
 	lighter.color = Color(1.0, 1.0, 1.0, 0.3)
 	lighter.size = size
 	lighter.hide()
-
 	timer = Timer.new()
 	add_child(timer)
+	selectable = false
 
 func update():
 	set_character_name(actor.actor_name)

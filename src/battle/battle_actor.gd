@@ -14,14 +14,6 @@ var actor : Actor:
 
 var button : Button
 
-var selectable : bool = false:
-	set(a):
-		selectable = a
-		if selectable:
-			button.show()
-		else:
-			button.hide()
-
 var actor_name : String:
 	get:
 		if actor: return actor.actor_name
@@ -57,13 +49,12 @@ var defence : bool = false
 # Functions
 #
 func _init() -> void:
-	button = Button.new()
+	if not button: button = Button.new()
 	add_child(button)
 
 func _ready() -> void:
-	button.hide()
 	live = true
-	selectable = false
+	set_selectable(false)
 	button.pressed.connect(_selected)
 
 func _selected():
@@ -80,6 +71,8 @@ func on_set_actor(): pass
 func on_main_entered(): pass
 
 func on_main_exit(): pass
+
+func set_selectable(v : bool): pass
 
 func focus():
 	button.grab_focus()

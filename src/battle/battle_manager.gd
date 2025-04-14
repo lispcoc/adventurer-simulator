@@ -155,7 +155,7 @@ func main_loop() -> BattleResult:
 							"Skill":
 								var sk : Skill = ret["skill"]
 								var targets : Array[BattleActor] = await select_target(sk.data.target, sk.data.range, by_front)
-								if not targets.is_empty() and !enemy_container.is_canceled:
+								if not targets.is_empty():
 									if sk.data.type == SkillData.Type.Melee:
 										for t in targets:
 											await process_melee_attack(c, t, sk)
