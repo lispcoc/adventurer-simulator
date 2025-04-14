@@ -1,4 +1,4 @@
-class_name Actor
+class_name Actor extends Node
 
 var actor_name : String = "名無し"
 

@@ -12,7 +12,7 @@ portrait = NodePath("CanvasLayer/PanelContainer/Portrait")
 tab = NodePath("CanvasLayer/PanelContainer/HBoxContainer/Tab")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
-layer = 2
+layer = 4
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
 anchors_preset = 15
@@ -52,6 +52,5 @@ layout_mode = 2
 columns = 3
 
 [node name="PanelContainer" type="CenterContainer" parent="CanvasLayer/PanelContainer/HBoxContainer"]
-visible = false
 layout_mode = 2
 size_flags_horizontal = 3

@@ -9,9 +9,6 @@ var actor : Actor:
 		update()
 
 func _ready() -> void:
-	set_hp(100, 120)
-	add_condition(StatusCondision.Burn)
-
 	lighter = ColorRect.new()
 	add_child(lighter)
 	lighter.color = Color(1.0, 1.0, 1.0, 0.3)

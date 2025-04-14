@@ -4,8 +4,6 @@ class_name _CharacterPanelUI extends CanvasLayer
 
 func _ready() -> void:
 	reflesh()
-	Dialogic.timeline_started.connect(func (): hide())
-	Dialogic.timeline_ended.connect(func (): show())
 
 func reflesh() -> void:
 	for c in $Container.get_children(): $Container.remove_child(c)

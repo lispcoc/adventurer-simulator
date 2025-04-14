@@ -36,17 +36,29 @@ func _process(_delta):
 		is_canceled = true
 		exit.emit()
 
-func add_actor_front(actor : BattleActor):
-	front_container.add_child(actor)
+func add_actor_front(actor : BattleActor): front_container.add_child(actor)
 
-func add_actor_back(actor : BattleActor):
-	back_container.add_child(actor)
+func add_actor_back(actor : BattleActor): back_container.add_child(actor)
+
+func erase_actors_front(): for c in front_container.get_children(): front_container.remove_child(c)
+
+func erase_actors_back(): for c in back_container.get_children(): back_container.remove_child(c)
 
 func erase_actors():
-	for c in front_container.get_children():
-		front_container.remove_child(c)
-	for c in back_container.get_children():
-		back_container.remove_child(c)
+	erase_actors_front()
+	erase_actors_back()
+
+func reflesh():
+	var alive_front = get_actors_front().filter(func (a : BattleActor): return not a.is_dead())
+	print(alive_front)
+	if alive_front.is_empty(): swap()
+
+func swap():
+	var front_pool : Array[BattleActor] = get_actors_front()
+	var back_pool : Array[BattleActor] = get_actors_back()
+	erase_actors()
+	for a in front_pool: add_actor_back(a)
+	for a in back_pool: add_actor_front(a)
 
 func on_grid_resized():
 	var front_button : Button = lines.find_child("Front")

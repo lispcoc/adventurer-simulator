@@ -7,56 +7,47 @@ signal exit_battle
 @export var party_container : UIBattleActorContainer
 @export var enemy_container : UIBattleActorContainer
 @export var message : RichTextLabel
-
-var party_front : Array[BattleActor]
-var party_back : Array[BattleActor]
-var enemies_front : Array[BattleActor]
-var enemies_back : Array[BattleActor]
+@export var portrait : Portrait
 
 var can_escape : bool = true
 
 var current_actor : BattleActor
 
 func _ready() -> void:
-	pass
+	portrait.hide()
 
 func _process(_delta: float) -> void:
 	pass
 
 func init_test_data():
 	var a = BattleActorEnemy.new()
+	a.actor = Actor.new()
 	a.actor.level = 1
-	enemies_front.append(a)
-	enemies_back.append(BattleActorEnemy.new())
+	enemy_container.add_actor_front(a)
+	var b = BattleActorEnemy.new()
+	b.actor = Actor.new()
+	b.actor.level = 1
+	enemy_container.add_actor_back(b)
 
 func start() -> void:
 	for ch in Game.game_data.party_front:
 		var ac = BattleActorPlayer.new()
 		ac.actor = ch
-		party_front.append(ac)
+		party_container.add_actor_front(ac)
 	for ch in Game.game_data.party_back:
 		var ac = BattleActorPlayer.new()
 		ac.actor = ch
-		party_back.append(ac)
-	reflesh_container()
+		party_container.add_actor_back(ac)
 	await main_loop()
 	await Transition.cover(0.5)
 	exit_battle.emit()
 	queue_free.call_deferred()
 
-func reflesh_container():
-	party_container.erase_actors()
-	enemy_container.erase_actors()
-	for e in party_front: party_container.add_actor_front(e)
-	for e in party_back: party_container.add_actor_back(e)
-	for e in enemies_front: enemy_container.add_actor_front(e)
-	for e in enemies_back: enemy_container.add_actor_back(e)
-
 func get_party() -> Array[BattleActor]:
-	return party_front + party_back
+	return party_container.get_actors()
 
 func get_enemies() -> Array[BattleActor]:
-	return enemies_front + enemies_back
+	return enemy_container.get_actors()
 
 #
 # Melee
@@ -139,7 +130,10 @@ func main_loop() -> BattleResult:
 			if !c.is_dead() && c.available:
 				# Main
 				current_actor = c
-				var by_front : bool = party_front.has(c) || enemies_front.has(c)
+				if !current_actor.actor.portrait.is_empty():
+					portrait.show()
+					portrait.from_string(str(current_actor.actor.portrait))
+				var by_front : bool = party_container.get_actors_front().has(c) || enemy_container.get_actors_front().has(c)
 				c.defence = false
 				c.on_main_entered()
 				if c.is_player():
@@ -179,13 +173,13 @@ func main_loop() -> BattleResult:
 									set_msg("逃げられない")
 				if c.is_enemy():
 					await process_melee_attack(c, party_container.pick_random(true, false))
+				portrait.hide()
 				c.on_main_exit()
 				c.available = false
 			if is_dead_all(get_party()) || is_dead_all(get_enemies()):
 				break
-			if is_dead_all(party_front): swap_array(party_front, party_back)
-			if is_dead_all(enemies_front): swap_array(enemies_front, enemies_back)
-			reflesh_container()
+			party_container.reflesh()
+			enemy_container.reflesh()
 		# Cleanup
 		if is_dead_all(get_party()):
 			return BattleResult.Lose

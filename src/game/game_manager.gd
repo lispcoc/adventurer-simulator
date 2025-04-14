@@ -14,6 +14,8 @@ func _ready() -> void:
 	StaticData.loaded.connect(on_game_loaded)
 	sort_ui()
 	get_viewport().gui_focus_changed.connect(watch_focus)
+	Dialogic.timeline_started.connect(func (): hide_ui())
+	Dialogic.timeline_ended.connect(func (): show_ui())
 
 func watch_focus(node : Control) -> void:
 	current_focus = node

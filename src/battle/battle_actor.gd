@@ -57,16 +57,11 @@ var defence : bool = false
 # Functions
 #
 func _init() -> void:
-	actor = Actor.new()
 	button = Button.new()
-	button.hide()
 	add_child(button)
 
 func _ready() -> void:
-	actor = Actor.new()
-	button = Button.new()
 	button.hide()
-	add_child(button)
 	live = true
 	selectable = false
 	button.pressed.connect(_selected)
