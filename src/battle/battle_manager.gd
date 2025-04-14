@@ -14,7 +14,7 @@ var can_escape : bool = true
 var current_actor : BattleActor
 
 func _ready() -> void:
-	portrait.hide()
+	portrait_hide()
 
 func _process(_delta: float) -> void:
 	pass
@@ -43,11 +43,9 @@ func start() -> void:
 	exit_battle.emit()
 	queue_free.call_deferred()
 
-func get_party() -> Array[BattleActor]:
-	return party_container.get_actors()
+func get_party() -> Array[BattleActor]: return party_container.get_actors()
 
-func get_enemies() -> Array[BattleActor]:
-	return enemy_container.get_actors()
+func get_enemies() -> Array[BattleActor]: return enemy_container.get_actors()
 
 #
 # Melee
@@ -130,13 +128,15 @@ func main_loop() -> BattleResult:
 			if !c.is_dead() && c.available:
 				# Main
 				current_actor = c
-				if !current_actor.actor.portrait.is_empty():
-					portrait.show()
-					portrait.from_string(str(current_actor.actor.portrait))
 				var by_front : bool = party_container.get_actors_front().has(c) || enemy_container.get_actors_front().has(c)
 				c.defence = false
 				c.on_main_entered()
 				if c.is_player():
+					if !current_actor.actor.portrait.is_empty():
+						portrait.show()
+						portrait.from_string(str(current_actor.actor.portrait))
+					else: portrait.hide()
+					await portrait_fade_in()
 					set_msg("%sの行動" % current_actor.actor_name)
 					# スキルセレクタの構築
 					skill_select.erase_commands()
@@ -173,7 +173,7 @@ func main_loop() -> BattleResult:
 									set_msg("逃げられない")
 				if c.is_enemy():
 					await process_melee_attack(c, party_container.pick_random(true, false))
-				portrait.hide()
+				portrait_hide()
 				c.on_main_exit()
 				c.available = false
 			if is_dead_all(get_party()) || is_dead_all(get_enemies()):
@@ -201,3 +201,16 @@ func swap_array(a : Array[BattleActor], b : Array[BattleActor]):
 
 func get_phase() -> Phase:
 	return Phase.Initiative
+
+func portrait_hide():
+	var portrait_container : Container = portrait.get_parent() as Control
+	portrait_container.hide()
+	
+func portrait_fade_in():
+	var portrait_container : Container = portrait.get_parent() as Control
+	portrait_container.show()
+	var pos = portrait_container.position
+	portrait_container.position.x = -portrait_container.size.x
+	var tween = get_tree().create_tween()
+	tween.tween_property(portrait.get_parent(), "position", pos, 0.05)
+	await tween.finished
