@@ -6,6 +6,7 @@ class_name UICommandSelector extends Container
 @export var horizonal : bool = false
 
 signal exit
+@warning_ignore("unused_signal")
 signal canceled
 
 var retvar : Dictionary

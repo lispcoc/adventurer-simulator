@@ -10,9 +10,8 @@ var wgt : int:
 	get: return data.wgt
 	set(_v): pass
 
-func melee＿roll_damage():
+func melee_roll_damage():
 	var amount = data.melee_base_amount
 	var sides = data.melee_base_sides
 	var attack = data.melee_base_attack
 	return DiceRoller.roll_dices(amount, sides) + attack
-	

@@ -82,13 +82,12 @@ func _process(_delta):
 		queue_free.call_deferred()
 
 func _on_update(_value : float):
-	skin_label_value.text = String.num_int64(skin_slider.value)
-	portrait.skin_color = skin_slider.value
+	skin_label_value.text = String.num_int64(int(skin_slider.value))
+	portrait.skin_color = int(skin_slider.value)
 	for k in color_sliders.keys():
 		portrait.set_color(k, color_sliders[k].value)
 		color_slider_values[k].text = String.num_int64(color_sliders[k].value)
 	for k in sliders.keys():
-		var slider : HSlider = sliders[k]
 		values[k].text = String.num_int64(sliders[k].value)
 		portrait.set_type(k, sliders[k].value)
 	portrait.reflesh()

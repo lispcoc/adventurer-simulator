@@ -11,7 +11,7 @@ func _ready():
 	main_loop()
 
 func main_loop() -> void:
-	var last_node : Control
+	var last_node : Control = null
 	while true:
 		town_commands.start_select()
 		if last_node: last_node.grab_focus()
@@ -25,4 +25,4 @@ func main_loop() -> void:
 			"portrait_edit":
 				await Game.start_portrait_edit(Game.game_data.party_front[0])
 			"save_game":
-				await Game.save_data()
+				Game.save_data()

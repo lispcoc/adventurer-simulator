@@ -13,6 +13,7 @@ class Result:
 @export var horizonal : bool = false
 
 signal exit
+@warning_ignore("unused_signal")
 signal canceled
 
 var commands : Array[UIGenericSelectorButton]

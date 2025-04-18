@@ -81,6 +81,7 @@ func clr_msg(): set_msg("")
 #
 # turn manager
 #
+@warning_ignore("unused_signal")
 signal exit_main_phase
 
 enum Phase {
@@ -168,7 +169,6 @@ func main_loop() -> BattleResult:
 							"Escape":
 								if can_escape:
 									return BattleResult.Run
-									accept = true
 								else:
 									set_msg("逃げられない")
 				if c.is_enemy():

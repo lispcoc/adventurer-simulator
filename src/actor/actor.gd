@@ -58,7 +58,7 @@ func get_weapon() -> Item:
 		return Item.new()
 
 func get_atk() -> int:
-	return strength / 2.0
+	return int(strength / 2.0)
 
 func get_melee_times(sk : Skill = null) -> int:
 	if sk:
@@ -68,16 +68,16 @@ func get_melee_times(sk : Skill = null) -> int:
 	return get_weapon().data.melee_base_times + grow_rate * level
 
 func roll_melee_damage(sk : Skill = null) -> Damage:
-	var val = get_weapon().melee＿roll_damage() + get_atk()
+	var val = get_weapon().melee_roll_damage() + get_atk()
 	if sk:
 		val *= sk.data.melee_damage_mul
 	return Damage.new(val, Attribute.Type.Bash)
 
 func get_hit() -> int:
-	return dexterity / 2.0
+	return int(dexterity / 2.0)
 
 func get_dodge() -> int:
-	return dexterity / 2.0
+	return int(dexterity / 2.0)
 
 func apply_dagame(dam : Damage) -> int:
 	hp -= dam.val

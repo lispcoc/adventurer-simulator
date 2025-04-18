@@ -168,8 +168,8 @@ func reflesh_skin():
 func set_type(key : String, val : int):
 	data[key] = val
 	# interlock
-	for str in type_interlock_set:
-		var a = str.split(":")
+	for set_str in type_interlock_set:
+		var a = set_str.split(":")
 		if a.has(key):
 			for key_2 in a:
 				data[key_2] = val
@@ -179,8 +179,8 @@ func set_type(key : String, val : int):
 func set_color(key : String, val : int):
 	parts_color[key] = val
 	# interlock
-	for str in color_interlock_set:
-		var a = str.split(":")
+	for set_str in color_interlock_set:
+		var a = set_str.split(":")
 		if a.has(key):
 			for key_2 in a:
 				parts_color[key_2] = val
@@ -226,8 +226,8 @@ func _to_string() -> String:
 	}
 	return var_to_str(parameters)
 
-func from_string(str : String) -> void:
-	var parameters : Dictionary = str_to_var(str)
+func from_string(s : String) -> void:
+	var parameters : Dictionary = str_to_var(s)
 	skin_color = parameters.skin_color
 	data = parameters.parts
 	parts_color = parameters.parts_color

@@ -72,7 +72,7 @@ func on_main_entered(): pass
 
 func on_main_exit(): pass
 
-func set_selectable(v : bool): pass
+func set_selectable(_v : bool): pass
 
 func focus():
 	button.grab_focus()

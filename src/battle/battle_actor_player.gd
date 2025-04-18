@@ -17,10 +17,10 @@ func _ready():
 	panel.update()
 	super._ready()
 
-func on_set_hp(val : int):
+func on_set_hp(_val : int):
 	panel.update()
 
-func on_set_mp(val : int):
+func on_set_mp(_val : int):
 	panel.update()
 
 func on_set_actor():

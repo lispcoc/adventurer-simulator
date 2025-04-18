@@ -30,5 +30,5 @@ class ItemDataTextDatabase extends TextDatabase:
 	func _schema_initialize():
 		pass
 
-	func _postprocess_entry(entry: Dictionary):
+	func _postprocess_entry(_entry: Dictionary):
 		pass

@@ -51,5 +51,5 @@ func _on_update() -> void:
 	$Slider.max_value = max_value
 	$Slider.value = float(value)
 
-func _on_value_changed(value : float) -> void:
-	$Value.text = String.num_int64(int(value))
+func _on_value_changed(new_value : float) -> void:
+	$Value.text = String.num_int64(int(new_value))

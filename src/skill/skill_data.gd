@@ -45,13 +45,13 @@ static func load(list : Dictionary, path : String):
 func from_db(db : Dictionary):
 	id = db["id"]
 	skill_name = db["name"]
-	type = Type.keys().find(db["type"])
+	type = Type.keys().find(db["type"]) as Type
 	if type == -1:
 		print("Invalid skill type")
 		type = Type.Melee
 
 	range = db["range"]
-	target = Target.keys().find(db["target"])
+	target = Target.keys().find(db["target"]) as Target
 	if target == -1:
 		print("Invalid skill target")
 		target = Target.EnemyOne
@@ -64,17 +64,17 @@ func instantiate() -> Skill:
 	s.data = self
 	return s
 
-static func map_effect(id : String):
+static func map_effect(effect_id : String):
 	var map = {
 		"heal_hp": f_heal_hp
 	}
-	return map[id]
+	return map[effect_id]
 
-static func f_default(sk : Skill, user, target):
+static func f_default(_sk : Skill, _user, _target):
 	print("Warning: Skill has no function.")
 	return false
 
-static func f_heal_hp(sk : Skill, user, target):
+static func f_heal_hp(_sk : Skill, _user, _target):
 	return true
 
 

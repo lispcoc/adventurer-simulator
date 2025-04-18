@@ -34,6 +34,7 @@ DiceRoller="*res://addons/ninetailsrabbit.indie_blueprint_rpg/src/probability/di
 CharacterPanelUi="*res://src/common/character_panel/character_panel_ui.tscn"
 DialogUi="*res://src/common/ui/dialog/dialog_ui.tscn"
 DialogFunctions="*res://src/dialog/dialog_functions.gd"
+BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 [debug]
@@ -146,7 +147,7 @@ project/assembly_name="OpenRPG"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/gloot/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/better-terrain/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/gloot/plugin.cfg")
 
 [filesystem]
 

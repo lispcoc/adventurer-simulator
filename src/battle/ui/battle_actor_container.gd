@@ -1,6 +1,8 @@
 class_name UIBattleActorContainer extends CenterContainer
 
+@warning_ignore("unused_signal")
 signal selected(actors : Array[BattleActor])
+@warning_ignore("unused_signal")
 signal canceled
 signal exit
 

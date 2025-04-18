@@ -533,8 +533,8 @@ run_during_cutscenes = true
 
 [node name="Interaction" parent="Field/Terrain/Gamepieces/Town/AdoringFan" node_paths=PackedStringArray("controller") instance=ExtResource("19_sa6jd")]
 script = ExtResource("29_at3vc")
-controller = NodePath("../Controller")
 timeline = ExtResource("30_n17q5")
+controller = NodePath("../Controller")
 
 [node name="InteractionPopup" parent="Field/Terrain/Gamepieces/Town/AdoringFan/Interaction" instance=ExtResource("34_qs25x")]
 emote = 1
@@ -743,18 +743,18 @@ metadata/_edit_lock_ = true
 
 [node name="GreenPedestal" parent="Field/Terrain/Gamepieces/House/PedestalPuzzle" node_paths=PackedStringArray("spikes_animation") instance=ExtResource("38_n1c7a")]
 position = Vector2(856, 40)
-spikes_animation = NodePath("../Spikes")
 pedestal_requirement = "Green"
+spikes_animation = NodePath("../Spikes")
 
 [node name="BluePedestal" parent="Field/Terrain/Gamepieces/House/PedestalPuzzle" node_paths=PackedStringArray("spikes_animation") instance=ExtResource("38_n1c7a")]
 position = Vector2(872, 40)
-spikes_animation = NodePath("../Spikes")
 pedestal_requirement = "Blue"
+spikes_animation = NodePath("../Spikes")
 
 [node name="RedPedestal" parent="Field/Terrain/Gamepieces/House/PedestalPuzzle" node_paths=PackedStringArray("spikes_animation") instance=ExtResource("38_n1c7a")]
 position = Vector2(888, 40)
-spikes_animation = NodePath("../Spikes")
 pedestal_requirement = "Red"
+spikes_animation = NodePath("../Spikes")
 
 [node name="Spikes" type="AnimationPlayer" parent="Field/Terrain/Gamepieces/House/PedestalPuzzle"]
 libraries = {
