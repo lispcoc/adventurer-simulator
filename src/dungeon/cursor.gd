@@ -8,10 +8,6 @@ signal focus_changed(old_focus: Vector2i, new_focus: Vector2i)
 ## Emitted when a cell is selected via input event.
 signal selected(selected_cell: Vector2i)
 
-## The [Gameboard] object used to convert touch/mouse coordinates to game coordinates. The reference
-## must be valid for the cursor to function properly.
-@export var gameboard: Gameboard
-
 @export var ptr : Node2D
 
 func _ready() -> void:
@@ -28,7 +24,7 @@ func _unhandled_input(event: InputEvent) -> void:
 		selected.emit(_get_cell_under_mouse())
 		FieldEvents.cell_selected.emit(_get_cell_under_mouse())
 		print(_get_cell_under_mouse())
-		$"../TileMapLayer/Pawn".target = _get_cell_under_mouse()
+		$"../Pawn".target = _get_cell_under_mouse()
 
 		#var pos =  gameboard.cell_to_pixel(_get_cell_under_mouse())
 		#var tween = get_tree().create_tween()
@@ -40,9 +36,9 @@ func _unhandled_input(event: InputEvent) -> void:
 func _get_cell_under_mouse() -> Vector2i:
 	# The mouse coordinates need to be corrected for any scale or position changes in the scene.
 	var mouse_position: = ((get_global_mouse_position()-global_position) / global_scale)
-	var cell_under_mouse: = gameboard.pixel_to_cell(mouse_position)
+	var cell_under_mouse = $"..".gameboard.pixel_to_cell(mouse_position)
 	
-	if not gameboard.boundaries.has_point(cell_under_mouse):
+	if not $"..".gameboard.boundaries.has_point(cell_under_mouse):
 		cell_under_mouse = Gameboard.INVALID_CELL
 	
 	return cell_under_mouse

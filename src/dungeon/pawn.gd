@@ -12,10 +12,9 @@ var path : Array[Vector2i]
 var moving : bool = false
 
 func _ready() -> void:
-	gb = $"../../cursor".gameboard
-	print($"..".get_used_cells())
+	gb = $"..".gameboard
 	print(gb.pixel_to_cell(position))
-	pf =  Pathfinder.new($"..".get_used_cells(), gb)
+	pf =  Pathfinder.new($"../RoguelikeTest".get_used_cells(), gb)
 	$Camera2D.make_current()
 
 func set_target(v):

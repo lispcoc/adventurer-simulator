@@ -1,17 +1,25 @@
 @tool
 extends TileMapLayer
 
-@export_tool_button("Run", "Callable") var a = run
+@export_tool_button("Run", "Callable") 
+var btn = run
+@export var entrance_y_margin = 1
+@export var way_height = 1
+@export var way_width = 1
 
 func run():
 	print("Run")
-	var roomRange = MatrixRange.new(3, 3, 2, 2)
-	var rogueLike = RogueLike.new(RogueLikeList.new(), 100, roomRange, MatrixRange.new(3, 3, 4, 4));
+	var roomRange = MatrixRange.new(6, 10, 2, 2)
+	var wayRange = MatrixRange.new(3, 3, 2, 2)
+	var rogueLikeList = RogueLikeList.new(5, 5, 2, 3, 4, 6)
+	var rogueLike = RogueLike.new(rogueLikeList, 20, roomRange, wayRange);
+	rogueLike.way_height = way_height
+	rogueLike.way_width = way_width
 	var matrix : Array
 	for x in 128:
 		var line : Array
 		line.resize(128)
-		line.fill(0)
+		line.fill(rogueLikeList.outsideWallId)
 		matrix.append(line)
 	rogueLike.Draw(matrix);
 	for cell in self.get_used_cells():
@@ -24,6 +32,7 @@ func run():
 			BetterTerrain.set_cell(self, Vector2i(x, y), cell)
 			x = x + 1
 		y = y + 1
+	BetterTerrain.update_terrain_cells(self, get_used_cells())
 
 enum Direction {
 	North,
@@ -39,12 +48,14 @@ class RogueLikeList:
 	var roomId : int
 	var entranceId : int
 	var wayId : int
-	func _init(a = 0, b = 1, c = 2, d = 3, e = 4) -> void:
-		outsideWallId = a
-		insideWallId = b
-		roomId = c
-		entranceId = d
-		wayId = e
+	var insideUpperWallId : int
+	func _init(_outsideWallId = 0, _insideWallId = 1, _roomId = 2, _entranceId = 3, _wayId = 4, _insideUpperWallId = 5) -> void:
+		outsideWallId = _outsideWallId
+		insideWallId = _insideWallId
+		roomId = _roomId
+		entranceId = _entranceId
+		wayId = _wayId
+		insideUpperWallId = _insideUpperWallId
 
 class MatrixRange:
 	var x : int
@@ -62,6 +73,7 @@ class RogueLikeOutputNumber:
 	var y : int
 	var w : int
 	var h : int
+	var is_way : bool
 	func _init(_x = 0, _y = 0, _w = 0, _h = 0) -> void:
 		x = _x
 		y = _y
@@ -77,7 +89,11 @@ class RogueLike:
 	var roomRange : MatrixRange
 	var wayRange : MatrixRange
 	var rogueLikeList : RogueLikeList
-	@export var maxWay : int = 100
+	var maxWay : int = 100
+	var room_to_room : bool = true
+	@export var entrance_y_margin = 1
+	@export var way_width = 1
+	@export var way_height = 1
 
 	func _init(drawValue : RogueLikeList, _maxWay, _roomRange : MatrixRange, _wayRange : MatrixRange) -> void:
 		rogueLikeList = drawValue
@@ -97,7 +113,7 @@ class RogueLike:
 
 	func DrawNormal(matrix) -> bool:
 		print("DrawNormal")
-		if (roomRange.w < 1 || roomRange.h < 1 || wayRange.w < 1 || wayRange.h < 1):
+		if (roomRange.w < 1) || (roomRange.h < 1) || (wayRange.w < 1) || (wayRange.h < 1):
 			return false
 		var endX = MatrixUtil.get_x(matrix);
 		var endY = MatrixUtil.get_y(matrix);
@@ -123,10 +139,13 @@ class RogueLike:
 			if (branchPoint.is_empty()):
 				break
 			r = rng.randi_range(0, branchPoint.size() - 1)
+			var y_margin = entrance_y_margin
+			if isWay[r]: y_margin = 0
 			var x = rng.randi_range(branchPoint[r].x, branchPoint[r].x + branchPoint[r].w - 1)
-			var y = rng.randi_range(branchPoint[r].y, branchPoint[r].y + branchPoint[r].h - 1)
+			var y = rng.randi_range(branchPoint[r].y + y_margin,
+				branchPoint[r].y + branchPoint[r].h - 1 - y_margin)
 			# 方角カウンタ
-			for j in Direction.Count - 1:
+			for j in Direction.Count:
 				if (!CreateNext(matrix, sizeX, sizeY, roomRect, branchPoint, isWay, isWay[r], x, y, j as Direction)):
 					continue
 				branchPoint.remove_at(r)
@@ -147,11 +166,12 @@ class RogueLike:
 			Direction.East:
 				dx = -1
 		# 範囲外参照(meta programming 部分)
-		if (startX + x_ + dx < 0 || startX + x_ + dx >= sizeX || startY + y_ + dy < 0 || startY + y_ + dy >= sizeY):
+		if (startX + x_ + dx < 0) || (startX + x_ + dx >= sizeX) || (startY + y_ + dy < 0) || (startY + y_ + dy >= sizeY):
 			return false
-		if (matrix[startY + y_ + dy][startX + x_ + dx] != rogueLikeList.roomId && matrix[startY + y_ + dy][startX + x_ + dx] != rogueLikeList.wayId):
+		if (matrix[startY + y_ + dy][startX + x_ + dx] != rogueLikeList.roomId &&
+			matrix[startY + y_ + dy][startX + x_ + dx] != rogueLikeList.wayId):
 			return false
-		if !isWay:
+		if !isWay and !room_to_room:
 			if (!MakeWay(matrix, sizeX, sizeY, branchPoint, isWayList, x_, y_, dir_)):
 				return false;
 			if (matrix[startY + y_ + dy][startX + x_ + dx] == rogueLikeList.roomId):
@@ -159,31 +179,30 @@ class RogueLike:
 			else:
 				matrix[y_][x_] = rogueLikeList.wayId
 			return true;
-
-			# 1/2
-			if (rng.randf_range(0.0, 1.0) < 0.5):
-				if (!MakeRoom(matrix, sizeX, sizeY, roomRect, branchPoint, isWayList, x_, y_, dir_)):
-					return false;
-					matrix[y_][x_] = rogueLikeList.entranceId
-					return true;
-			# 通路を生成
-			if (!MakeWay(matrix, sizeX, sizeY, branchPoint, isWayList, x_, y_, dir_)):
+		# 1/2
+		if (rng.randf_range(0.0, 1.0) < 0.5):
+			print("aaa")
+			if (!MakeRoom(matrix, sizeX, sizeY, roomRect, branchPoint, isWayList, x_, y_, dir_)):
 				return false;
-			if (matrix[startY + y_ + dy][startX + x_ + dx] == rogueLikeList.roomId):
-				matrix[y_][x_] = rogueLikeList.entranceId;
-			else:
-				matrix[y_][x_] = rogueLikeList.wayId;
+			matrix[y_][x_] = rogueLikeList.entranceId
 			return true;
+		# 通路を生成
+		if (!MakeWay(matrix, sizeX, sizeY, branchPoint, isWayList, x_, y_, dir_)):
+			return false;
+		if (matrix[startY + y_ + dy][startX + x_ + dx] == rogueLikeList.roomId):
+			matrix[y_][x_] = rogueLikeList.entranceId;
+		else:
+			matrix[y_][x_] = rogueLikeList.wayId;
+		return true;
 
 	func MakeWay(matrix, sizeX, sizeY, branchPoint : Array[RogueLikeOutputNumber], isWay : Array[bool], x_, y_, dir_):
-		print("MakeWay")
 		var way_ = RogueLikeOutputNumber.new();
 		way_.x = x_;
 		way_.y = y_;
 		# 左右
 		if (rng.randf_range(0.0, 1.0) < 0.5):
-			way_.w = rng.randi_range(wayRange.x, wayRange.x + wayRange.w - 1);
-			way_.h = 1;
+			way_.w = rng.randi_range(wayRange.x, wayRange.x + wayRange.w);
+			way_.h = way_height;
 			match (dir_):
 				Direction.North:
 					way_.y = y_ - 1;
@@ -197,10 +216,10 @@ class RogueLike:
 					way_.x = x_ - way_.w;
 				Direction.East:
 					way_.x = x_ + 1;
-				# 上下
+		# 上下
 		else:
-			way_.w = 1;
-			way_.h = rng.randi_range(wayRange.y, wayRange.y + wayRange.h - 1);
+			way_.w = way_width;
+			way_.h = rng.randi_range(wayRange.y, wayRange.y + wayRange.h);
 
 		match (dir_):
 			Direction.North:
@@ -234,8 +253,8 @@ class RogueLike:
 	func MakeRoom(matrix, sizeX, sizeY, roomRect : Array[RogueLikeOutputNumber], branchPoint : Array[RogueLikeOutputNumber], isWay : Array[bool], x_, y_, dir_, firstRoom = false):
 		print("MakeRoom")
 		var room = RogueLikeOutputNumber.new()
-		room.w = rng.randi_range(roomRange.x, roomRange.x + roomRange.w - 1);
-		room.h = rng.randi_range(roomRange.y, roomRange.y + roomRange.h - 1);
+		room.w = rng.randi_range(roomRange.x, roomRange.x + roomRange.w);
+		room.h = rng.randi_range(roomRange.y, roomRange.y + roomRange.h);
 
 		match dir_:
 			Direction.North:
@@ -246,10 +265,10 @@ class RogueLike:
 				room.y = y_ + 1;
 			Direction.West:
 				room.x = x_ - room.w;
-				room.y = y_; # - room.h / 2  Bug? 道の端から部屋を生成するときに、DirectionがWest or Eastだと基点のY軸が上にずれて部屋の生成と道がつながらなくなってしまう。
+				room.y = y_ - entrance_y_margin; # - room.h / 2  Bug? 道の端から部屋を生成するときに、DirectionがWest or Eastだと基点のY軸が上にずれて部屋の生成と道がつながらなくなってしまう。
 			Direction.East:
 				room.x = x_ + 1;
-				room.y = y_; # + room.h / 2  Bug? Direction.Westと同様。
+				room.y = y_ - entrance_y_margin; # + room.h / 2  Bug? Direction.Westと同様。
 		if (PlaceOutputNumber(matrix, sizeX, sizeY, room, rogueLikeList.roomId)):
 			roomRect.append(room);
 			if (dir_ != Direction.South || firstRoom):
@@ -269,19 +288,21 @@ class RogueLike:
 
 	func PlaceOutputNumber(matrix, sizeX, sizeY, rect : RogueLikeOutputNumber, tile):
 		print("PlaceOutputNumber")
-		if (rect.x < 1 || rect.y < 1 || rect.x + rect.w > sizeX - 1 || rect.y + rect.h > sizeY - 1):
+		if (rect.x < 1) || (rect.y < 1) || (rect.x + rect.w > sizeX - 1) || (rect.y + rect.h > sizeY - 1):
 			return false;
-		for y in range(rect.y, rect.y + rect.h):
-			for x in range(rect.x, rect.x + rect.w):
+		for y in range(rect.y - 1, rect.y + rect.h + 1):
+			for x in range(rect.x - 1, rect.x + rect.w + 1):
 				if (matrix[startY + y][startX + x] != rogueLikeList.outsideWallId):
 					return false;
-		for y in range(rect.y, rect.y + rect.h + 1):
-			for x in range(rect.x, rect.x + rect.w + 1):
-				if (y == rect.y - 1 || x == rect.x - 1 || y == rect.y + rect.h || x == rect.x + rect.w):
+		for y in range(rect.y - 1, rect.y + rect.h + 1):
+			for x in range(rect.x - 1, rect.x + rect.w + 1):
+				if (y == rect.y - 1) || (x == rect.x - 1) || (y == rect.y + rect.h) || (x == rect.x + rect.w):
 					matrix[y][x] = rogueLikeList.insideWallId;
+				elif y == rect.y:
+					# 一番上の行は壁の横側
+					matrix[y][x] = rogueLikeList.insideUpperWallId;
 				else:
 					matrix[y][x] = tile;
-					print(matrix[y][x])
 		return true;
 
 	class MatrixUtil:
