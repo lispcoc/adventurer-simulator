@@ -30,6 +30,8 @@ var player : Pawn
 
 var handle_input := true
 
+var templates : Dictionary
+
 func _ready() -> void:
 	tiles.resize(width * height)
 	Game.battle_started.connect(func(): handle_input = false)
@@ -40,27 +42,36 @@ func run():
 	generator.map_width = width
 	generator.map_height = height
 	layer.clear()
-	var grass = dungeon_chip.find_child("Grass") as Node2D
+	templates["Grass"] = dungeon_chip.find_child("Grass") as Node2D
+	templates["Upstair"] = dungeon_chip.find_child("Upstair") as Node2D
 	Script
 	map = generator.generate()
 	map.dump()
 	for x in range(generator.map_width): for y in range(generator.map_height):
 		if map.get_v(x, y): layer.set_cell(Vector2i(x, y), 0, Vector2i(0, 0))
 	for c in layer.get_used_cells():
-		var tile : Node2D = grass.duplicate()
-		set_tile(c, tile)
+		if map.get_v(c.x, c.y) == DungeonGenerator.TILE_START:
+			set_tile(c, templates["Upstair"].duplicate())
+		elif map.get_v(c.x, c.y) == DungeonGenerator.TILE_GOAL:
+			set_tile(c, templates["Upstair"].duplicate())
+		else:
+			set_tile(c, templates["Grass"].duplicate())
 		set_dark(c, true)
 	print(layer.get_used_cells())
 	pathfinder =  Pathfinder.new(layer.get_used_cells(), gameboard)
 	loaded.emit()
 
 func set_tile(cell : Vector2i, tile : Node2D) -> void:
+	if get_tile(cell):
+		layer.remove_child(get_tile(cell).tile)
+		frame_layer.remove_child(get_tile(cell).frame)
 	tile.position = gameboard.cell_to_pixel(cell) - gameboard.cell_size / 2
 	var frame = dungeon_chip_frame.duplicate()
 	frame.position = gameboard.cell_to_pixel(cell) - gameboard.cell_size / 2
+	frame.show()
+	tiles[cell.y * width + cell.x] = DungeonTile.new(tile, frame)
 	layer.add_child(tile)
 	frame_layer.add_child(frame)
-	tiles[cell.y * width + cell.x] = DungeonTile.new(tile)
 
 func get_tile(cell : Vector2i) -> DungeonTile:
 	if cell.x > width or cell.x < 0 or cell.y > width or cell.y < 0: return null
@@ -122,15 +133,17 @@ func _get_cell_under_mouse() -> Vector2i:
 	return cell_under_mouse
 
 class DungeonTile:
-	var node : Node2D
+	var tile : Node2D
+	var frame : Node2D
 	var identified : bool = false
 
-	func _init(_node) -> void:
-		node = _node
+	func _init(_tile, _frame) -> void:
+		tile = _tile
+		frame = _frame
 	func set_dark(dark : bool):
 		if dark:
 			if identified:
-				node.modulate = Color("gray")
+				tile.modulate = Color("gray")
 			else:
-				node.modulate = Color("black")
-		else: node.modulate = Color("white")
+				tile.modulate = Color("black")
+		else: tile.modulate = Color("white")

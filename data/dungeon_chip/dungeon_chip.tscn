@@ -1,21 +1,6 @@
-[gd_scene load_steps=4 format=4 uid="uid://6jno4dhvpuwg"]
+[gd_scene load_steps=2 format=4 uid="uid://6jno4dhvpuwg"]
 
 [ext_resource type="TileSet" uid="uid://dtetkw7k5khnu" path="res://data/dungeon_chip/new_tile_set.tres" id="1_8fp32"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_8fp32"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ymsq5"]
-bg_color = Color(0.8, 0.8, 0.8, 0)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
 
 [node name="DungeonChip" type="Node2D"]
 
@@ -25,20 +10,6 @@ tile_set = ExtResource("1_8fp32")
 
 [node name="TileMapLayer2" type="TileMapLayer" parent="Grass"]
 tile_set = ExtResource("1_8fp32")
-
-[node name="Frame" type="PanelContainer" parent="Grass"]
-clip_contents = true
-offset_right = 64.0
-offset_bottom = 64.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_8fp32")
-
-[node name="Frame2" type="PanelContainer" parent="Grass"]
-clip_contents = true
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 63.0
-offset_bottom = 63.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_ymsq5")
 
 [node name="TileMapLayer2" type="TileMapLayer" parent="."]
 tile_map_data = PackedByteArray("AAAFAAAABAAjAAwAAAAFAAEABAAjAA8AAAAFAAIABAAGAAIAAAAFAAMABAAGAAIAAAAGAAAABAAjAAwAAAAGAAEABAAlAA8AAAAGAAIABAAGAAIAAAAGAAMABAAGAAIAAAAHAAAABAAmAAwAAAAHAAEABAAkAA0AAAAHAAIABAAkAA0AAAAHAAMABAAmAA0AAAAEAAAABAAlAAwAAAAEAAEABAAkAA0AAAAEAAIABAAkAA0AAAAEAAMABAAlAA0AAAA=")
@@ -61,4 +32,14 @@ tile_set = ExtResource("1_8fp32")
 
 [node name="TileMapLayer2" type="TileMapLayer" parent="TileMapLayer4"]
 tile_map_data = PackedByteArray("AAANAAIABAAnAAoAAAAOAAIABAAnAAkAAAA=")
+tile_set = ExtResource("1_8fp32")
+
+[node name="Upstair" type="TileMapLayer" parent="."]
+tile_map_data = PackedByteArray("AAAAAAAABAAGAAIAAAAAAAEABAAGAAIAAAAAAAIABAAGAAIAAAABAAAABAAGAAIAAAABAAEABAAGAAIAAAABAAIABAAGAAIAAAACAAAABAAGAAIAAAACAAEABAAGAAIAAAACAAIABAAGAAIAAAADAAAABAAGAAIAAAADAAEABAAGAAIAAAADAAIABAAGAAIAAAAAAAMABAAGAAIAAAABAAMABAAGAAIAAAACAAMABAAGAAIAAAADAAMABAAGAAIAAAA=")
+tile_set = ExtResource("1_8fp32")
+
+[node name="TileMapLayer2" type="TileMapLayer" parent="Upstair"]
+position = Vector2(16, 16)
+scale = Vector2(2, 2)
+tile_map_data = PackedByteArray("AAAAAAAABAAiABIAAAA=")
 tile_set = ExtResource("1_8fp32")

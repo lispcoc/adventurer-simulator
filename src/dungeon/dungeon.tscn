@@ -4,8 +4,8 @@
 [ext_resource type="Resource" uid="uid://0giun82m84vb" path="res://src/dungeon/dungeon.tres" id="2_f2w8h"]
 [ext_resource type="TileSet" uid="uid://c4jv4ibnekvfk" path="res://tilesets/dungeon.tres" id="3_af48n"]
 [ext_resource type="Script" uid="uid://cav5k42vru7ch" path="res://src/dungeon/pawn.gd" id="4_af48n"]
-[ext_resource type="Texture2D" uid="uid://cakmf45fn77s0" path="res://assets/characters/generic.atlastex" id="5_74avl"]
 [ext_resource type="Script" uid="uid://b6kqcvygi0sb7" path="res://src/dungeon/roguelike_test.gd" id="5_f2w8h"]
+[ext_resource type="Texture2D" uid="uid://b6orrdbhkweq7" path="res://assets/characters/pawn/test.png" id="7_1e7v8"]
 [ext_resource type="Script" uid="uid://l7w4j8186cmi" path="res://src/dungeon/map_gen_dig.gd" id="9_64iqu"]
 [ext_resource type="PackedScene" uid="uid://6jno4dhvpuwg" path="res://data/dungeon_chip/dungeon_chip.tscn" id="10_devy2"]
 
@@ -49,14 +49,15 @@ tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAA
 
 [node name="Frames" type="TileMapLayer" parent="."]
 
-[node name="Pawn" type="Node2D" parent="."]
+[node name="Pawn" type="Node2D" parent="." node_paths=PackedStringArray("sprite")]
 position = Vector2(32, 32)
 script = ExtResource("4_af48n")
+sprite = NodePath("Test")
 
 [node name="Camera2D" type="Camera2D" parent="Pawn"]
 
-[node name="Generic" type="Sprite2D" parent="Pawn"]
-texture = ExtResource("5_74avl")
+[node name="Test" type="Sprite2D" parent="Pawn"]
+texture = ExtResource("7_1e7v8")
 
 [node name="DungeonChip" parent="." instance=ExtResource("10_devy2")]
 visible = false
@@ -64,6 +65,7 @@ position = Vector2(-256, -192)
 
 [node name="Frame" type="Node2D" parent="."]
 visible = false
+position = Vector2(-256, -256)
 
 [node name="Frame" type="PanelContainer" parent="Frame"]
 clip_contents = true
