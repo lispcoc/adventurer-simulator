@@ -37,6 +37,9 @@ func set_target(v):
 	if not moving:
 		request_move()
 
+func get_cell():
+	return gb.pixel_to_cell(position)
+
 func cancel_move():
 	target = gb.pixel_to_cell(position)
 

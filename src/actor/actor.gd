@@ -17,7 +17,8 @@ var level : int = 30:
 var init : bool = false
 var hp_max : int = 10
 var mp_max : int = 10
-var hp : int = 10
+var hp : int = 10:
+	set = set_hp
 var mp : int = 10
 var strength : int = 10
 var constitution : int = 10
@@ -82,6 +83,9 @@ func get_dodge() -> int:
 func apply_dagame(dam : Damage) -> int:
 	hp -= dam.val
 	return dam.val
+
+func set_hp(v : int):
+	hp = max(v, 0)
 
 class Equip:
 	var weapon : Item

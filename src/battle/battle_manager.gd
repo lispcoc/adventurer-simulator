@@ -97,23 +97,23 @@ enum BattleResult {
 	Run,
 }
 
-func select_target(target_type : SkillData.Target, range : int, by_front : bool):
+func select_target(target_type : Game.Target, range : int, by_front : bool):
 	var targets : Array[BattleActor]
 	if not by_front: range -= 1
 	var front_valid : bool = range >= 1
 	var back_valid : bool = range >= 2
 
-	if target_type == SkillData.Target.PartyOne:
+	if target_type == Game.Target.PartyOne:
 		return await party_container.start_select_target(true, true)
-	if target_type == SkillData.Target.PartyLine:
+	if target_type == Game.Target.PartyLine:
 		return await party_container.start_select_line(true, true)
 
 	if not front_valid and not back_valid:
 		set_msg("射程内に対象がいない")
 		return targets
-	if target_type == SkillData.Target.EnemyOne:
+	if target_type == Game.Target.EnemyOne:
 		return await enemy_container.start_select_target(front_valid, back_valid)
-	if target_type == SkillData.Target.EnemyLine:
+	if target_type == Game.Target.EnemyLine:
 		return await enemy_container.start_select_line(front_valid, back_valid)
 	return targets
 
@@ -148,7 +148,7 @@ func main_loop() -> BattleResult:
 						var ret = await battle_command.start_select()
 						match ret["command"]:
 							"Attack":
-								var targets = await select_target(SkillData.Target.EnemyOne, 1, by_front)
+								var targets = await select_target(Game.Target.EnemyOne, 1, by_front)
 								if not targets.is_empty() and !enemy_container.is_canceled:
 									for t in targets:
 										await process_melee_attack(c, t)

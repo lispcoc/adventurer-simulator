@@ -1,5 +1,5 @@
 @tool
-class_name DungeonManager extends Node2D
+class_name DungeonManager extends GameScene
 
 signal loaded()
 signal selected(selected_cell: Vector2i)
@@ -28,14 +28,18 @@ var tiles : Array[DungeonTile]
 
 var player : Pawn
 
-var handle_input := true
+var handle_input := false
 
 var templates : Dictionary
 
 func _ready() -> void:
 	tiles.resize(width * height)
-	Game.battle_started.connect(func(): handle_input = false)
-	Game.battle_ended.connect(func(): handle_input = true)
+	Game.battle_started.connect(hide)
+	Game.battle_ended.connect(show)
+	start()
+
+func start():
+	super.start()
 	run()
 
 func run():
@@ -52,14 +56,17 @@ func run():
 	for c in layer.get_used_cells():
 		if map.get_v(c.x, c.y) == DungeonGenerator.TILE_START:
 			set_tile(c, templates["Upstair"].duplicate())
+			set_event(c, DungeonEvent.new(DungeonEvent.Type.Upstair))
 		elif map.get_v(c.x, c.y) == DungeonGenerator.TILE_GOAL:
 			set_tile(c, templates["Upstair"].duplicate())
+			set_event(c, DungeonEvent.new(DungeonEvent.Type.Upstair))
 		else:
 			set_tile(c, templates["Grass"].duplicate())
 		set_dark(c, true)
 	print(layer.get_used_cells())
 	pathfinder =  Pathfinder.new(layer.get_used_cells(), gameboard)
 	loaded.emit()
+	handle_input = true
 
 func set_tile(cell : Vector2i, tile : Node2D) -> void:
 	if get_tile(cell):
@@ -78,6 +85,9 @@ func get_tile(cell : Vector2i) -> DungeonTile:
 	var idx = cell.y * width + cell.x
 	if idx >= tiles.size(): return null
 	return tiles[cell.y * width + cell.x]
+
+func set_event(cell : Vector2i, event : DungeonEvent):
+	get_tile(cell).event = event
 
 func set_dark(cell : Vector2i, dark : bool) -> void:
 	var tile := get_tile(cell)
@@ -98,9 +108,11 @@ func _on_player_move(position : Vector2):
 		if tile:
 			tile.identified = true
 			tile.set_dark(false)
-	if randf() < 0.1:
+	if randf() < 0.0:
 		player.cancel_move()
 		Game.start_battle()
+	Game.damage_party(Damage.new(1, Attribute.Type.None))
+	Game.update_ui()
 
 func _input(event: InputEvent) -> void:
 	if handle_input:
@@ -119,10 +131,15 @@ func _unhandled_input(event: InputEvent) -> void:
 			Input.get_axis("ui_left", "ui_right"),
 			Input.get_axis("ui_up", "ui_down")
 		)
+		var current_pos = player.get_cell()
 		if move_dir and not player.moving:
 			if not is_zero_approx(move_dir.x): move_dir = Vector2(move_dir.x, 0)
 			else: move_dir = Vector2(0, move_dir.y)
-			player.target = gameboard.pixel_to_cell(player.position) + Vector2i(move_dir)
+			player.target = current_pos + Vector2i(move_dir)
+		elif Input.is_action_pressed("ui_accept"):
+			var tile = get_tile(current_pos)
+			if tile and tile.event.type == DungeonEvent.Type.Upstair:
+				end()
 
 func _get_cell_under_mouse() -> Vector2i:
 	# The mouse coordinates need to be corrected for any scale or position changes in the scene.
@@ -132,9 +149,19 @@ func _get_cell_under_mouse() -> Vector2i:
 		cell_under_mouse = Gameboard.INVALID_CELL
 	return cell_under_mouse
 
+class DungeonEvent:
+	enum Type {
+		None,
+		Upstair,
+	}
+	var type : Type
+	func _init(_type : Type = Type.None):
+		type = _type
+
 class DungeonTile:
 	var tile : Node2D
 	var frame : Node2D
+	var event : DungeonEvent = DungeonEvent.new()
 	var identified : bool = false
 
 	func _init(_tile, _frame) -> void:

@@ -115,11 +115,9 @@ func dodge_roll() -> int:
 
 func apply_dagame(dam : Damage) -> int:
 	if defence:
-		hp -= dam.val / 2
-		return dam.val / 2
-	else:
-		hp -= dam.val
-	return dam.val
+		dam.val = dam.val / 2
+		return actor.apply_dagame(dam)
+	return actor.apply_dagame(dam)
 
 func floating_damage(val : int):
 	var damage := FD.instantiate() as FloatingDamage

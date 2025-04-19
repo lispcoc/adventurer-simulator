@@ -5,16 +5,18 @@
 [ext_resource type="Script" uid="uid://b2m81xdsv3udj" path="res://src/common/ui/selector/ui_generic_selector.gd" id="3_cc5o0"]
 [ext_resource type="Texture2D" uid="uid://cqu727ntqio20" path="res://assets/backgrounds/Village landscape Free Pixel Art Background.png" id="4_6j3an"]
 
-[node name="Town" type="CanvasLayer" node_paths=PackedStringArray("town_commands")]
+[node name="Town" type="Node2D" node_paths=PackedStringArray("town_commands")]
 script = ExtResource("1_sf2ax")
-town_commands = NodePath("TownCommands")
+town_commands = NodePath("TownCanvas/TownCommands")
 
-[node name="Background" type="Sprite2D" parent="."]
+[node name="TownCanvas" type="CanvasLayer" parent="."]
+
+[node name="Background" type="Sprite2D" parent="TownCanvas"]
 position = Vector2(320, 240)
 scale = Vector2(0.277778, 0.37037)
 texture = ExtResource("4_6j3an")
 
-[node name="TownCommands" type="ScrollContainer" parent="."]
+[node name="TownCommands" type="ScrollContainer" parent="TownCanvas"]
 offset_left = 16.0
 offset_top = 16.0
 offset_right = 128.0
@@ -25,6 +27,6 @@ scroll_vertical_custom_step = 32.0
 script = ExtResource("3_cc5o0")
 button_height = 32
 
-[node name="CenterContainer" type="CenterContainer" parent="."]
+[node name="CenterContainer" type="CenterContainer" parent="TownCanvas"]
 offset_right = 40.0
 offset_bottom = 40.0

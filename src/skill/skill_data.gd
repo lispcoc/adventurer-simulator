@@ -12,23 +12,12 @@ enum Type {
 	Magic,
 }
 
-enum Target {
-	EnemyOne,
-	EnemyLine,
-	EnemyAll,
-	PartyOne,
-	PartyLine,
-	PartyAll,
-	Self,
-	All
-}
-
 var id : String = "null"
 var skill_name : String = "null"
 var category : Category = Category.Attack
 var type : Type = Type.Melee
 var range : int = 1
-var target : Target = Target.EnemyOne
+var target : Game.Target = Game.Target.EnemyOne
 var effect : Callable = f_default
 # Melee
 var melee_damage_mul : float = 1.0
@@ -51,10 +40,10 @@ func from_db(db : Dictionary):
 		type = Type.Melee
 
 	range = db["range"]
-	target = Target.keys().find(db["target"]) as Target
+	target = Game.Target.keys().find(db["target"]) as Game.Target
 	if target == -1:
 		print("Invalid skill target")
-		target = Target.EnemyOne
+		target = Game.Target.EnemyOne
 
 	melee_damage_mul = db["melee_damage_mul"]
 	melee_time_override = db["melee_time_override"]
@@ -103,8 +92,8 @@ class SkillDataTextDatabase extends TextDatabase:
 					entry.type = i
 					break
 		if "target" in entry:
-			for i in SkillData.Target.keys().size():
-				if SkillData.Target.keys()[i] == entry.target:
+			for i in Game.Target.keys().size():
+				if Game.Target.keys()[i] == entry.target:
 					entry.target = i
 					break
 		if "effect" in entry:
