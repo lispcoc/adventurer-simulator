@@ -23,7 +23,6 @@ func _unhandled_input(event: InputEvent) -> void:
 		
 		selected.emit(_get_cell_under_mouse())
 		FieldEvents.cell_selected.emit(_get_cell_under_mouse())
-		print(_get_cell_under_mouse())
 		$"../Pawn".target = _get_cell_under_mouse()
 
 		#var pos =  gameboard.cell_to_pixel(_get_cell_under_mouse())

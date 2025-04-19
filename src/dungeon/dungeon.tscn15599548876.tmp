@@ -2,36 +2,21 @@
 
 [ext_resource type="Script" uid="uid://cue5rfqyitg4h" path="res://src/dungeon/dungeon.gd" id="1_1e7v8"]
 [ext_resource type="Resource" uid="uid://0giun82m84vb" path="res://src/dungeon/dungeon.tres" id="2_f2w8h"]
+[ext_resource type="Script" uid="uid://dux07tl04dsgi" path="res://src/dungeon/cursor.gd" id="2_u0t11"]
 [ext_resource type="TileSet" uid="uid://c4jv4ibnekvfk" path="res://tilesets/dungeon.tres" id="3_af48n"]
 [ext_resource type="Script" uid="uid://cav5k42vru7ch" path="res://src/dungeon/pawn.gd" id="4_af48n"]
 [ext_resource type="Texture2D" uid="uid://cakmf45fn77s0" path="res://assets/characters/generic.atlastex" id="5_74avl"]
 [ext_resource type="Script" uid="uid://b6kqcvygi0sb7" path="res://src/dungeon/roguelike_test.gd" id="5_f2w8h"]
 [ext_resource type="Script" uid="uid://l7w4j8186cmi" path="res://src/dungeon/map_gen_dig.gd" id="9_64iqu"]
+[ext_resource type="TileSet" uid="uid://6qhu1mg5nmcr" path="res://data/dungeon_chip/dungeon_chip.tres" id="10_77s3m"]
 [ext_resource type="PackedScene" uid="uid://6jno4dhvpuwg" path="res://data/dungeon_chip/dungeon_chip.tscn" id="10_devy2"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_64iqu"]
-bg_color = Color(0.6, 0.6, 0.6, 0)
-border_width_left = 3
-border_width_top = 3
-border_width_right = 3
-border_width_bottom = 3
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_devy2"]
-bg_color = Color(0.8, 0.8, 0.8, 0)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
-
-[node name="Dungeon" type="Node2D" node_paths=PackedStringArray("generator", "dungeon_chip", "dungeon_chip_frame", "layer", "frame_layer")]
+[node name="Dungeon" type="Node2D" node_paths=PackedStringArray("generator", "dungeon_chip", "layer")]
 script = ExtResource("1_1e7v8")
 gameboard = ExtResource("2_f2w8h")
 generator = NodePath("MapGenDig")
 dungeon_chip = NodePath("DungeonChip")
-dungeon_chip_frame = NodePath("Frame")
-layer = NodePath("Tiles")
-frame_layer = NodePath("Frames")
+layer = NodePath("TileMapLayer")
 
 [node name="RoguelikeTest" type="TileMapLayer" parent="."]
 visible = false
@@ -44,10 +29,9 @@ way_height = 2
 tile_set = ExtResource("3_af48n")
 script = ExtResource("9_64iqu")
 
-[node name="Tiles" type="TileMapLayer" parent="."]
-tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAAAAAIAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAYAAAAAAAAAAAAAAAgAAAAAAAAAAAAAAAkAAAAAAAAAAAAAAAoAAAAAAAAAAAAAAAsAAAAAAAAAAAAAAAwAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA4AAAAAAAAAAAABAAAAAAAAAAAAAAABAAIAAAAAAAAAAAABAAQAAAAAAAAAAAABAAYAAAAAAAAAAAABAAwAAAAAAAAAAAACAAAAAAAAAAAAAAACAAIAAAAAAAAAAAACAAQAAAAAAAAAAAACAAUAAAAAAAAAAAACAAYAAAAAAAAAAAACAAgAAAAAAAAAAAACAAkAAAAAAAAAAAACAAoAAAAAAAAAAAACAAsAAAAAAAAAAAACAAwAAAAAAAAAAAACAA0AAAAAAAAAAAACAA4AAAAAAAAAAAADAAIAAAAAAAAAAAADAAQAAAAAAAAAAAAEAAAAAAAAAAAAAAAEAAIAAAAAAAAAAAAEAAQAAAAAAAAAAAAEAAUAAAAAAAAAAAAEAAYAAAAAAAAAAAAEAAgAAAAAAAAAAAAEAAkAAAAAAAAAAAAEAAoAAAAAAAAAAAAEAAwAAAAAAAAAAAAEAA0AAAAAAAAAAAAEAA4AAAAAAAAAAAAFAAAAAAAAAAAAAAAFAAYAAAAAAAAAAAAFAAkAAAAAAAAAAAAFAAwAAAAAAAAAAAAFAA4AAAAAAAAAAAAGAAAAAAAAAAAAAAAGAAEAAAAAAAAAAAAGAAIAAAAAAAAAAAAGAAMAAAAAAAAAAAAGAAQAAAAAAAAAAAAGAAUAAAAAAAAAAAAGAAYAAAAAAAAAAAAGAAcAAAAAAAAAAAAGAAgAAAAAAAAAAAAGAAoAAAAAAAAAAAAGAAwAAAAAAAAAAAAGAA4AAAAAAAAAAAAHAAEAAAAAAAAAAAAHAAgAAAAAAAAAAAAHAAkAAAAAAAAAAAAHAAoAAAAAAAAAAAAHAAwAAAAAAAAAAAAHAA4AAAAAAAAAAAAIAAAAAAAAAAAAAAAIAAEAAAAAAAAAAAAIAAIAAAAAAAAAAAAIAAMAAAAAAAAAAAAIAAQAAAAAAAAAAAAIAAUAAAAAAAAAAAAIAAYAAAAAAAAAAAAIAAgAAAAAAAAAAAAIAAkAAAAAAAAAAAAIAAoAAAAAAAAAAAAIAAwAAAAAAAAAAAAIAA4AAAAAAAAAAAAIAA8AAAAAAAAAAAAJAAMAAAAAAAAAAAAJAAYAAAAAAAAAAAAJAAwAAAAAAAAAAAAKAAAAAAAAAAAAAAAKAAIAAAAAAAAAAAAKAAQAAAAAAAAAAAAKAAUAAAAAAAAAAAAKAAYAAAAAAAAAAAAKAAgAAAAAAAAAAAAKAAkAAAAAAAAAAAAKAAoAAAAAAAAAAAAKAAwAAAAAAAAAAAAKAA4AAAAAAAAAAAALAAAAAAAAAAAAAAALAAIAAAAAAAAAAAALAAgAAAAAAAAAAAALAAwAAAAAAAAAAAALAA4AAAAAAAAAAAAMAAAAAAAAAAAAAAAMAAIAAAAAAAAAAAAMAAQAAAAAAAAAAAAMAAUAAAAAAAAAAAAMAAYAAAAAAAAAAAAMAAgAAAAAAAAAAAAMAAoAAAAAAAAAAAAMAAwAAAAAAAAAAAAMAA4AAAAAAAAAAAANAAAAAAAAAAAAAAANAAsAAAAAAAAAAAANAA4AAAAAAAAAAAAOAAAAAAAAAAAAAAAOAAEAAAAAAAAAAAAOAAIAAAAAAAAAAAAOAAMAAAAAAAAAAAAOAAQAAAAAAAAAAAAOAAUAAAAAAAAAAAAOAAYAAAAAAAAAAAAOAAcAAAAAAAAAAAAOAAgAAAAAAAAAAAAOAAkAAAAAAAAAAAAOAAoAAAAAAAAAAAAOAAsAAAAAAAAAAAAOAAwAAAAAAAAAAAAOAA0AAAAAAAAAAAAOAA4AAAAAAAAAAAAPAAUAAAAAAAAAAAAAAAcAAAAAAAAAAAABAAEAAAAAAAAAAAABAAsAAAAAAAAAAAABAA8AAAAAAAAAAAADAAAAAAAAAAAAAAADAAMAAAAAAAAAAAADAAYAAAAAAAAAAAADAAcAAAAAAAAAAAADAAgAAAAAAAAAAAADAAsAAAAAAAAAAAADAA0AAAAAAAAAAAADAA4AAAAAAAAAAAAEAAMAAAAAAAAAAAAEAA8AAAAAAAAAAAAFAAQAAAAAAAAAAAAFAAoAAAAAAAAAAAAFAA8AAAAAAAAAAAAGAAkAAAAAAAAAAAAHAAIAAAAAAAAAAAAHAAMAAAAAAAAAAAAHAAYAAAAAAAAAAAAHAA0AAAAAAAAAAAAIAAsAAAAAAAAAAAAJAAAAAAAAAAAAAAAJAAQAAAAAAAAAAAAJAAoAAAAAAAAAAAAJAA4AAAAAAAAAAAAKAAEAAAAAAAAAAAAKAA8AAAAAAAAAAAALAAQAAAAAAAAAAAALAAUAAAAAAAAAAAALAAoAAAAAAAAAAAALAAsAAAAAAAAAAAAMAAkAAAAAAAAAAAAMAA8AAAAAAAAAAAANAAUAAAAAAAAAAAANAAYAAAAAAAAAAAANAAcAAAAAAAAAAAANAAkAAAAAAAAAAAANAAwAAAAAAAAAAAAPAAkAAAAAAAAAAAAPAAwAAAAAAAAAAAAPAA8AAAAAAAAAAAA=")
-
-[node name="Frames" type="TileMapLayer" parent="."]
+[node name="cursor" type="TileMapLayer" parent="." node_paths=PackedStringArray("ptr")]
+script = ExtResource("2_u0t11")
+ptr = NodePath("../Node2D")
 
 [node name="Pawn" type="Node2D" parent="."]
 position = Vector2(32, 32)
@@ -58,23 +42,25 @@ script = ExtResource("4_af48n")
 [node name="Generic" type="Sprite2D" parent="Pawn"]
 texture = ExtResource("5_74avl")
 
-[node name="DungeonChip" parent="." instance=ExtResource("10_devy2")]
+[node name="Node2D" type="Node2D" parent="."]
 visible = false
+position = Vector2(208, 48)
+
+[node name="DungeonChip" parent="." instance=ExtResource("10_devy2")]
 position = Vector2(-256, -192)
 
-[node name="Frame" type="Node2D" parent="."]
+[node name="TileMapLayer" type="TileMapLayer" parent="."]
+tile_set = ExtResource("10_77s3m")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
 visible = false
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="Frame" type="PanelContainer" parent="Frame"]
-clip_contents = true
-offset_right = 64.0
-offset_bottom = 64.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_64iqu")
+[node name="Button" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "aaaaa"
 
-[node name="Frame2" type="PanelContainer" parent="Frame"]
-clip_contents = true
-offset_left = 1.0
-offset_top = 1.0
-offset_right = 63.0
-offset_bottom = 63.0
-theme_override_styles/panel = SubResource("StyleBoxFlat_devy2")
+[node name="Button2" type="Button" parent="HBoxContainer"]
+layout_mode = 2
+text = "aaaaa"

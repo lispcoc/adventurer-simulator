@@ -1,9 +1,0 @@
-[gd_resource type="Resource" script_class="Gameboard" load_steps=2 format=3 uid="uid://0giun82m84vb"]
-
-[ext_resource type="Script" uid="uid://fy8tnc54y2jc" path="res://src/field/gameboard/gameboard.gd" id="1_dajqm"]
-
-[resource]
-script = ExtResource("1_dajqm")
-boundaries = Rect2i(0, 0, 100, 100)
-cell_size = Vector2i(32, 32)
-metadata/_custom_type_script = "uid://fy8tnc54y2jc"
