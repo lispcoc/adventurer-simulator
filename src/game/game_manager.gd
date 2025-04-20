@@ -4,6 +4,12 @@ signal battle_started
 signal battle_ended
 signal editor_started
 signal editor_ended
+signal on_pass_second
+signal on_pass_minute
+signal on_pass_hour
+signal on_pass_day
+signal on_pass_mon
+signal on_pass_year
 
 const MAX_PARTY_MEMBER = 5
 const MAX_LINE_MEMBER = 3
@@ -19,6 +25,7 @@ const FD : PackedScene = preload("res://src/battle/ui/number/floating_damage.tsc
 
 var current_focus : Control
 
+var dialog_doing : bool = false
 var scene_stack : Array[GameScene]
 
 #
@@ -39,33 +46,40 @@ func _ready() -> void:
 	StaticData.loaded.connect(on_game_loaded)
 	sort_ui()
 	get_viewport().gui_focus_changed.connect(watch_focus)
-	Dialogic.timeline_started.connect(hide_ui)
-	Dialogic.timeline_ended.connect(show_ui)
+	Dialogic.timeline_started.connect(on_dialog_start)
+	Dialogic.timeline_ended.connect(on_dialog_end)
 	battle_started.connect(hide_ui)
 	battle_ended.connect(show_ui)
 	editor_started.connect(hide_ui)
 	editor_ended.connect(show_ui)
-	start_town()
 
 func watch_focus(node : Control) -> void:
 	current_focus = node
 
 func start_town():
+	await on_game_scene_change_start()
 	for m in scene_stack: m.disable()
 	var town = scene_town.instantiate()
 	scene_stack.append(town)
 	get_tree().root.add_child.call_deferred(town)
+	await on_game_scene_change_end()
 
 func start_dungeon() -> void:
+	await on_game_scene_change_start()
 	for m in scene_stack: m.disable()
 	var dungeon = scene_dungeon.instantiate()
 	scene_stack.append(dungeon)
 	get_tree().root.add_child.call_deferred(dungeon)
+	await on_game_scene_change_end()
 
 func end_current_scene():
+	print("end_current_scene")
+	await on_game_scene_change_start()
 	scene_stack.pop_back()
 	scene_stack.back().enable()
 	scene_stack.back().start()
+	await on_game_scene_change_end()
+	print("end_current_scene")
 
 func sort_ui() -> void:
 	get_parent().move_child.call_deferred(DialogUi, get_parent().get_child_count() - 1)
@@ -73,6 +87,20 @@ func sort_ui() -> void:
 
 func on_game_loaded() -> void:
 	load_data()
+
+func on_game_scene_change_start() -> void:
+	await Transition.cover(0.5)
+
+func on_game_scene_change_end() -> void:
+	await Transition.clear(0.5)
+
+func on_dialog_start() -> void:
+	hide_ui()
+	dialog_doing = true
+
+func on_dialog_end() -> void:
+	dialog_doing = false
+	show_ui()
 
 func load_data() -> void:
 	make_dummy_data()
@@ -98,6 +126,13 @@ func make_dummy_data() -> void:
 	game_data.add_people(Actor.new())
 	game_data.add_people(Actor.new())
 	game_data.add_people(Actor.new())
+
+func get_time() -> GameTime:
+	return game_data.time
+
+func pass_time(seconds : int, minutes : int = 0, hours : int = 0):
+	for _s in range(0, seconds + minutes * 60 + hours * 3600):
+		game_data.time.pass_second()
 
 func start_battle() -> bool:
 	battle_started.emit()
@@ -154,7 +189,7 @@ func damage_party(dam : Damage):
 		floating_damage(p, dam.val)
 
 func show_ui() ->  void:
-	CharacterPanelUi.show()
+	if not dialog_doing: CharacterPanelUi.show()
 
 func hide_ui() ->  void:
 	CharacterPanelUi.hide()

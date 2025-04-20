@@ -1,9 +1,15 @@
 class_name ItemData extends RefCounted
 
+enum Type {
+	Melee,
+	Consumables,
+}
+
 var id : String = "null"
 var tname : String = ""
 var stackable : bool = false
 var wgt : int = 0
+var type : Type = Type.Melee
 
 var melee_base_times = 2
 var melee_base_amount = 2
@@ -16,7 +22,7 @@ static func load(list : Dictionary, path : String):
 	database.load_from_path(path)
 	list.merge(database.get_struct_dictionary(), true)
 
-func instantiate() -> Skill:
+func instantiate() -> Item:
 	var i = Item.new()
 	i.id = id
 	return i
@@ -24,11 +30,16 @@ func instantiate() -> Skill:
 class ItemDataTextDatabase extends TextDatabase:
 	func _initialize():
 		id_name = "no"
-		entry_name = "name"
+		entry_name = "tname"
 		define_from_struct(ItemData.new)
 
 	func _schema_initialize():
-		pass
+		override_property_type("type", TYPE_STRING)
 
-	func _postprocess_entry(_entry: Dictionary):
-		pass
+	func _postprocess_entry(entry: Dictionary):
+		entry.id = entry.tname
+		if "type" in entry:
+			for i in ItemData.Type.keys().size():
+				if ItemData.Type.keys()[i] == entry.type:
+					entry.type = i
+					break

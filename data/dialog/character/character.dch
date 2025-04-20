@@ -17,7 +17,9 @@
 &"portraits": {
 "Default": {
 "export_overrides": {
-"image": ""
+"image": "",
+"skin_color": "0.0",
+"timed_update": "false"
 },
 "mirror": false,
 "offset": Vector2(0, 0),

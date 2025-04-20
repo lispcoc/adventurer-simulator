@@ -4,7 +4,7 @@ signal loaded
 
 var classes : Dictionary = {}
 var skills : Dictionary = {}
-var items : Dictionary = {}
+var items : Dictionary[String, ItemData] = {}
 
 func _ready() -> void:
 	print("GameStaticData._ready")
@@ -34,6 +34,9 @@ func load_skills():
 func load_items():
 	ItemData.load(items, "res://data/json/items.cfg")
 	print(items)
+
+func item_from_id(id : String) -> ItemData:
+	return items[id]
 
 func skill_from_id(id : String) -> SkillData:
 	return skills[id]

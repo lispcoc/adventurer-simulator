@@ -1,5 +1,7 @@
 class_name Actor extends Node
 
+signal on_dead()
+
 var actor_name : String = "名無し"
 
 var portrait : String = ""

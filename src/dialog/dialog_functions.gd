@@ -17,3 +17,6 @@ func add_party(_character_templete_id : String) -> bool:
 	var actor = Actor.new()
 	Dialogic.VAR.RetVal.Success = Game.add_party(actor)
 	return Dialogic.VAR.RetVal.Success
+
+func damage_party(val : int):
+	Game.damage_party(Damage.new(val, Attribute.Type.None))

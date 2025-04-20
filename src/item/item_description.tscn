@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://c5oq6ip146jsn"]
+
+[ext_resource type="Script" uid="uid://cik22yjpkp4a6" path="res://src/item/item_description.gd" id="1_17se3"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_17se3"]
+font_size = 12
+font_color = Color(0.160784, 0.145098, 0.133333, 1)
+
+[node name="ItemDescription" type="Node2D"]
+script = ExtResource("1_17se3")
+
+[node name="Panel" type="Panel" parent="."]
+offset_right = 256.0
+offset_bottom = 192.0
+
+[node name="ReferenceLabel" type="Label" parent="."]
+offset_right = 40.0
+offset_bottom = 24.0
+label_settings = SubResource("LabelSettings_17se3")

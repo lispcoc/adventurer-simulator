@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://bxn7lymhwiswu"]
+
+[node name="Test" type="Node2D"]
+
+[node name="RichTextLabel" type="RichTextLabel" parent="."]
+offset_right = 16.0
+offset_bottom = 24.0
+theme_override_colors/default_color = Color(1, 0, 0, 1)
+bbcode_enabled = true
+text = "血"
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel2" type="RichTextLabel" parent="."]
+offset_left = 16.0
+offset_right = 32.0
+offset_bottom = 24.0
+theme_override_colors/default_color = Color(0.233333, 0, 0.4, 1)
+text = "暗"
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel3" type="RichTextLabel" parent="."]
+offset_left = 32.0
+offset_right = 48.0
+offset_bottom = 24.0
+text = "炎"
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel4" type="RichTextLabel" parent="."]
+offset_left = 48.0
+offset_right = 64.0
+offset_bottom = 24.0
+text = "魅"
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel5" type="RichTextLabel" parent="."]
+offset_left = 64.0
+offset_right = 80.0
+offset_bottom = 24.0
+text = "乱"
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel6" type="RichTextLabel" parent="."]
+offset_left = 80.0
+offset_right = 96.0
+offset_bottom = 24.0
+text = "呪"
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel7" type="RichTextLabel" parent="."]
+offset_left = 96.0
+offset_right = 112.0
+offset_bottom = 24.0
+text = "死"
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel8" type="RichTextLabel" parent="."]
+offset_top = 16.0
+offset_right = 16.0
+offset_bottom = 40.0
+text = "氷"
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel9" type="RichTextLabel" parent="."]
+offset_left = 16.0
+offset_top = 16.0
+offset_right = 32.0
+offset_bottom = 40.0
+text = "油"
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel10" type="RichTextLabel" parent="."]
+offset_left = 32.0
+offset_top = 16.0
+offset_right = 48.0
+offset_bottom = 40.0
+text = "痺"
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel11" type="RichTextLabel" parent="."]
+offset_left = 48.0
+offset_top = 16.0
+offset_right = 64.0
+offset_bottom = 40.0
+text = "毒"
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel12" type="RichTextLabel" parent="."]
+offset_left = 64.0
+offset_top = 16.0
+offset_right = 80.0
+offset_bottom = 40.0
+text = "黙"
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel13" type="RichTextLabel" parent="."]
+offset_left = 80.0
+offset_top = 16.0
+offset_right = 96.0
+offset_bottom = 40.0
+text = "眠"
+metadata/_edit_use_anchors_ = true
+
+[node name="RichTextLabel14" type="RichTextLabel" parent="."]
+offset_left = 96.0
+offset_top = 16.0
+offset_right = 112.0
+offset_bottom = 40.0
+text = "止"
+metadata/_edit_use_anchors_ = true

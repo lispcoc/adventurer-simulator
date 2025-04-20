@@ -1,6 +1,7 @@
 class_name CharacterPanel extends Button
 
 @export var name_label : Label
+@export var status_container : Container
 var lighter : ColorRect
 var timer : Timer
 var actor : Actor:
@@ -26,6 +27,7 @@ func _ready() -> void:
 	lighter.hide()
 	timer = Timer.new()
 	add_child(timer)
+	add_condition(StatusCondision.Burn)
 	selectable = false
 
 func update():
@@ -67,11 +69,14 @@ func set_mp(val : int, max_val : int):
 		bar.value = val * 100 / max_val
 
 func add_condition(cond: int) -> void:
+	status_container.add_child(StatusCondision.to_one_string_label(cond))
+	return
 	var sc := find_child("StatusCondition") as UIStatusCondision
 	if sc:
 		sc.add_condition(cond)
 
 func remove_condition(cond: int) -> void:
+	return
 	var sc := find_child("StatusCondition") as UIStatusCondision
 	if sc:
 		sc.add_condition(cond)

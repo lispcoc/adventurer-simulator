@@ -33,14 +33,23 @@ var handle_input := false
 var templates : Dictionary
 
 func _ready() -> void:
-	tiles.resize(width * height)
-	Game.battle_started.connect(hide)
-	Game.battle_ended.connect(show)
+	if Engine.is_editor_hint(): return
 	start()
 
 func start():
 	super.start()
+	tiles.resize(width * height)
+	Game.battle_started.connect(suspend)
+	Game.battle_ended.connect(resume)
 	run()
+
+func suspend():
+	handle_input = false
+	hide()
+
+func resume():
+	handle_input = true
+	show()
 
 func run():
 	generator.map_width = width
@@ -96,11 +105,9 @@ func set_dark(cell : Vector2i, dark : bool) -> void:
 func set_player(pawn : Pawn):
 	player = pawn
 	player.on_move.connect(_on_player_move)
-	_on_player_move(player.position)
+	update_surrounded_cells(player.get_cell())
 
-func _on_player_move(position : Vector2):
-	var cell = gameboard.pixel_to_cell(position)
-	print(cell)
+func update_surrounded_cells(cell : Vector2i):
 	for tile in tiles:
 		if tile: tile.set_dark(true)
 	for dx in range(-1, 2): for dy in range(-1, 2):
@@ -108,11 +115,15 @@ func _on_player_move(position : Vector2):
 		if tile:
 			tile.identified = true
 			tile.set_dark(false)
-	if randf() < 0.0:
+
+func _on_player_move(position : Vector2):
+	update_surrounded_cells(player.get_cell())
+	Dialogic.event_handled
+	Game.pass_time(0, 1)
+	Game.update_ui()
+	if randf() < 0.1:
 		player.cancel_move()
 		Game.start_battle()
-	Game.damage_party(Damage.new(1, Attribute.Type.None))
-	Game.update_ui()
 
 func _input(event: InputEvent) -> void:
 	if handle_input:

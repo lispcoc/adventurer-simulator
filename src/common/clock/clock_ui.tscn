@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://ckx1fhnfbhy4n"]
+
+[ext_resource type="Script" uid="uid://b5ybfd58ptwln" path="res://src/common/clock/clock.gd" id="1_neufm"]
+
+[node name="Clock" type="CanvasLayer"]
+script = ExtResource("1_neufm")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = 440.0
+offset_top = 8.0
+offset_right = 632.0
+offset_bottom = 56.0
+
+[node name="Time" type="RichTextLabel" parent="Panel"]
+layout_mode = 2
+offset_left = 8.0
+offset_right = 184.0
+offset_bottom = 48.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Place" type="RichTextLabel" parent="Panel"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

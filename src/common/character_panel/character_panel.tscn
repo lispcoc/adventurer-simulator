@@ -1,18 +1,21 @@
-[gd_scene load_steps=6 format=3 uid="uid://bwxpon7slc7v1"]
+[gd_scene load_steps=8 format=3 uid="uid://bwxpon7slc7v1"]
 
 [ext_resource type="PackedScene" uid="uid://jl6u4ujuq02h" path="res://src/combat/ui/health_bar/health_bar.tscn" id="1_1w15l"]
 [ext_resource type="Theme" uid="uid://dbtpqwsmsli2p" path="res://theme/default_ui.tres" id="1_yfmuk"]
 [ext_resource type="Script" uid="uid://dthmn8qk4j6es" path="res://src/common/character_panel/character_panel.gd" id="2_x6xkc"]
 [ext_resource type="PackedScene" uid="uid://do05pxfcwas8t" path="res://src/combat/ui/health_bar/mana_bar.tscn" id="2_yfmuk"]
+[ext_resource type="FontVariation" uid="uid://vk82c4oiprta" path="res://theme/font_variation/spaced.tres" id="3_uniog"]
+[ext_resource type="LabelSettings" uid="uid://bf4jv5du75xt0" path="res://theme/label/outlined_12.tres" id="4_ja8nb"]
 [ext_resource type="Script" uid="uid://co1xt4r7qttvp" path="res://src/common/character_panel/status_condition.gd" id="6_ebrwm"]
 
-[node name="CharacterPanel" type="Button" node_paths=PackedStringArray("name_label")]
+[node name="CharacterPanel" type="Button" node_paths=PackedStringArray("name_label", "status_container")]
 custom_minimum_size = Vector2(128, 84)
 offset_right = 128.0
 offset_bottom = 84.0
 theme = ExtResource("1_yfmuk")
 script = ExtResource("2_x6xkc")
 name_label = NodePath("MarginContainer/VBoxContainer/CharacterName")
+status_container = NodePath("MarginContainer/VBoxContainer/StatusCondition")
 
 [node name="MarginContainer" type="MarginContainer" parent="."]
 layout_mode = 0
@@ -37,19 +40,22 @@ layout_mode = 2
 
 [node name="HP" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_font_sizes/font_size = 12
+theme_override_fonts/font = ExtResource("3_uniog")
 text = "HP"
+label_settings = ExtResource("4_ja8nb")
 
 [node name="HealthBar" parent="MarginContainer/VBoxContainer/HBoxContainer" instance=ExtResource("1_1w15l")]
-custom_minimum_size = Vector2(80, 8)
+custom_minimum_size = Vector2(64, 8)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
 [node name="HPVal" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_uniog")
 theme_override_font_sizes/font_size = 12
 text = "100"
+label_settings = ExtResource("4_ja8nb")
 horizontal_alignment = 2
 
 [node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
@@ -57,22 +63,29 @@ layout_mode = 2
 
 [node name="MP" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_uniog")
 theme_override_font_sizes/font_size = 12
 text = "MP"
+label_settings = ExtResource("4_ja8nb")
 
 [node name="ManaBar" parent="MarginContainer/VBoxContainer/HBoxContainer2" instance=ExtResource("2_yfmuk")]
-custom_minimum_size = Vector2(80, 8)
+custom_minimum_size = Vector2(64, 8)
 layout_mode = 2
 size_flags_horizontal = 0
 size_flags_vertical = 4
 
 [node name="MPVal" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
+theme_override_fonts/font = ExtResource("3_uniog")
 theme_override_font_sizes/font_size = 12
 text = "100"
+label_settings = ExtResource("4_ja8nb")
 horizontal_alignment = 2
 
-[node name="StatusCondition" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 32)
+[node name="StatusCondition" type="GridContainer" parent="MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 24)
 layout_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 5
 script = ExtResource("6_ebrwm")

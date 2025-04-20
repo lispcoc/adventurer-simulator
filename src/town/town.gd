@@ -3,16 +3,17 @@ class_name Town extends GameScene
 @export var town_commands : UIGenericSelector
 
 func _ready():
+	start()
+
+func start():
+	$TownCanvas.show()
+	super.start()
+	town_commands.erase_commands()
 	town_commands.add_command("Dialog", "dialog")
 	town_commands.add_command("Battle", "battle")
 	town_commands.add_command("Portrait", "portrait_edit")
 	town_commands.add_command("Dungeon", "enter_dungeon")
 	town_commands.add_command("Save", "save_game")
-	main_loop()
-
-func start():
-	$TownCanvas.show()
-	super.start()
 	main_loop()
 
 func disable():

@@ -114,10 +114,14 @@ func dodge_roll() -> int:
 	return DiceRoller.roll_dices(1, 20) + actor.get_dodge()
 
 func apply_dagame(dam : Damage) -> int:
+	var actual_damage : int
 	if defence:
 		dam.val = dam.val / 2
-		return actor.apply_dagame(dam)
-	return actor.apply_dagame(dam)
+		actual_damage = actor.apply_dagame(dam)
+	else:
+		actual_damage = actor.apply_dagame(dam)
+	if is_dead(): on_dead()
+	return actual_damage
 
 func floating_damage(val : int):
 	var damage := FD.instantiate() as FloatingDamage

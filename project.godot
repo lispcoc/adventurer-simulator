@@ -36,6 +36,7 @@ DialogUi="*res://src/common/ui/dialog/dialog_ui.tscn"
 DialogFunctions="*res://src/dialog/dialog_functions.gd"
 BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+ClockUi="*res://src/common/clock/clock_ui.tscn"
 
 [debug]
 
@@ -106,6 +107,7 @@ directories/dch_directory={
 }
 directories/dtl_directory={
 "battle": "res://data/dialog/test/battle.dtl",
+"damage_test": "res://data/dungeon_event/damage_test.dtl",
 "debug": "res://data/dialog/test/debug.dtl",
 "encounter_before_combat": "res://maps/town/encounter_before_combat.dtl",
 "encounter_on_loss": "res://maps/town/encounter_on_loss.dtl",
