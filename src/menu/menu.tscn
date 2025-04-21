@@ -1,63 +1,19 @@
-[gd_scene load_steps=4 format=3 uid="uid://cevep23neb3g2"]
+[gd_scene load_steps=6 format=3 uid="uid://cevep23neb3g2"]
 
 [ext_resource type="Script" uid="uid://cjn6iylu2ncdj" path="res://src/menu/menu.gd" id="1_45w1x"]
 [ext_resource type="Script" uid="uid://b2m81xdsv3udj" path="res://src/common/ui/selector/ui_generic_selector.gd" id="2_56xr1"]
-[ext_resource type="Script" uid="uid://cjq7m8efv8psw" path="res://src/common/ui/selector/ui_generic_selector_button.gd" id="3_yvra3"]
+[ext_resource type="Script" uid="uid://bx3uhvkeu1oyj" path="res://src/menu/sort_submenu.gd" id="3_56xr1"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_56xr1"]
+font_color = Color(0.160784, 0.145098, 0.133333, 1)
+
+[sub_resource type="LabelSettings" id="LabelSettings_yvra3"]
+font_color = Color(0.160784, 0.145098, 0.133333, 1)
 
 [node name="Menu" type="CanvasLayer" node_paths=PackedStringArray("selector")]
 layer = 10
 script = ExtResource("1_45w1x")
 selector = NodePath("UIGenericSelector")
-
-[node name="アイテム" type="Button" parent="."]
-visible = false
-offset_left = 192.0
-offset_top = 64.0
-offset_right = 280.0
-offset_bottom = 90.0
-text = "アイテム"
-script = ExtResource("3_yvra3")
-metadata/_custom_type_script = "uid://cjq7m8efv8psw"
-
-[node name="装備" type="Button" parent="."]
-visible = false
-offset_left = 192.0
-offset_top = 64.0
-offset_right = 280.0
-offset_bottom = 90.0
-text = "装備"
-script = ExtResource("3_yvra3")
-metadata/_custom_type_script = "uid://cjq7m8efv8psw"
-
-[node name="ステータス" type="Button" parent="."]
-visible = false
-offset_left = 192.0
-offset_top = 64.0
-offset_right = 280.0
-offset_bottom = 90.0
-text = "ステータス"
-script = ExtResource("3_yvra3")
-metadata/_custom_type_script = "uid://cjq7m8efv8psw"
-
-[node name="並び替え" type="Button" parent="."]
-visible = false
-offset_left = 192.0
-offset_top = 64.0
-offset_right = 264.0
-offset_bottom = 90.0
-text = "並び替え"
-script = ExtResource("3_yvra3")
-metadata/_custom_type_script = "uid://cjq7m8efv8psw"
-
-[node name="会話" type="Button" parent="."]
-visible = false
-offset_left = 192.0
-offset_top = 64.0
-offset_right = 232.0
-offset_bottom = 90.0
-text = "会話"
-script = ExtResource("3_yvra3")
-metadata/_custom_type_script = "uid://cjq7m8efv8psw"
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 640.0
@@ -77,3 +33,31 @@ metadata/_custom_type_script = "uid://b2m81xdsv3udj"
 
 [node name="GridContainer" type="GridContainer" parent="UIGenericSelector"]
 layout_mode = 2
+
+[node name="SortSubMenu" type="GridContainer" parent="."]
+offset_left = 240.0
+offset_top = 65.0
+offset_right = 400.0
+offset_bottom = 191.0
+columns = 2
+script = ExtResource("3_56xr1")
+
+[node name="PanelContainer" type="PanelContainer" parent="SortSubMenu"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="SortSubMenu/PanelContainer"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+text = "<<前衛>>"
+label_settings = SubResource("LabelSettings_56xr1")
+horizontal_alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="SortSubMenu"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="SortSubMenu/PanelContainer2"]
+custom_minimum_size = Vector2(64, 0)
+layout_mode = 2
+text = "<<後衛>>"
+label_settings = SubResource("LabelSettings_yvra3")
+horizontal_alignment = 1

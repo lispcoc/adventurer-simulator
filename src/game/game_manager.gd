@@ -60,7 +60,7 @@ func _ready() -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if Input.is_action_pressed("ui_cancel"):
 		print("ui_cancel")
-		if not prohibit_menu:
+		if not prohibit_menu and not menu_active:
 			open_menu()
 			get_viewport().set_input_as_handled()
 
@@ -189,12 +189,12 @@ func get_party(front : bool = true, back : bool = true) -> Array[Actor]:
 	if back: party.append_array(game_data.party_back)
 	return party
 
-func add_party(member : Actor) ->  bool:
+func add_party(member : Actor, back : bool = false) ->  bool:
 	if not get_party().size() < MAX_PARTY_MEMBER:
 		return false
-	if game_data.party_front.size() < MAX_LINE_MEMBER:
+	if not back and game_data.party_front.size() < MAX_LINE_MEMBER:
 		game_data.party_front.append(member)
-	else:
+	elif game_data.party_back.size() < MAX_LINE_MEMBER:
 		game_data.party_back.append(member)
 	reload_ui()
 	return true
