@@ -20,6 +20,7 @@ var scene_town : PackedScene = load("res://src/town/town.tscn")
 var scene_dungeon : PackedScene = load("res://src/dungeon/dungeon.tscn")
 var scene_battle : PackedScene = load("res://src/battle/battle.tscn")
 var scene_portrait_edit : PackedScene = load("res://src/portrait/portrait_editor.tscn")
+var scene_menu : PackedScene = load("res://src/menu/menu.tscn")
 
 const FD : PackedScene = preload("res://src/battle/ui/number/floating_damage.tscn")
 
@@ -27,6 +28,9 @@ var current_focus : Control
 
 var dialog_doing : bool = false
 var scene_stack : Array[GameScene]
+
+var menu_active : bool = false
+var prohibit_menu : bool = false
 
 #
 # Constants
@@ -52,6 +56,13 @@ func _ready() -> void:
 	battle_ended.connect(show_ui)
 	editor_started.connect(hide_ui)
 	editor_ended.connect(show_ui)
+
+func _unhandled_input(event: InputEvent) -> void:
+	if Input.is_action_pressed("ui_cancel"):
+		print("ui_cancel")
+		if not prohibit_menu:
+			open_menu()
+			get_viewport().set_input_as_handled()
 
 func watch_focus(node : Control) -> void:
 	current_focus = node
@@ -81,6 +92,12 @@ func end_current_scene():
 	await on_game_scene_change_end()
 	print("end_current_scene")
 
+func open_menu() -> void:
+	menu_active = true
+	var menu := scene_menu.instantiate() as Menu
+	menu.exit.connect(func (): menu_active = false)
+	get_tree().root.add_child.call_deferred(menu)
+
 func sort_ui() -> void:
 	get_parent().move_child.call_deferred(DialogUi, get_parent().get_child_count() - 1)
 	get_parent().move_child.call_deferred(Transition, get_parent().get_child_count() - 1)
@@ -95,12 +112,14 @@ func on_game_scene_change_end() -> void:
 	await Transition.clear(0.5)
 
 func on_dialog_start() -> void:
+	prohibit_menu = true
 	hide_ui()
 	dialog_doing = true
 
 func on_dialog_end() -> void:
 	dialog_doing = false
 	show_ui()
+	prohibit_menu = false
 
 func load_data() -> void:
 	make_dummy_data()
@@ -135,6 +154,7 @@ func pass_time(seconds : int, minutes : int = 0, hours : int = 0):
 		game_data.time.pass_second()
 
 func start_battle() -> bool:
+	prohibit_menu = true
 	battle_started.emit()
 	await Transition.cover(0.5)
 	var battle = scene_battle.instantiate() as BattleManager
@@ -144,9 +164,11 @@ func start_battle() -> bool:
 	await battle.start()
 	await Transition.clear(0.5)
 	battle_ended.emit()
+	prohibit_menu = false
 	return true
 
 func start_portrait_edit(ch : Actor) -> bool:
+	prohibit_menu = true
 	editor_started.emit()
 	var portrait_editor = scene_portrait_edit.instantiate() as PortraitEditor
 	portrait_editor.target = ch
@@ -155,6 +177,7 @@ func start_portrait_edit(ch : Actor) -> bool:
 	await portrait_editor.exit
 	await menu_delay()
 	editor_ended.emit()
+	prohibit_menu = false
 	return true
 
 func menu_delay() -> void:

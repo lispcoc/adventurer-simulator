@@ -1,11 +1,11 @@
 class_name UIGenericSelectorButton extends Button
 
-signal selected(variable : UIGenericSelector.Result)
+signal selected(variable : Dictionary)
 signal nested_entered
 signal nested_canceled
 
 @export var nested_selector : UIGenericSelector
-var variable : UIGenericSelector.Result
+var variable : Dictionary
 
 func _ready() -> void:
 	pressed.connect(on_pressed)

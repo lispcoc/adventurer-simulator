@@ -17,7 +17,10 @@ signal exit
 signal canceled
 
 var commands : Array[UIGenericSelectorButton]
-var retvar : Result = Result.new()
+var retvar : Dictionary
+var processing : bool = false
+
+var last_node : Control = null
 
 func _ready() -> void:
 	if !container:
@@ -34,10 +37,15 @@ func _ready() -> void:
 	#	commands.front().focus_neighbor_top = commands.back().get_path()
 	hide()
 
-func _process(_delta):
+func _unhandled_input(event: InputEvent) -> void:
+	if not processing:
+		return
 	if Input.is_action_pressed("ui_cancel"):
-		retvar.canceled = true
-		exit.emit()
+		if cancelable:
+			print(name + ":ui_cancel")
+			retvar.canceled = true
+			on_canceled()
+			get_viewport().set_input_as_handled()
 
 func get_button_width() -> int: return size.x / columns
 
@@ -60,7 +68,7 @@ func erase_commands():
 func add_command(text : String, function : String, args : Array = []):
 	var cmd = UIGenericSelectorButton.new()
 	cmd.text = text
-	cmd.variable = Result.new()
+	cmd.variable = {}
 	cmd.variable.function = function
 	cmd.custom_minimum_size.x = get_button_width()
 	if button_height: cmd.custom_minimum_size.y = button_height
@@ -68,25 +76,31 @@ func add_command(text : String, function : String, args : Array = []):
 	commands.append(cmd)
 	container.add_child(cmd)
 
-func on_selected(variable : Result):
-	retvar = variable
+func on_selected(variable : Dictionary):
+	retvar = variable.duplicate()
 	retvar.canceled = false
-	exit.emit()
+	last_node = Game.current_focus
+	end_select()
 
-func start_select() -> Result:
+func on_canceled():
+	if cancelable:
+		retvar.canceled = true
+		end_select()
+
+func start_select() -> Dictionary:
 	retvar.canceled = false
 	enable()
 	show()
-	container.position = (size - container.size) / 2
+	processing = true
+	if last_node: last_node.grab_focus()
 	await exit
-	while retvar.canceled && !cancelable:
-		await exit
-	end_select()
 	return retvar
 
 func end_select():
+	processing = false
 	disable()
 	hide()
+	exit.emit()
 
 func disable():
 	for c in commands: c.disabled = true
@@ -95,3 +109,11 @@ func enable():
 	if not commands.is_empty():
 		for c in commands: c.disabled = false
 		commands[0].grab_focus()
+
+static func parse_retval(retval : Dictionary) -> Result:
+	print(retval)
+	var res = Result.new()
+	if retval.has("function"): res.function = retval["function"]
+	if retval.has("args"): res.args = retval["args"]
+	if retval.has("canceled"): res.canceled = retval["canceled"]
+	return res

@@ -21,13 +21,11 @@ func disable():
 	super.disable()
 
 func main_loop() -> void:
-	var last_node : Control = null
 	while true:
-		town_commands.start_select()
-		if last_node: last_node.grab_focus()
-		await town_commands.exit
-		last_node = Game.current_focus
-		match town_commands.retvar.function:
+		print("aaa")
+		var ret := await town_commands.start_select()
+		print(ret)
+		match ret.function:
 			"dialog":
 				await Game.debug_dialog()
 			"battle":

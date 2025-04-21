@@ -122,7 +122,7 @@ func _process(delta: float) -> void:
 		print(delta)
 		reflesh()
 
-func _update_portrait(passed_character:DialogicCharacter, passed_portrait:String) -> void:
+func _update_portrait(passed_character : DialogicCharacter, passed_portrait : String) -> void:
 	print("_update_portrait")
 	print(passed_character)
 	print(passed_portrait)
