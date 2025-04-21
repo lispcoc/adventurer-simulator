@@ -1,5 +1,20 @@
-新しいメンバーを追加します。
-do DialogFunctions.add_party("")
+仲間をテストします。
+- 追加
+	新しいメンバーを追加します。
+	do DialogFunctions.add_party("")
+- 削除
+	do DialogFunctions.get_party()
+	- {Party.0.Name} [if {Party.0.Name} != ""][else="hide"]
+		do DialogFunctions.remove_party(0)
+	- {Party.1.Name} [if {Party.1.Name} != ""][else="hide"]
+		do DialogFunctions.remove_party(1)
+	- {Party.2.Name} [if {Party.2.Name} != ""][else="hide"]
+		do DialogFunctions.remove_party(2)
+	- {Party.3.Name} [if {Party.3.Name} != ""][else="hide"]
+		do DialogFunctions.remove_party(3)
+	- {Party.4.Name} [if {Party.4.Name} != ""][else="hide"]
+		do DialogFunctions.remove_party(4)
+	- やめる
 if {RetVal.Success} == true:
 	成功。
 else:

@@ -71,9 +71,31 @@ variables={
 "HasWarriorToken": 0,
 "HasWizardToken": 0,
 "Hint": 0,
+"Party": {
+"0": {
+"Name": ""
+},
+"1": {
+"Name": ""
+},
+"2": {
+"Name": ""
+},
+"3": {
+"Name": ""
+},
+"4": {
+"Name": ""
+},
+"Name_0": "",
+"Name_1": "",
+"Name_2": "",
+"Name_3": "",
+"Name_4": ""
+},
 "RedWandCount": 0,
 "RetVal": {
-"Success": false
+"Success": true
 },
 "StrangeTreeExamined": 0,
 "TokenCount": 0,

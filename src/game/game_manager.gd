@@ -176,6 +176,19 @@ func add_party(member : Actor) ->  bool:
 	reload_ui()
 	return true
 
+func remove_party(member : Actor) ->  bool:
+	if not member: return false
+	if game_data.party_front.has(member):
+		game_data.party_front.erase(member)
+		reload_ui()
+		return true
+	elif game_data.party_back.has(member):
+		game_data.party_back.erase(member)
+		reload_ui()
+		return true
+	reload_ui()
+	return false
+
 func floating_damage(target: Node, val : int, offset : Vector2 = Vector2(0, 0)):
 	var damage := FD.instantiate() as FloatingDamage
 	damage.text = String.num_uint64(val)

@@ -2,7 +2,13 @@ class_name Actor extends Node
 
 signal on_dead()
 
+enum Sex {
+	Male,
+	Female
+}
+
 var actor_name : String = "名無し"
+var sex : Sex = Sex.Female
 
 var portrait : String = ""
 
@@ -33,11 +39,15 @@ func _init() -> void:
 		init = true
 		initialize_actor()
 		test()
+		pick_random_name()
 
 func test():
 	var s = StaticData.skill_from_id("魔神斬り").instantiate()
 	skills.append(s)
 	skills.append(StaticData.skill_from_id("軽傷治癒").instantiate())
+
+func pick_random_name():
+	actor_name = StaticData.names.get_female_name()
 
 func initialize_actor():
 	recalc_status()
