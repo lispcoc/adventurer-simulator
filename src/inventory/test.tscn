@@ -1,0 +1,40 @@
+[gd_scene load_steps=6 format=3 uid="uid://b0t52termprq"]
+
+[ext_resource type="Script" uid="uid://3jcgm8004upx" path="res://addons/gloot/core/inventory.gd" id="1_aa3q5"]
+[ext_resource type="Script" uid="uid://dr1kceknhxehn" path="res://src/inventory/test.gd" id="1_ns5ye"]
+[ext_resource type="Script" uid="uid://dxin1l32oqvqv" path="res://addons/gloot/core/constraints/grid_constraint.gd" id="2_7nmhe"]
+[ext_resource type="Script" uid="uid://clip8lxle5ouc" path="res://addons/gloot/ui/ctrl_inventory.gd" id="4_7nmhe"]
+
+[sub_resource type="JSON" id="JSON_v2ye7"]
+data = {
+"item_1x1": {
+"size": "Vector2i(1, 1)"
+}
+}
+
+[node name="Test" type="Node2D"]
+script = ExtResource("1_ns5ye")
+
+[node name="Inventory" type="Node" parent="."]
+script = ExtResource("1_aa3q5")
+protoset = SubResource("JSON_v2ye7")
+_serialized_format = {}
+metadata/_custom_type_script = "uid://3jcgm8004upx"
+
+[node name="GridConstraint" type="Node" parent="Inventory"]
+script = ExtResource("2_7nmhe")
+insertion_priority = 0
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="CtrlInventory" type="ItemList" parent="CanvasLayer" node_paths=PackedStringArray("inventory")]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 256.0
+offset_bottom = 305.0
+select_mode = 2
+max_columns = 2
+same_column_width = true
+script = ExtResource("4_7nmhe")
+inventory = NodePath("../../Inventory")
+metadata/_custom_type_script = "uid://clip8lxle5ouc"

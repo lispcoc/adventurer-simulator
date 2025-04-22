@@ -1,0 +1,14 @@
+[gd_scene load_steps=2 format=3 uid="uid://b1l7ttypeg17e"]
+
+[ext_resource type="Script" uid="uid://b5r0kvxk1t8eb" path="res://src/inventory/item_control.gd" id="2_t8q4e"]
+
+[node name="ItemControl" type="Control"]
+layout_mode = 3
+anchors_preset = 0
+script = ExtResource("2_t8q4e")
+metadata/_custom_type_script = "uid://ctmxxqp3akt06"
+
+[node name="ItemControlButton" type="Button" parent="."]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 32.0
