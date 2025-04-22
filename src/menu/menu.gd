@@ -4,6 +4,8 @@ signal exit()
 
 @export var selector : UIGenericSelector
 
+var status_submenu : PackedScene = load("res://src/menu/status_submenu.tscn")
+
 var sort_submenu : SortSubMenu
 
 var submenu_active : bool = false
@@ -23,11 +25,15 @@ func _ready() -> void:
 	selector.add_command("会話", "talk")
 	selector.add_command("デバッグ", "debug")
 	while true:
-		print("aaaaa")
 		var ret = selector.parse_retval(await selector.start_select())
 		if ret.canceled:
 			break
 		match ret.function:
+			"status":
+				submenu_active = true
+				var sub := status_submenu.instantiate() as StatusSubMenu
+				add_child(sub)
+				await sub.exit
 			"sort":
 				submenu_active = true
 				sort_submenu.start_sort()

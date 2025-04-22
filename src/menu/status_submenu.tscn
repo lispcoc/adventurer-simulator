@@ -1,0 +1,141 @@
+[gd_scene load_steps=8 format=3 uid="uid://dbrickg7dbl7s"]
+
+[ext_resource type="Script" uid="uid://cpt85ty1eftgb" path="res://src/menu/status_submenu.gd" id="1_dpenu"]
+[ext_resource type="Script" uid="uid://b2m81xdsv3udj" path="res://src/common/ui/selector/ui_generic_selector.gd" id="2_yj07l"]
+[ext_resource type="Script" uid="uid://72xsud65eowi" path="res://src/common/ui/grid/tiled_string_grid.gd" id="3_g3bex"]
+[ext_resource type="PackedScene" uid="uid://ckj8nx2ww3lvi" path="res://src/portrait/portrait.tscn" id="3_lhm85"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_pfdxi"]
+bg_color = Color(0.639216, 0.564706, 0.505882, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fqa48"]
+bg_color = Color(0.301961, 0.380392, 0.376471, 1)
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_lhm85"]
+bg_color = Color(0.639216, 0.564706, 0.505882, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[node name="StatusSubmenu" type="Node2D"]
+script = ExtResource("1_dpenu")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 11
+
+[node name="ActorSelector" type="ScrollContainer" parent="CanvasLayer" node_paths=PackedStringArray("container")]
+offset_top = 32.0
+offset_right = 128.0
+offset_bottom = 256.0
+script = ExtResource("2_yj07l")
+container = NodePath("GridContainer")
+cancelable = true
+metadata/_custom_type_script = "uid://b2m81xdsv3udj"
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/ActorSelector"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="TabContainer" type="TabContainer" parent="CanvasLayer"]
+offset_left = 128.0
+offset_right = 640.0
+offset_bottom = 480.0
+current_tab = 0
+
+[node name="TabBar" type="TabBar" parent="CanvasLayer/TabContainer"]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="BaseStatus" type="GridContainer" parent="CanvasLayer/TabContainer/TabBar"]
+unique_name_in_owner = true
+layout_mode = 2
+offset_left = 4.0
+offset_top = 5.0
+offset_right = 116.0
+offset_bottom = 29.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 2
+script = ExtResource("3_g3bex")
+odd_style = SubResource("StyleBoxFlat_pfdxi")
+even_style = SubResource("StyleBoxFlat_fqa48")
+odd_color = Color(1, 1, 1, 1)
+even_color = Color(1, 1, 1, 1)
+metadata/_custom_type_script = "uid://72xsud65eowi"
+
+[node name="WeaponInfo" type="GridContainer" parent="CanvasLayer/TabContainer/TabBar"]
+unique_name_in_owner = true
+layout_mode = 1
+offset_left = 4.0
+offset_top = 253.0
+offset_right = 128.0
+offset_bottom = 277.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 2
+script = ExtResource("3_g3bex")
+odd_style = SubResource("StyleBoxFlat_pfdxi")
+even_style = SubResource("StyleBoxFlat_fqa48")
+odd_color = Color(1, 1, 1, 1)
+even_color = Color(1, 1, 1, 1)
+metadata/_custom_type_script = "uid://72xsud65eowi"
+
+[node name="TextL" type="RichTextLabel" parent="CanvasLayer/TabContainer/TabBar"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 213.0
+offset_right = 164.0
+offset_bottom = 445.0
+bbcode_enabled = true
+
+[node name="TextR" type="RichTextLabel" parent="CanvasLayer/TabContainer/TabBar"]
+unique_name_in_owner = true
+offset_left = 164.0
+offset_top = 237.0
+offset_right = 324.0
+offset_bottom = 445.0
+bbcode_enabled = true
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/TabContainer/TabBar"]
+layout_mode = 2
+offset_left = 332.0
+offset_top = 5.0
+offset_right = 500.0
+offset_bottom = 245.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_lhm85")
+
+[node name="Portrait" parent="CanvasLayer/TabContainer/TabBar/PanelContainer" instance=ExtResource("3_lhm85")]
+unique_name_in_owner = true
+position = Vector2(88, 120)
+
+[node name="TabBar2" type="TabBar" parent="CanvasLayer/TabContainer"]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="CanvasLayer/TabContainer/TabBar2"]
+visible = false
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 453.0
+text = "bbbbb"

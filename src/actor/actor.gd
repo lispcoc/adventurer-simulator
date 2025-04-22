@@ -73,10 +73,11 @@ func get_weapon() -> Item:
 func get_atk() -> int:
 	return int(strength / 2.0)
 
-func get_melee_times(sk : Skill = null) -> int:
+# =($D$3+20) * MAX(1, 8 + $B$3 - B9) / 3000
+func get_melee_times(sk : Skill = null, weapon : Item = null) -> int:
 	if sk:
 		if sk.data.melee_time_override: return sk.data.melee_time_override
-	# =($D$3+20) * MAX(1, 8 + $B$3 - B9) / 3000
+	if weapon == null: weapon = get_weapon()
 	var grow_rate = (dexterity + 20) * max(1, 8 + strength - get_weapon().wgt) / 3000.0 
 	return get_weapon().data.melee_base_times + grow_rate * level
 

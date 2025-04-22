@@ -65,12 +65,13 @@ func erase_commands():
 		container.remove_child(cmd)
 	commands.clear()
 
-func add_command(text : String, function : String, args : Array = []):
+func add_command(text : String, function : String, args : Array = [], focus_callback : Callable = func ():):
 	var cmd = UIGenericSelectorButton.new()
 	cmd.text = text
 	cmd.variable = {}
 	cmd.variable.function = function
 	cmd.custom_minimum_size.x = get_button_width()
+	cmd.focus_entered.connect(focus_callback)
 	if button_height: cmd.custom_minimum_size.y = button_height
 	connect_command(cmd)
 	commands.append(cmd)

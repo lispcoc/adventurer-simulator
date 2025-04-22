@@ -180,7 +180,6 @@ offset_bottom = 238.0
 
 [node name="Portrait" parent="CanvasLayer/PanelContainer2" instance=ExtResource("8_qkyk6")]
 position = Vector2(40, 120)
-flip_v = false
 
 [node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
 offset_right = 640.0
