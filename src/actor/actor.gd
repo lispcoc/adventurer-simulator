@@ -100,6 +100,12 @@ func apply_dagame(dam : Damage) -> int:
 func set_hp(v : int):
 	hp = max(v, 0)
 
+func add_item(item : Item) -> void:
+	inventory.append(item)
+
+func remove_item(item : Item) -> void:
+	inventory.erase(item)
+
 class Equip:
 	var weapon : Item
 	var head : Item

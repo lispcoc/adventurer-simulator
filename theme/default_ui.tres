@@ -1,4 +1,4 @@
-[gd_resource type="Theme" load_steps=14 format=3 uid="uid://dbtpqwsmsli2p"]
+[gd_resource type="Theme" load_steps=16 format=3 uid="uid://dbtpqwsmsli2p"]
 
 [ext_resource type="StyleBox" uid="uid://uxq1ftg6bitc" path="res://theme/default_panel.tres" id="2_ubjm2"]
 
@@ -72,6 +72,17 @@ corner_radius_top_left = 2
 corner_radius_top_right = 2
 corner_radius_bottom_right = 2
 corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h7qta"]
+bg_color = Color(0.639216, 0.564706, 0.505882, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_0c784"]
+bg_color = Color(0.6, 0.6, 0.6, 0)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0.639216, 0.564706, 0.505882, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ubjm2"]
 bg_color = Color(0, 0, 0, 1)
@@ -158,6 +169,12 @@ DialogChoice/styles/focus = SubResource("StyleBoxFlat_h3thk")
 DialogNameLabel/base_type = &"Label"
 DialogNameLabel/colors/font_color = Color(0.937255, 0.85098, 0.705882, 1)
 DialogNameLabel/styles/normal = SubResource("StyleBoxFlat_73qds")
+ItemList/colors/font_color = Color(0.160784, 0.145098, 0.133333, 1)
+ItemList/colors/font_selected_color = Color(0.160784, 0.145098, 0.133333, 1)
+ItemList/font_sizes/font_size = 14
+ItemList/styles/panel = ExtResource("2_ubjm2")
+ItemList/styles/selected = SubResource("StyleBoxFlat_h7qta")
+ItemList/styles/selected_focus = SubResource("StyleBoxFlat_0c784")
 Label/colors/font_color = Color(0.160784, 0.145098, 0.133333, 1)
 Panel/styles/panel = ExtResource("2_ubjm2")
 PanelContainer/styles/panel = ExtResource("2_ubjm2")

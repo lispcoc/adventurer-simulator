@@ -5,6 +5,7 @@ signal exit()
 @export var selector : UIGenericSelector
 
 var status_submenu : PackedScene = load("res://src/menu/status_submenu.tscn")
+var inventory_submenu : PackedScene = load("res://src/menu/inventory_submenu.tscn")
 
 var sort_submenu : SortSubMenu
 
@@ -29,6 +30,11 @@ func _ready() -> void:
 		if ret.canceled:
 			break
 		match ret.function:
+			"item":
+				submenu_active = true
+				var sub := inventory_submenu.instantiate()
+				add_child(sub)
+				await sub.exit
 			"status":
 				submenu_active = true
 				var sub := status_submenu.instantiate() as StatusSubMenu

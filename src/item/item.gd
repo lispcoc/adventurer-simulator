@@ -25,3 +25,9 @@ func get_melee_performance_string() -> String:
 		data.melee_base_sides,
 		data.melee_base_attack,
 		]
+
+func short_description() ->  String:
+	var lines : PackedStringArray
+	lines.push_back(display_name())
+	lines.push_back(get_melee_performance_string())
+	return "\n".join(lines)
