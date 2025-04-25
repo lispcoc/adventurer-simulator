@@ -69,8 +69,5 @@ metadata/_custom_type_script = "uid://3jcgm8004upx"
 [node name="Actor" type="Node" parent="."]
 script = ExtResource("2_2nhvi")
 protoset = SubResource("JSON_8x2tj")
-_serialized_format = {
-"node_name": "Actor",
-"protoset": "res://src/menu/inventory_submenu.tscn::JSON_8x2tj"
-}
+_serialized_format = {}
 metadata/_custom_type_script = "uid://3jcgm8004upx"

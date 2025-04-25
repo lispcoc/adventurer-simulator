@@ -37,6 +37,7 @@ DialogFunctions="*res://src/dialog/dialog_functions.gd"
 BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
 ClockUi="*res://src/common/clock/clock_ui.tscn"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
+Uuid="*res://addons/uuid/uuid.gd"
 
 [debug]
 

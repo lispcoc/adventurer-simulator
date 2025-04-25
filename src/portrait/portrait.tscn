@@ -42,7 +42,7 @@ shader_parameter/new_color = PackedColorArray(0.4, 0.278431, 0.317647, 1, 0.2509
 script = ExtResource("1_nopd3")
 default_palette = ExtResource("16_c0ulj")
 
-[node name="hat_back" type="AnimatedSprite2D" parent="."]
+[node name="hat_back" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 texture_filter = 1
 sprite_frames = ExtResource("2_b7wet")
 frame = 1
@@ -66,7 +66,7 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 
-[node name="hair_back" type="AnimatedSprite2D" parent="."]
+[node name="hair_back" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 texture_filter = 1
 material = SubResource("ShaderMaterial_c0ulj")
 sprite_frames = ExtResource("2_01wiw")
@@ -94,7 +94,7 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 
-[node name="body" type="AnimatedSprite2D" parent="."]
+[node name="body" type="AnimatedSprite2D" parent="." groups=["portrait_body"]]
 texture_filter = 1
 sprite_frames = ExtResource("2_1srbf")
 frame = 1
@@ -118,7 +118,7 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 
-[node name="face" type="AnimatedSprite2D" parent="."]
+[node name="face" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 texture_filter = 1
 sprite_frames = ExtResource("3_ym1tx")
 frame = 1
@@ -142,7 +142,7 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 
-[node name="cheek" type="AnimatedSprite2D" parent="."]
+[node name="cheek" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 texture_filter = 1
 sprite_frames = ExtResource("10_ahuyi")
 frame = 1
@@ -166,7 +166,7 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 
-[node name="eye" type="AnimatedSprite2D" parent="."]
+[node name="eye" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 sprite_frames = ExtResource("4_yr8g5")
 frame = 1
 metadata/_aseprite_wizard_interface_config_ = {
@@ -189,7 +189,7 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 
-[node name="eyebrow" type="AnimatedSprite2D" parent="."]
+[node name="eyebrow" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 texture_filter = 1
 sprite_frames = ExtResource("5_yr8g5")
 frame = 1
@@ -213,7 +213,7 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 
-[node name="eyelid" type="AnimatedSprite2D" parent="."]
+[node name="eyelid" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 texture_filter = 1
 sprite_frames = ExtResource("7_gywy8")
 frame = 1
@@ -237,7 +237,7 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 
-[node name="mouth" type="AnimatedSprite2D" parent="."]
+[node name="mouth" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 texture_filter = 1
 sprite_frames = ExtResource("9_2lwib")
 frame = 1
@@ -261,7 +261,7 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 
-[node name="glasses" type="AnimatedSprite2D" parent="."]
+[node name="glasses" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 texture_filter = 1
 sprite_frames = ExtResource("11_37xmf")
 frame = 1
@@ -285,7 +285,7 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 
-[node name="clothing" type="AnimatedSprite2D" parent="."]
+[node name="clothing" type="AnimatedSprite2D" parent="." groups=["portrait_body"]]
 texture_filter = 1
 material = SubResource("ShaderMaterial_qdlo0")
 sprite_frames = ExtResource("8_xw80p")
@@ -311,7 +311,7 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 
-[node name="hair_front" type="AnimatedSprite2D" parent="."]
+[node name="hair_front" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 texture_filter = 1
 material = SubResource("ShaderMaterial_uxjvr")
 sprite_frames = ExtResource("9_hmk5t")
@@ -339,7 +339,7 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "e41684248b16667028563257aa20a0cc"
 
-[node name="hat" type="AnimatedSprite2D" parent="."]
+[node name="hat" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 texture_filter = 1
 material = SubResource("ShaderMaterial_vnlt0")
 sprite_frames = ExtResource("10_b7wet")
@@ -364,3 +364,5 @@ metadata/_aseprite_wizard_config_ = {
 "source": "res://assets/characters/portraits/parts/スプライト-0001.aseprite"
 }
 metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
+
+[node name="Timer" type="Timer" parent="."]

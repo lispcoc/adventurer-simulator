@@ -70,6 +70,7 @@ func add_command(text : String, function : String, args : Array = [], focus_call
 	cmd.text = text
 	cmd.variable = {}
 	cmd.variable.function = function
+	cmd.variable.args = args
 	cmd.custom_minimum_size.x = get_button_width()
 	cmd.focus_entered.connect(focus_callback)
 	if button_height: cmd.custom_minimum_size.y = button_height
@@ -112,7 +113,6 @@ func enable():
 		commands[0].grab_focus()
 
 static func parse_retval(retval : Dictionary) -> Result:
-	print(retval)
 	var res = Result.new()
 	if retval.has("function"): res.function = retval["function"]
 	if retval.has("args"): res.args = retval["args"]

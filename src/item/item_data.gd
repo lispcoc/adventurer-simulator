@@ -1,7 +1,13 @@
 class_name ItemData extends RefCounted
 
 enum Type {
-	Melee,
+	Weapon,
+	Shield,
+	Torso,
+	Headwear,
+	Footwear,
+	Amulet,
+	Ring,
 	Consumables,
 }
 
@@ -9,12 +15,14 @@ var id : String = "null"
 var tname : String = ""
 var stackable : bool = false
 var wgt : int = 0
-var type : Type = Type.Melee
+var type : Type = Type.Consumables
 
 var melee_base_times = 2
 var melee_base_amount = 2
 var melee_base_sides = 4
 var melee_base_attack = 0
+
+var armour_base_defense = 0
 
 static func load(list : Dictionary, path : String):
 	var database = ItemDataTextDatabase.new()

@@ -1,0 +1,23 @@
+[gd_scene load_steps=3 format=3 uid="uid://ia6att62w044"]
+
+[ext_resource type="Script" uid="uid://ch04fce7t4dfi" path="res://src/menu/base_submenu_with_actor.gd" id="1_l2j1y"]
+[ext_resource type="Script" uid="uid://b2m81xdsv3udj" path="res://src/common/ui/selector/ui_generic_selector.gd" id="2_xkub7"]
+
+[node name="BaseSubmenuWithActor" type="Node2D"]
+script = ExtResource("1_l2j1y")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ActorSelector" type="ScrollContainer" parent="CanvasLayer" node_paths=PackedStringArray("container")]
+offset_top = 32.0
+offset_right = 128.0
+offset_bottom = 256.0
+script = ExtResource("2_xkub7")
+container = NodePath("GridContainer")
+cancelable = true
+metadata/_custom_type_script = "uid://b2m81xdsv3udj"
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/ActorSelector"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3

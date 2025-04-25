@@ -13,7 +13,7 @@ var sex : Sex = Sex.Female
 var portrait : String = ""
 
 var skills : Array[Skill]
-var eqip : Equip = Equip.new()
+var equip : Equip = Equip.new()
 var inventory : Array[Item] = []
 
 var class_id : String = "warrior"
@@ -64,11 +64,20 @@ func recalc_status():
 func get_class_data() -> Class:
 	return StaticData.classes[class_id]
 
+func get_item_from_uid(uid : String) -> Item:
+	for item in inventory:
+		print(item)
+		print(item.uid)
+		if item.uid == uid: return item
+	return null
+
 func get_weapon() -> Item:
-	if eqip.weapon:
-		return eqip.weapon
-	else:
-		return Item.new()
+	var weapon = get_item_from_uid(equip.weapon_uid)
+	if weapon: return weapon
+	else: return Item.new()
+
+func set_weapon(weapon : Item) -> void:
+	equip.weapon_uid = weapon.uid
 
 func get_atk() -> int:
 	return int(strength / 2.0)
@@ -105,11 +114,3 @@ func add_item(item : Item) -> void:
 
 func remove_item(item : Item) -> void:
 	inventory.erase(item)
-
-class Equip:
-	var weapon : Item
-	var head : Item
-	var body : Item
-	var foot : Item
-	var ring : Item
-	var backpack : Item

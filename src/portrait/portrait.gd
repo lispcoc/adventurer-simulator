@@ -114,8 +114,13 @@ var skin_color_list : PackedColorArray = [
 
 var num_parts : Dictionary
 
+@onready var timer : Timer = $Timer
+
 func _ready() -> void:
 	reflesh()
+	if not Engine.is_editor_hint():
+		timer.timeout.connect(_on_interval)
+		timer.start(5.0)
 
 func _process(delta: float) -> void:
 	if timed_update:
@@ -128,11 +133,10 @@ func _update_portrait(passed_character : DialogicCharacter, passed_portrait : St
 	print(passed_portrait)
 
 func reflesh():
-	for c in get_children():
-		c = c as AnimatedSprite2D
-		if data.keys().find(c.name) < 0:
-			data[c.name] = 0
-		num_parts[c.name] = c.sprite_frames.get_frame_count(c.animation)
+	for c in get_children(): if c is AnimatedSprite2D:
+			if data.keys().find(c.name) < 0:
+				data[c.name] = 0
+			num_parts[c.name] = c.sprite_frames.get_frame_count(c.animation)
 	for k in data.keys():
 		var s = find_child(k) as AnimatedSprite2D
 		if s:
@@ -152,6 +156,20 @@ func reflesh():
 
 func _on_update():
 	reflesh()
+
+func _on_interval():
+	nod()
+
+func nod():
+	for part in get_children():if part.is_in_group("portrait_head"):
+		var tw = get_tree().create_tween()
+		tw.tween_property(part, "rotation", -0.05, 0.3)
+		tw.tween_interval(1.0)
+		tw.tween_property(part, "rotation", 0.0, 0.3)
+		tw = get_tree().create_tween()
+		tw.tween_property(part, "position", Vector2(-4, 2), 0.3)
+		tw.tween_interval(1.0)
+		tw.tween_property(part, "position", Vector2(0, 0), 0.3)
 
 func reflesh_skin():
 	var skin_names = [
@@ -203,9 +221,8 @@ func get_keys() -> Array[String]:
 
 func get_color_keys() -> Array[String]:
 	var keys : Array[String]
-	for c in get_children():
-		var part = c as PortraitPart
-		if part and part.get_color_count(): keys.append(c.name)
+	for part in get_children(): if part is PortraitPart:
+		if part.get_color_count(): keys.append(part.name)
 	return keys
 	
 func get_key_name(key : String) -> String:
@@ -213,8 +230,8 @@ func get_key_name(key : String) -> String:
 
 func get_parts() -> Array[AnimatedSprite2D]:
 	var _parts : Array[AnimatedSprite2D]
-	for c in get_children():
-		if c as AnimatedSprite2D: _parts.append(c)
+	for c in get_children(): if c is AnimatedSprite2D:
+		_parts.append(c)
 	return _parts
 
 func _to_string() -> String:
