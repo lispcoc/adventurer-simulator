@@ -14,10 +14,14 @@ func _ready() -> void:
 		%Actor.inventory.add_item(inv_actor)
 		%Actor.inventory_item_selected.connect(func (item):
 			if ctrl_inventory: ctrl_inventory.queue_free.call_deferred()
-			ctrl_inventory = spawn_inventory(item.get_property("actor"), %CtrlInventory)
+			var actor : Actor = item.get_property("actor")
+			ctrl_inventory = actor.spawn_inventory(%CtrlInventory)
+			ctrl_inventory.show()
+			ctrl_inventory.inventory_item_selected.connect(on_selected)
+			ctrl_inventory.inventory_item_activated.connect(on_activated)
 			$CanvasLayer.add_child(ctrl_inventory)
 		)
-		%Actor.inventory_item_activated.connect(func (item):
+		%Actor.inventory_item_activated.connect(func (_item):
 			if ctrl_inventory.inventory.get_item_count():
 				ctrl_inventory.grab_focus()
 				ctrl_inventory.select(0)
@@ -57,35 +61,6 @@ func reflesh_inventory() -> void:
 			inv_item.set_property("name", "(E)" + item.display_name())
 		else:
 			inv_item.set_property("name", item.display_name())
-
-func spawn_inventory(_actor : Actor, template : CtrlInventory) -> CtrlInventory:
-	var ctrl_inventory : CtrlInventory = template.duplicate()
-	var _inventory = Inventory.new()
-	ctrl_inventory.set_meta("owner", _actor)
-	ctrl_inventory.inventory = _inventory
-	for item in _actor.inventory:
-		var inv_item = InventoryItem.new()
-		inv_item.set_property("item", item)
-		inv_item.set_property("owner", _actor)
-		if _actor.get_weapon() == item:
-			inv_item.set_property("name", "(E)" + item.display_name())
-		else:
-			inv_item.set_property("name", item.display_name())
-		_inventory.add_item(inv_item)
-	_inventory.item_added.connect(
-		func (inv_item : InventoryItem):
-			var item : Item = inv_item.get_property("item")
-			_actor.add_item(item)
-	)
-	_inventory.item_removed.connect(
-		func (inv_item : InventoryItem):
-			var item : Item = inv_item.get_property("item")
-			_actor.remove_item(item)
-	)
-	ctrl_inventory.show()
-	ctrl_inventory.inventory_item_selected.connect(on_selected)
-	ctrl_inventory.inventory_item_activated.connect(on_activated)
-	return ctrl_inventory
 
 func test_add_item() -> void:
 	var tmp : Array[String] = StaticData.items.keys()

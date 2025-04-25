@@ -11,6 +11,7 @@ class Result:
 @export var proto_commands : Array[UIGenericSelectorButton]
 @export var cancelable : bool = false
 @export var horizonal : bool = false
+@export var hide_inactive : bool = true
 
 signal exit
 @warning_ignore("unused_signal")
@@ -35,14 +36,13 @@ func _ready() -> void:
 	#else:
 	#	commands.back().focus_neighbor_bottom = commands.front().get_path()
 	#	commands.front().focus_neighbor_top = commands.back().get_path()
-	hide()
+	if hide_inactive: hide()
 
 func _unhandled_input(event: InputEvent) -> void:
 	if not processing:
 		return
 	if Input.is_action_pressed("ui_cancel"):
 		if cancelable:
-			print(name + ":ui_cancel")
 			retvar.canceled = true
 			on_canceled()
 			get_viewport().set_input_as_handled()
@@ -101,7 +101,7 @@ func start_select() -> Dictionary:
 func end_select():
 	processing = false
 	disable()
-	hide()
+	if hide_inactive: hide()
 	exit.emit()
 
 func disable():

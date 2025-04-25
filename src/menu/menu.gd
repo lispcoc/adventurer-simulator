@@ -6,6 +6,7 @@ signal exit()
 
 var status_submenu : PackedScene = load("res://src/menu/status_submenu.tscn")
 var inventory_submenu : PackedScene = load("res://src/menu/inventory_submenu.tscn")
+var equip_submenu : PackedScene = load("res://src/menu/equip_submenu.tscn")
 
 var sort_submenu : SortSubMenu
 
@@ -33,6 +34,11 @@ func _ready() -> void:
 			"item":
 				submenu_active = true
 				var sub := inventory_submenu.instantiate()
+				add_child(sub)
+				await sub.exit
+			"equip":
+				submenu_active = true
+				var sub := equip_submenu.instantiate()
 				add_child(sub)
 				await sub.exit
 			"status":

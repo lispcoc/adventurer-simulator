@@ -1,0 +1,65 @@
+[gd_scene load_steps=7 format=3 uid="uid://xfrblxiowwpq"]
+
+[ext_resource type="PackedScene" uid="uid://ia6att62w044" path="res://src/menu/base_submenu_with_party.tscn" id="1_a1svg"]
+[ext_resource type="Script" uid="uid://drxy3pah34as4" path="res://src/menu/equip_submenu.gd" id="2_1hcjf"]
+[ext_resource type="Script" uid="uid://72xsud65eowi" path="res://src/common/ui/grid/tiled_string_grid.gd" id="3_o867a"]
+[ext_resource type="Script" uid="uid://clip8lxle5ouc" path="res://addons/gloot/ui/ctrl_inventory.gd" id="4_ch3hu"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ch3hu"]
+bg_color = Color(0.639216, 0.564706, 0.505882, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_left = 2
+corner_radius_bottom_left = 2
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_otgjl"]
+bg_color = Color(0.301961, 0.380392, 0.376471, 1)
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+
+[node name="EquipSubMenu" instance=ExtResource("1_a1svg")]
+script = ExtResource("2_1hcjf")
+
+[node name="EquipList" type="GridContainer" parent="CanvasLayer" index="1"]
+unique_name_in_owner = true
+offset_left = 136.0
+offset_top = 8.0
+offset_right = 384.0
+offset_bottom = 192.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 2
+script = ExtResource("3_o867a")
+odd_style = SubResource("StyleBoxFlat_ch3hu")
+even_style = SubResource("StyleBoxFlat_otgjl")
+odd_color = Color(1, 1, 1, 1)
+even_color = Color(1, 1, 1, 1)
+font_size = 14
+even_minimum_size = Vector2(100, 0)
+even_button = true
+metadata/_custom_type_script = "uid://72xsud65eowi"
+
+[node name="ItemDescriptionPanel" type="PanelContainer" parent="CanvasLayer" index="2"]
+offset_left = 392.0
+offset_top = 8.0
+offset_right = 632.0
+offset_bottom = 472.0
+
+[node name="ItemDescription" type="RichTextLabel" parent="CanvasLayer/ItemDescriptionPanel" index="0"]
+layout_mode = 2
+
+[node name="CtrlInventory" type="ItemList" parent="CanvasLayer" index="3"]
+unique_name_in_owner = true
+offset_left = 136.0
+offset_top = 200.0
+offset_right = 384.0
+offset_bottom = 472.0
+script = ExtResource("4_ch3hu")
+metadata/_custom_type_script = "uid://clip8lxle5ouc"

@@ -51,4 +51,8 @@ func short_description() ->  String:
 		lines.push_back(get_melee_performance_string())
 	if is_armour() and get_defense():
 		lines.push_back("防御力:%d" % get_defense())
+	lines.push_back(uid)
 	return "\n".join(lines)
+
+func description() ->  String:
+	return short_description()

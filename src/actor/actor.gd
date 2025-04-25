@@ -65,19 +65,34 @@ func get_class_data() -> Class:
 	return StaticData.classes[class_id]
 
 func get_item_from_uid(uid : String) -> Item:
-	for item in inventory:
-		print(item)
-		print(item.uid)
-		if item.uid == uid: return item
+	for item in inventory: if item.uid == uid: return item
 	return null
 
 func get_weapon() -> Item:
-	var weapon = get_item_from_uid(equip.weapon_uid)
-	if weapon: return weapon
+	var item = get_item_from_uid(equip.weapon_uid)
+	if item: return item
 	else: return Item.new()
 
-func set_weapon(weapon : Item) -> void:
-	equip.weapon_uid = weapon.uid
+func set_equip(item : Item) -> void:
+	equip.set_item(item)
+
+func set_weapon(item : Item) -> void:
+	equip.weapon_uid = item.uid
+
+func get_torso() -> Item:
+	var item = get_item_from_uid(equip.torso_uid)
+	if item: return item
+	else: return Item.new()
+
+func get_headwear() -> Item:
+	var item = get_item_from_uid(equip.headwear_uid)
+	if item: return item
+	else: return Item.new()
+
+func get_footwear() -> Item:
+	var item = get_item_from_uid(equip.footwear_uid)
+	if item: return item
+	else: return Item.new()
 
 func get_atk() -> int:
 	return int(strength / 2.0)
@@ -114,3 +129,29 @@ func add_item(item : Item) -> void:
 
 func remove_item(item : Item) -> void:
 	inventory.erase(item)
+
+func spawn_inventory(template : CtrlInventory, filter : Callable = func (item : Item): return true) -> CtrlInventory:
+	var ctrl_inventory : CtrlInventory = template.duplicate()
+	var _inventory = Inventory.new()
+	ctrl_inventory.set_meta("owner", self)
+	ctrl_inventory.inventory = _inventory
+	for item in self.inventory: if filter.call(item):
+		var inv_item = InventoryItem.new()
+		inv_item.set_property("item", item)
+		inv_item.set_property("owner", self)
+		if self.get_weapon() == item:
+			inv_item.set_property("name", "(E)" + item.display_name())
+		else:
+			inv_item.set_property("name", item.display_name())
+		_inventory.add_item(inv_item)
+	_inventory.item_added.connect(
+		func (inv_item : InventoryItem):
+			var item : Item = inv_item.get_property("item")
+			self.add_item(item)
+	)
+	_inventory.item_removed.connect(
+		func (inv_item : InventoryItem):
+			var item : Item = inv_item.get_property("item")
+			self.remove_item(item)
+	)
+	return ctrl_inventory
