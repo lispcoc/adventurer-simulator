@@ -16,7 +16,7 @@ var skills : Array[Skill]
 var equip : Equip = Equip.new()
 var inventory : Array[Item] = []
 
-var class_id : String = "warrior"
+var class_id : String = "戦士"
 var level : int = 30:
 	set(v):
 		level = v
@@ -38,13 +38,29 @@ func _init() -> void:
 	if !init:
 		init = true
 		initialize_actor()
-		test()
+		#test()
 		pick_random_name()
+
+func _on_status_update() -> void:
+	if Game.is_inside_tree(): Game.get_tree().call_group("status_ui", "update")
+
+func load_from_monster_data(data : MonsterData):
+	class_id = data.class_id
+	initialize_actor()
+	actor_name = data.monster_name
+	for sid in data.skills:
+		skills.append(StaticData.skill_from_id(sid).instantiate())
 
 func test():
 	var s = StaticData.skill_from_id("魔神斬り").instantiate()
 	skills.append(s)
 	skills.append(StaticData.skill_from_id("軽傷治癒").instantiate())
+
+func get_skills() -> Array[Skill]:
+	var class_skills : Array[Skill]
+	for sid in get_class_data().skills:
+		class_skills.append(StaticData.skill_from_id(sid).instantiate())
+	return skills + class_skills
 
 func pick_random_name():
 	actor_name = StaticData.names.get_female_name()
@@ -62,6 +78,7 @@ func recalc_status():
 	mp = min(mp_max, mp)
 
 func get_class_data() -> Class:
+	if not StaticData.classes.has(class_id): class_id = Class.DEFAULT_CLASS
 	return StaticData.classes[class_id]
 
 func get_item_from_uid(uid : String) -> Item:
@@ -123,6 +140,7 @@ func apply_dagame(dam : Damage) -> int:
 
 func set_hp(v : int):
 	hp = max(v, 0)
+	_on_status_update()
 
 func add_item(item : Item) -> void:
 	inventory.append(item)

@@ -155,6 +155,10 @@ enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addon
 import/blender/enabled=false
 import/fbx/enabled=false
 
+[global_group]
+
+status_ui=""
+
 [gui]
 
 theme/custom="uid://dbtpqwsmsli2p"

@@ -23,6 +23,9 @@ func on_set_hp(_val : int):
 func on_set_mp(_val : int):
 	panel.update()
 
+func on_status_update() -> void:
+	panel.update()
+
 func on_set_actor():
 	panel.actor = actor
 	panel.update()

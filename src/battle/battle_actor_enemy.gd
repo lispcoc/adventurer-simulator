@@ -31,7 +31,7 @@ func _ready():
 
 func on_focus_entered():
 	label_panel.show()
-	label.text = name
+	label.text = display_name()
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	pass
@@ -48,3 +48,28 @@ func is_enemy() -> bool:
 
 func get_center_pos() -> Vector2:
 	return sprite.position
+
+func get_act(by_front : bool, enemy_front : Array[BattleActor], enemy_back : Array[BattleActor]) -> Act:
+	var ret = Act.new()
+	var skills = actor.get_skills()
+	skills.shuffle()
+	ret.skill = skills[0]
+	var range = ret.skill.data.range
+	if by_front: range = range + 1
+	match ret.skill.data.target:
+		Game.Target.EnemyAll:
+			ret.targets = enemy_front + enemy_back
+		Game.Target.EnemyLine:
+			if range >= 3 and not enemy_back.is_empty():
+				ret.targets = [enemy_front, enemy_back][randi() % 2]
+			elif range >= 2:
+				ret.targets = enemy_front
+		Game.Target.EnemyOne:
+			var possible : Array[BattleActor]
+			if range >= 3 and not enemy_back.is_empty():
+				possible = enemy_front + enemy_back
+			elif range >= 2:
+				possible = enemy_front
+			if not possible.is_empty():
+				ret.targets.append(possible[randi() % possible.size()])
+	return ret

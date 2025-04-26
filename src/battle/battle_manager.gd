@@ -19,13 +19,19 @@ func _ready() -> void:
 func _process(_delta: float) -> void:
 	pass
 
+func message_delay() -> void:
+	await get_tree().create_timer(0.5).timeout
+
 func init_test_data():
 	var a = BattleActorEnemy.new()
 	a.actor = Actor.new()
+	a.actor.load_from_monster_data(StaticData.monsters["スライム"])
 	a.actor.level = 1
+	print(a.display_name())
 	enemy_container.add_actor_front(a)
 	var b = BattleActorEnemy.new()
 	b.actor = Actor.new()
+	b.actor.load_from_monster_data(StaticData.monsters["スライム"])
 	b.actor.level = 1
 	enemy_container.add_actor_back(b)
 
@@ -54,18 +60,33 @@ func check_melee_hit(atkr, tgt) -> bool:
 	return atkr.hit_roll() > tgt.dodge_roll()
 
 func process_melee_attack(attacker : BattleActor, target : BattleActor, sk : Skill = null):
-	set_msg("%sの攻撃\n" % attacker.actor_name)
+	if not sk: set_msg("%sの攻撃\n" % attacker.display_name())
 	var total_damage = 0
 	var times = attacker.actor.get_melee_times(sk)
 	var hit = 0
 	for _i in times:
 		if check_melee_hit(attacker, target):
 			var damage = attacker.actor.roll_melee_damage(sk)
-			total_damage +=target.apply_dagame(damage)
+			total_damage += target.apply_dagame(damage)
 			hit += 1
-	target.floating_damage(total_damage)
-	add_msg("%d回ヒットして%dのダメージ" % [hit, total_damage])
-	await target.blink()
+	if hit > 0:
+		target.floating_damage(total_damage)
+		add_msg("%d回ヒットして%dのダメージ\n" % [hit, total_damage])
+		await target.blink()
+	else:
+		add_msg("%sは回避した。\n" % target.display_name())
+		await message_delay()
+
+func process_skill(attacker : BattleActor, targets : Array[BattleActor], skill : Skill):
+	if targets.is_empty():
+		set_msg("%sは様子を見ている……。\n" % attacker.display_name())
+		await message_delay()
+		return
+	set_msg("%sの%s\n" % [attacker.display_name(), skill.display_name()])
+	if skill.data.type == SkillData.Type.Melee:
+		for target in targets: await process_melee_attack(attacker, target, skill)
+	if skill.data.type == SkillData.Type.Magic:
+		pass #todo
 
 #
 # Messages
@@ -138,7 +159,7 @@ func main_loop() -> BattleResult:
 						portrait.from_string(str(current_actor.actor.portrait))
 					else: portrait.hide()
 					await portrait_fade_in()
-					set_msg("%sの行動" % current_actor.actor_name)
+					set_msg("%sの行動" % current_actor.display_name())
 					# スキルセレクタの構築
 					skill_select.erase_commands()
 					for sk in c.actor.skills:
@@ -157,11 +178,7 @@ func main_loop() -> BattleResult:
 								var sk : Skill = ret["skill"]
 								var targets : Array[BattleActor] = await select_target(sk.data.target, sk.data.range, by_front)
 								if not targets.is_empty():
-									if sk.data.type == SkillData.Type.Melee:
-										for t in targets:
-											await process_melee_attack(c, t, sk)
-									if sk.data.type == SkillData.Type.Magic:
-										pass #todo
+									await process_skill(c, targets, sk)
 									accept = true
 							"Defence":
 								c.defence = true
@@ -172,7 +189,12 @@ func main_loop() -> BattleResult:
 								else:
 									set_msg("逃げられない")
 				if c.is_enemy():
-					await process_melee_attack(c, party_container.pick_random(true, false))
+					var act := c.get_act(
+						by_front,
+						party_container.get_actors_front(),
+						party_container.get_actors_back()
+					)
+					await process_skill(c, act.targets, act.skill)
 				portrait_hide()
 				c.on_main_exit()
 				c.available = false

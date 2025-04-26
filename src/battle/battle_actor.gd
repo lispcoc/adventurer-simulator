@@ -14,11 +14,6 @@ var actor : Actor:
 
 var button : Button
 
-var actor_name : String:
-	get:
-		if actor: return actor.actor_name
-		return ""
-
 #
 # Status
 #
@@ -32,10 +27,10 @@ var hp : int:
 		on_set_hp(val)
 		if hp <= 0: on_dead()
 var mp_max : int:
-	get: return actor.hp_max
+	get: return actor.mp_max
 	set(val): pass
 var mp : int:
-	get: return actor.hp
+	get: return actor.mp
 	set(val):
 		actor.mp = max(0, val)
 		on_set_mp(val)
@@ -72,6 +67,8 @@ func on_main_entered(): pass
 
 func on_main_exit(): pass
 
+func on_status_update() -> void: pass
+
 func set_selectable(_v : bool): pass
 
 func focus():
@@ -91,6 +88,12 @@ func vanish():
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "modulate", Color(1,1,1,0), 0.5).set_trans(Tween.TRANS_LINEAR)
 	await tween.finished
+
+func display_name() -> String:
+	return actor.actor_name
+
+func get_act(_by_front : bool, _enemy_front : Array[BattleActor], _enemy_back : Array[BattleActor]) -> Act:
+	return null
 
 func speed() -> int:
 	return actor.dexterity
@@ -121,6 +124,7 @@ func apply_dagame(dam : Damage) -> int:
 	else:
 		actual_damage = actor.apply_dagame(dam)
 	if is_dead(): on_dead()
+	on_status_update()
 	return actual_damage
 
 func floating_damage(val : int):
@@ -128,3 +132,8 @@ func floating_damage(val : int):
 	damage.text = String.num_uint64(val)
 	damage.position = get_center_pos()
 	add_child(damage)
+
+
+class Act:
+	var skill : Skill
+	var targets : Array[BattleActor]

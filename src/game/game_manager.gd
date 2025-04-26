@@ -235,6 +235,7 @@ func reload_ui() -> void:
 
 func update_ui() -> void:
 	CharacterPanelUi.update()
+	get_tree().call_group("status_ui", "update")
 
 func debug_dialog() -> void:
 	Dialogic.start_timeline("res://data/dialog/test/debug.dtl")
