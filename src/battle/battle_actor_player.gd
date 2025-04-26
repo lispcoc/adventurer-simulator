@@ -36,8 +36,8 @@ func on_main_entered():
 func on_main_exit():
 	panel.highlight(false)
 
-func set_selectable(v : bool):
-	panel.selectable = v
-
 func is_player() -> bool:
 	return true
+
+func get_center_top() -> Vector2:
+	return Vector2(panel.size.x / 2, 0)

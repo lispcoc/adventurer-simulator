@@ -21,6 +21,7 @@ var scene_dungeon : PackedScene = load("res://src/dungeon/dungeon.tscn")
 var scene_battle : PackedScene = load("res://src/battle/battle.tscn")
 var scene_portrait_edit : PackedScene = load("res://src/portrait/portrait_editor.tscn")
 var scene_menu : PackedScene = load("res://src/menu/menu.tscn")
+var scene_cursor : PackedScene = load("res://assets/gui/cursor/cursor.tscn")
 
 const FD : PackedScene = preload("res://src/battle/ui/number/floating_damage.tscn")
 
@@ -236,6 +237,9 @@ func reload_ui() -> void:
 func update_ui() -> void:
 	CharacterPanelUi.update()
 	get_tree().call_group("status_ui", "update")
+
+func spawn_cursor() -> AnimatedSprite2D:
+	return scene_cursor.instantiate()
 
 func debug_dialog() -> void:
 	Dialogic.start_timeline("res://data/dialog/test/debug.dtl")

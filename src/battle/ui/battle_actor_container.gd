@@ -27,9 +27,18 @@ enum Mode {
 func _ready() -> void:
 	grid = find_child("GridV")
 	lines = find_child("Lines")
-	get_actors_front()
 	front_container.minimum_size_changed.connect(on_grid_resized)
 	back_container.minimum_size_changed.connect(on_grid_resized)
+
+	# 列を選択したときにカーソルを表示する
+	var back : Button = lines.find_child("Back")
+	var front : Button = lines.find_child("Front")
+	front.focus_entered.connect(_on_line_front_focus_entered)
+	front.focus_exited.connect(_on_line_front_focus_exited)
+	back.focus_entered.connect(_on_line_back_focus_entered)
+	back.focus_exited.connect(_on_line_back_focus_exited)
+
+	disable_target()
 
 func _process(_delta):
 	if Input.is_action_pressed("ui_cancel"):
@@ -38,14 +47,15 @@ func _process(_delta):
 		is_canceled = true
 		exit.emit()
 
+func _on_line_front_focus_entered() -> void: for c in get_actors_front(): c.pop_cursor()
+func _on_line_front_focus_exited() -> void: for c in get_actors_front(): c.remove_cursor()
+func _on_line_back_focus_entered() -> void: for c in get_actors_back(): c.pop_cursor()
+func _on_line_back_focus_exited() -> void: for c in get_actors_back(): c.remove_cursor()
+
 func add_actor_front(actor : BattleActor): front_container.add_child(actor)
-
 func add_actor_back(actor : BattleActor): back_container.add_child(actor)
-
 func erase_actors_front(): for c in front_container.get_children(): front_container.remove_child(c)
-
 func erase_actors_back(): for c in back_container.get_children(): back_container.remove_child(c)
-
 func erase_actors():
 	erase_actors_front()
 	erase_actors_back()
@@ -92,22 +102,22 @@ func enable_target(allow_front := true, allow_back := true):
 	if allow_front && allow_back: array = get_actors()
 	elif allow_front: array = get_actors_front()
 	else: array = get_actors_back()
-	for e in array:
-		e.set_selectable(true)
-		if !e.selected.is_connected(end_select_target):
-			e.selected.connect(end_select_target)
-		if !e.button.focus_entered.is_connected(on_change_focus):
-			e.button.focus_entered.connect(on_change_focus)
+	for actor in array:
+		actor.set_selectable(true)
+		if !actor.selected.is_connected(end_select_target):
+			actor.selected.connect(end_select_target)
+		if !actor.button.focus_entered.is_connected(on_change_focus):
+			actor.button.focus_entered.connect(on_change_focus)
 		# 仮のフォーカス
-		if e.button.is_visible_in_tree(): e.button.grab_focus()
+		if actor.button.is_visible_in_tree(): actor.button.grab_focus()
 
 func disable_target():
-	for e in get_actors():
-		e.set_selectable(false)
-		if e.selected.is_connected(end_select_target):
-			e.selected.disconnect(end_select_target)
-		if e.button.focus_entered.is_connected(on_change_focus):
-			e.button.focus_entered.disconnect(on_change_focus)
+	for actor in get_actors():
+		actor.set_selectable(false)
+		if actor.selected.is_connected(end_select_target):
+			actor.selected.disconnect(end_select_target)
+		if actor.button.focus_entered.is_connected(on_change_focus):
+			actor.button.focus_entered.disconnect(on_change_focus)
 
 func start_select_target(front := true, back := true) -> Array[BattleActor]:
 	selected_actors.clear()

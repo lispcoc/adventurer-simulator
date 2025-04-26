@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=3 uid="uid://doy7c5cwvl737"]
+[gd_scene load_steps=11 format=3 uid="uid://doy7c5cwvl737"]
 
 [ext_resource type="Script" uid="uid://dfvrfddsxt8ge" path="res://src/battle/battle_manager.gd" id="1_i4wed"]
 [ext_resource type="Theme" uid="uid://coqyw0byiv6pq" path="res://theme/cursor.tres" id="2_ewtd0"]
@@ -9,6 +9,8 @@
 [ext_resource type="Script" uid="uid://yc63p1wq6g5" path="res://src/battle/ui/command_selector.gd" id="6_i4wed"]
 [ext_resource type="Script" uid="uid://x8l6hms4ax1r" path="res://src/battle/ui/command.gd" id="7_i4wed"]
 [ext_resource type="PackedScene" uid="uid://ckj8nx2ww3lvi" path="res://src/portrait/portrait.tscn" id="8_qkyk6"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1utxv"]
 
 [node name="Battle" type="Node2D" node_paths=PackedStringArray("battle_command", "skill_select", "party_container", "enemy_container", "message", "portrait")]
 script = ExtResource("1_i4wed")
@@ -44,6 +46,18 @@ script = ExtResource("5_i4wed")
 front_container = NodePath("GridV/Front/FrontGrid")
 back_container = NodePath("GridV/Back/BackGrid")
 
+[node name="Lines" type="VBoxContainer" parent="CanvasLayer/EnemyContainer"]
+layout_mode = 2
+
+[node name="Back" type="Button" parent="CanvasLayer/EnemyContainer/Lines"]
+custom_minimum_size = Vector2(600, 64)
+layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_1utxv")
+
+[node name="Front" type="Button" parent="CanvasLayer/EnemyContainer/Lines"]
+custom_minimum_size = Vector2(600, 64)
+layout_mode = 2
+
 [node name="GridV" type="VBoxContainer" parent="CanvasLayer/EnemyContainer"]
 layout_mode = 2
 
@@ -51,24 +65,14 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="BackGrid" type="HBoxContainer" parent="CanvasLayer/EnemyContainer/GridV/Back"]
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 
 [node name="Front" type="CenterContainer" parent="CanvasLayer/EnemyContainer/GridV"]
 layout_mode = 2
 
 [node name="FrontGrid" type="HBoxContainer" parent="CanvasLayer/EnemyContainer/GridV/Front"]
-layout_mode = 2
-
-[node name="Lines" type="VBoxContainer" parent="CanvasLayer/EnemyContainer"]
-visible = false
-layout_mode = 2
-
-[node name="Front" type="Button" parent="CanvasLayer/EnemyContainer/Lines"]
-custom_minimum_size = Vector2(600, 64)
-layout_mode = 2
-
-[node name="Back" type="Button" parent="CanvasLayer/EnemyContainer/Lines"]
-custom_minimum_size = Vector2(600, 64)
+custom_minimum_size = Vector2(0, 64)
 layout_mode = 2
 
 [node name="PartyPanelContainer" type="CenterContainer" parent="CanvasLayer" node_paths=PackedStringArray("front_container", "back_container")]

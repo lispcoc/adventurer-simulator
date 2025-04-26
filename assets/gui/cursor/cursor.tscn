@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://cjg1iyfiht78l"]
+
+[ext_resource type="SpriteFrames" uid="uid://c26l60kpwja1i" path="res://assets/gui/cursor/cursor_l_main.ase_layer" id="1_ax82u"]
+[ext_resource type="Script" uid="uid://ga7tigvolxbw" path="res://assets/gui/cursor/cursor.gd" id="2_nke60"]
+
+[node name="Cursor" type="AnimatedSprite2D"]
+sprite_frames = ExtResource("1_ax82u")
+script = ExtResource("2_nke60")

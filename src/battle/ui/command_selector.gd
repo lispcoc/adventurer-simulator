@@ -14,12 +14,6 @@ var retvar : Dictionary
 func _ready() -> void:
 	for cmd in commands:
 		connect_command(cmd)
-	#if horizonal:
-	#	commands.back().focus_neighbor_right = commands.front().get_path()
-	#	commands.front().focus_neighbor_left = commands.back().get_path()
-	#else:
-	#	commands.back().focus_neighbor_bottom = commands.front().get_path()
-	#	commands.front().focus_neighbor_top = commands.back().get_path()
 	hide()
 
 func _process(_delta):

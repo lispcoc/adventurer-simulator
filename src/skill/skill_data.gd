@@ -18,11 +18,17 @@ var category : Category = Category.Attack
 var type : Type = Type.Melee
 var range : int = 1
 var target : Game.Target = Game.Target.EnemyOne
-var effect : Callable = f_default
+var effect : String = "default"
+# Messages
+var use_msg : String
+var result_msg : String
 # Melee
 var melee_damage_mul : float = 1.0
 var melee_time_override : int = 0
 # Magic
+var base_amount : int = 2
+var base_sides : int = 4
+var base_constant : int = 0
 var flags : Array[int]
 
 static func load(list : Dictionary, path : String):
@@ -31,39 +37,28 @@ static func load(list : Dictionary, path : String):
 	database.load_from_path(path)
 	list.merge(database.get_struct_dictionary(), true)
 
-func from_db(db : Dictionary):
-	id = db["id"]
-	skill_name = db["name"]
-	type = Type.keys().find(db["type"]) as Type
-	if type == -1:
-		print("Invalid skill type")
-		type = Type.Melee
-
-	range = db["range"]
-	target = Game.Target.keys().find(db["target"]) as Game.Target
-	if target == -1:
-		print("Invalid skill target")
-		target = Game.Target.EnemyOne
-
-	melee_damage_mul = db["melee_damage_mul"]
-	melee_time_override = db["melee_time_override"]
-
 func instantiate() -> Skill:
 	var s = Skill.new()
-	s.data = self
+	s.id = id
 	return s
 
-static func map_effect(effect_id : String):
-	var map = {
+static func map_effect(effect_id : String) -> Callable:
+	var map : Dictionary[String, Callable] = {
 		"heal_hp": f_heal_hp
 	}
 	return map[effect_id]
 
-static func f_default(_sk : Skill, _user, _target):
+static func f_default(_sk : Skill, _user : BattleActor, _target : BattleActor) -> int:
 	print("Warning: Skill has no function.")
-	return false
+	return 0
 
-static func f_heal_hp(_sk : Skill, _user, _target):
+static func f_heal_hp(_sk : Skill, _user : Actor, _target : Actor) -> int:
+	var val := DiceRoller.roll_dices(
+		_sk.data.base_amount,
+		_sk.data.base_sides,
+		_sk.data.base_constant
+	)
+	_target.hp += val
 	return true
 
 
@@ -77,7 +72,6 @@ class SkillDataTextDatabase extends TextDatabase:
 		override_property_type("category", TYPE_STRING)
 		override_property_type("type", TYPE_STRING)
 		override_property_type("target", TYPE_STRING)
-		override_property_type("effect", TYPE_STRING)
 
 	func _postprocess_entry(entry: Dictionary):
 		entry.id = entry.skill_name
@@ -96,5 +90,3 @@ class SkillDataTextDatabase extends TextDatabase:
 				if Game.Target.keys()[i] == entry.target:
 					entry.target = i
 					break
-		if "effect" in entry:
-			entry.effect = SkillData.map_effect(entry.effect)

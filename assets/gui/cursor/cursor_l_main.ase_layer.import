@@ -1,0 +1,16 @@
+[remap]
+
+importer="aseprite_wizard.plugin.spriteframes-split-layer"
+type="SpriteFrames"
+uid="uid://c26l60kpwja1i"
+path="res://.godot/imported/cursor_l_main.ase_layer-6955624f60e418a8b1782ed1f4638e40.res"
+
+[deps]
+
+files=["res://.godot/imported/cursor_l_main.ase_layer-6955624f60e418a8b1782ed1f4638e40.main.texture.res"]
+
+source_file="res://assets/gui/cursor/cursor_l_main.ase_layer"
+dest_files=["res://.godot/imported/cursor_l_main.ase_layer-6955624f60e418a8b1782ed1f4638e40.res", "res://.godot/imported/cursor_l_main.ase_layer-6955624f60e418a8b1782ed1f4638e40.main.texture.res"]
+
+[params]
+

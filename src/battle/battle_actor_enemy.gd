@@ -7,37 +7,37 @@ var label : RichTextLabel
 var label_panel : PanelContainer
 
 func _init() -> void:
+	button = TextureButton.new()
 	super._init()
-	sprite = Sprite2D.new()
-	add_child(sprite)
-	label_panel = PanelContainer.new()
-	label_panel.position.y = 64
-	label_panel.custom_minimum_size = Vector2(200, 32)
-	label = RichTextLabel.new()
-	label_panel.add_child(label)
-	label_panel.hide()
-	add_child(label_panel)
 
 func _ready():
 	super._ready()
 	button.focus_entered.connect(on_focus_entered)
 	button.focus_exited.connect(on_focus_exited)
+	var t_button : TextureButton = button
+	t_button.texture_normal = default_sprite
+	#t_button.custom_minimum_size = t_button.texture_normal.get_size()
+	t_button.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
 
-	custom_minimum_size = Vector2(200, 64)
-	sprite.texture = default_sprite
-	sprite.position.x = custom_minimum_size.x / 2
-	sprite.position.y = custom_minimum_size.y - sprite.texture.get_size().y / 2
-	button.size = custom_minimum_size
+	label_panel = PanelContainer.new()
+	label_panel.custom_minimum_size = Vector2(200, 32)
+	label_panel.position.y = t_button.texture_normal.get_size().y
+	label_panel.position.x = -100 + t_button.texture_normal.get_size().x / 2
+	label = RichTextLabel.new()
+	label_panel.add_child(label)
+	label_panel.hide()
+	t_button.add_child(label_panel)
 
 func on_focus_entered():
 	label_panel.show()
 	label.text = display_name()
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
-	pass
+	pop_cursor()
 
 func on_focus_exited():
 	label_panel.hide()
+	remove_cursor()
 
 func on_dead():
 	await vanish()
@@ -46,8 +46,8 @@ func on_dead():
 func is_enemy() -> bool:
 	return true
 
-func get_center_pos() -> Vector2:
-	return sprite.position
+func get_center_top() -> Vector2:
+	return Vector2(0, 0)
 
 func get_act(by_front : bool, enemy_front : Array[BattleActor], enemy_back : Array[BattleActor]) -> Act:
 	var ret = Act.new()

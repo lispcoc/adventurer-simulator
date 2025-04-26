@@ -14,7 +14,8 @@ var actor : Actor:
 		actor = _actor
 		on_set_actor()
 
-var button : Button
+var button : BaseButton
+var cursor : Node2D
 
 #
 # Status
@@ -71,7 +72,21 @@ func on_main_exit(): pass
 
 func on_status_update() -> void: pass
 
-func set_selectable(_v : bool): pass
+func set_selectable(v : bool):
+	button.disabled = not v
+	if v:
+		button.focus_mode = Control.FOCUS_ALL
+	else:
+		button.focus_mode = Control.FOCUS_NONE
+		remove_cursor()
+
+func pop_cursor() -> void:
+	cursor = Game.spawn_cursor()
+	cursor.position = get_center_top()
+	add_child(cursor)
+
+func remove_cursor() -> void:
+	if get_children().has(cursor): remove_child(cursor)
 
 func focus():
 	button.grab_focus()
@@ -111,7 +126,7 @@ func is_enemy() -> bool:
 func is_dead() -> bool:
 	return hp <= 0
 
-func get_center_pos() -> Vector2:
+func get_center_top() -> Vector2:
 	return Vector2(0, 0)
 
 func hit_roll() -> int:
@@ -134,7 +149,7 @@ func apply_dagame(dam : Damage) -> int:
 func floating_damage(val : int):
 	var damage := FD.instantiate() as FloatingDamage
 	damage.text = String.num_uint64(val)
-	damage.position = get_center_pos()
+	damage.position = get_center_top()
 	add_child(damage)
 
 func evaluate_threat() -> int:

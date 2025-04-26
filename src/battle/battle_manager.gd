@@ -89,11 +89,20 @@ func process_skill(attacker : BattleActor, targets : Array[BattleActor], skill :
 			await message_delay()
 		return
 	if not simulate:
-		set_msg("%sの%s\n" % [attacker.display_name(), skill.display_name()])
+		if skill.data.use_msg.is_empty():
+			set_msg("%sの%s\n" % [attacker.display_name(), skill.display_name()])
+		else:
+			set_msg(skill.data.use_msg.format({ "user" : attacker.display_name(), "skill_name" : skill.display_name()}))
+			add_msg("\n")
 	if skill.data.type == SkillData.Type.Melee:
 		for target in targets: await process_melee_attack(attacker, target, skill, simulate)
 	if skill.data.type == SkillData.Type.Magic:
-		pass #todo
+		for target in targets:
+			print(skill.data.effect)
+			var value : int = await skill.use(attacker.actor, target.actor)
+			add_msg(skill.data.result_msg.format({ "target" : target.display_name(), "value" : value}))
+			add_msg("\n")
+			await message_delay()
 
 #
 # Messages
@@ -169,7 +178,7 @@ func main_loop() -> BattleResult:
 					set_msg("%sの行動" % current_actor.display_name())
 					# スキルセレクタの構築
 					skill_select.erase_commands()
-					for sk in c.actor.skills:
+					for sk in c.actor.get_skills():
 						skill_select.add_command(sk.data.skill_name, {"skill" : sk})
 					var accept = false
 					while !accept:
