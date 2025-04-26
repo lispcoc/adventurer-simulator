@@ -9,7 +9,7 @@ class_name Portrait extends DialogicPortrait
 		skin_color = v
 		_on_update()
 
-var data : Dictionary = {
+var data : Dictionary[String, int] = {
 	"hat_back": 1,
 	"hair_back": 1,
 	"body": 1,
@@ -25,7 +25,7 @@ var data : Dictionary = {
 	"hat": 1,
 }:
 	set(v):
-		for k in v.keys().filter(func(k): return data[k] != v[k]):
+		for k in v.keys():
 			set_type(k, v[k])
 
 var parts_color : Dictionary = {
@@ -66,14 +66,15 @@ var parts_offset_y : Dictionary = {
 		parts_offset_y = v
 		_on_update()
 
-var color_interlock_set : Array[String] = [
-	"hair_front:hair_back",
-	"hat:hat_back",
-]
+var color_interlock_set : Dictionary[String, PackedStringArray] = {
+	"hair_front": ["hair_back"],
+	"hat": ["hat_back"],
+}
 
-var type_interlock_set : Array[String] = [
-	"hat:hat_back",
-]
+var type_interlock_set : Dictionary[String, PackedStringArray] = {
+	"hat": ["hat_back"],
+	"eye": ["eye_close"],
+}
 
 var name_dict : Dictionary = {
 	"hat_back": "後帽子",
@@ -115,12 +116,13 @@ var skin_color_list : PackedColorArray = [
 var num_parts : Dictionary
 
 @onready var timer : Timer = $Timer
+var interval_count : int = 0
 
 func _ready() -> void:
 	reflesh()
 	if not Engine.is_editor_hint():
 		timer.timeout.connect(_on_interval)
-		timer.start(5.0)
+		timer.start(1.0)
 
 func _process(delta: float) -> void:
 	if timed_update:
@@ -134,13 +136,15 @@ func _update_portrait(passed_character : DialogicCharacter, passed_portrait : St
 
 func reflesh():
 	for c in get_children(): if c is AnimatedSprite2D:
-			if data.keys().find(c.name) < 0:
-				data[c.name] = 0
-			num_parts[c.name] = c.sprite_frames.get_frame_count(c.animation)
+		if not data.keys().has(c.name): continue
+		num_parts[c.name] = c.sprite_frames.get_frame_count(c.animation)
 	for k in data.keys():
 		var s = find_child(k) as AnimatedSprite2D
-		if s:
-			s.frame = data[k]
+		if s: s.frame = data[k]
+		if type_interlock_set.has(k):
+			for k2 in type_interlock_set[k]:
+				s = find_child(k2) as AnimatedSprite2D
+				if s: s.frame = data[k]
 	for k in parts_color.keys():
 		var part = find_child(k) as PortraitPart
 		if part:
@@ -150,15 +154,17 @@ func reflesh():
 				parts_color[k] = part.color_index
 	for k in parts_offset_y.keys():
 		var s = find_child(k) as AnimatedSprite2D
-		if s:
-			s.position.y = parts_offset_y[k]
+		if s: s.position.y = parts_offset_y[k]
 	reflesh_skin()
 
 func _on_update():
 	reflesh()
 
 func _on_interval():
-	nod()
+	interval_count = interval_count + 1
+	#nod()
+	if interval_count % 3 == 0:
+		eye_close(0.2)
 
 func nod():
 	for part in get_children():if part.is_in_group("portrait_head"):
@@ -170,6 +176,16 @@ func nod():
 		tw.tween_property(part, "position", Vector2(-4, 2), 0.3)
 		tw.tween_interval(1.0)
 		tw.tween_property(part, "position", Vector2(0, 0), 0.3)
+
+func eye_close(duration : float):
+	var eye : AnimatedSprite2D = find_child("eye")
+	var eye_close : AnimatedSprite2D = find_child("eye_close")
+	if eye and eye_close:
+		eye.hide()
+		eye_close.show()
+		await get_tree().create_timer(duration).timeout
+		eye.show()
+		eye_close.hide()
 
 func reflesh_skin():
 	var skin_names = [
@@ -186,23 +202,15 @@ func reflesh_skin():
 func set_type(key : String, val : int):
 	data[key] = val
 	# interlock
-	for set_str in type_interlock_set:
-		var a = set_str.split(":")
-		if a.has(key):
-			for key_2 in a:
-				data[key_2] = val
-			break
+	if type_interlock_set.has(key): for key2 in type_interlock_set[key]:
+		data[key2] = val
 	_on_update()
 
 func set_color(key : String, val : int):
 	parts_color[key] = val
 	# interlock
-	for set_str in color_interlock_set:
-		var a = set_str.split(":")
-		if a.has(key):
-			for key_2 in a:
-				parts_color[key_2] = val
-			break
+	if color_interlock_set.has(key): for k2 in color_interlock_set[key]:
+		parts_color[k2] = val
 	_on_update()
 
 func get_color(part : String) -> int:
@@ -210,14 +218,12 @@ func get_color(part : String) -> int:
 	return 0
 
 func get_color_count(key : String) -> int:
-	var part = find_child(key) as PortraitPart
+	var part : PortraitPart = find_child(key)
 	if part: return part.get_color_count()
 	return 0
 
 func get_keys() -> Array[String]:
-	var keys : Array[String]
-	get_children().map(func (c): keys.append(c.name))
-	return keys
+	return data.keys()
 
 func get_color_keys() -> Array[String]:
 	var keys : Array[String]
@@ -226,7 +232,8 @@ func get_color_keys() -> Array[String]:
 	return keys
 	
 func get_key_name(key : String) -> String:
-	return name_dict[key]
+	if name_dict.has(key): return name_dict[key]
+	return ""
 
 func get_parts() -> Array[AnimatedSprite2D]:
 	var _parts : Array[AnimatedSprite2D]

@@ -56,6 +56,7 @@ func _ready() -> void:
 
 	for k in portrait.get_keys():
 		label_name = Label.new()
+		if portrait.get_key_name(k).is_empty(): continue
 		label_name.text = portrait.get_key_name(k)
 		grid.add_child(label_name)
 		slider = HSlider.new()

@@ -1,4 +1,4 @@
-[gd_scene load_steps=22 format=3 uid="uid://ckj8nx2ww3lvi"]
+[gd_scene load_steps=23 format=3 uid="uid://ckj8nx2ww3lvi"]
 
 [ext_resource type="Script" uid="uid://c820blkb4e4i3" path="res://src/portrait/portrait.gd" id="1_nopd3"]
 [ext_resource type="SpriteFrames" uid="uid://cv2peqpu60ype" path="res://assets/characters/portraits/parts/test_l_body.ase_layer" id="2_1srbf"]
@@ -13,6 +13,7 @@
 [ext_resource type="SpriteFrames" uid="uid://dsa5qcc113iy4" path="res://assets/characters/portraits/parts/test_l_hair_front.ase_layer" id="9_hmk5t"]
 [ext_resource type="SpriteFrames" uid="uid://cbbxvptoy0qa2" path="res://assets/characters/portraits/parts/test_l_cheek.ase_layer" id="10_ahuyi"]
 [ext_resource type="SpriteFrames" uid="uid://cin6did1bbm1p" path="res://assets/characters/portraits/parts/test_l_hat.ase_layer" id="10_b7wet"]
+[ext_resource type="SpriteFrames" uid="uid://6xx7snmdx3mu" path="res://assets/characters/portraits/parts/test_l_eye_close.ase_layer" id="11_7djfg"]
 [ext_resource type="SpriteFrames" uid="uid://10gbew7o1pv7" path="res://assets/characters/portraits/parts/test_l_glasses.ase_layer" id="11_37xmf"]
 [ext_resource type="Shader" uid="uid://de1ufp1ju1847" path="res://assets/material/portrait.gdshader" id="13_iqhcp"]
 [ext_resource type="Script" uid="uid://b0vr4n4lcly41" path="res://src/portrait/part.gd" id="15_1xxpq"]
@@ -189,6 +190,30 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 
+[node name="eye_close" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
+visible = false
+sprite_frames = ExtResource("11_7djfg")
+frame = 1
+metadata/_aseprite_wizard_interface_config_ = {
+"animation_section": true,
+"layer_section": true,
+"output_section": true,
+"pending_changes": {},
+"slice_section": true
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": true,
+"should_round_fps": true,
+"slice": "",
+"source": "res://assets/characters/portraits/parts/スプライト-0001.aseprite"
+}
+metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
+
 [node name="eyebrow" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 texture_filter = 1
 sprite_frames = ExtResource("5_yr8g5")
@@ -264,7 +289,6 @@ metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 [node name="glasses" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 texture_filter = 1
 sprite_frames = ExtResource("11_37xmf")
-frame = 1
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
 "layer_section": true,
