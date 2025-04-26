@@ -52,7 +52,6 @@ func erase_actors():
 
 func reflesh():
 	var alive_front = get_actors_front().filter(func (a : BattleActor): return not a.is_dead())
-	print(alive_front)
 	if alive_front.is_empty(): swap()
 
 func swap():

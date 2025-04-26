@@ -27,7 +27,6 @@ func init_test_data():
 	a.actor = Actor.new()
 	a.actor.load_from_monster_data(StaticData.monsters["スライム"])
 	a.actor.level = 1
-	print(a.display_name())
 	enemy_container.add_actor_front(a)
 	var b = BattleActorEnemy.new()
 	b.actor = Actor.new()
@@ -50,8 +49,11 @@ func start() -> void:
 	queue_free.call_deferred()
 
 func get_party() -> Array[BattleActor]: return party_container.get_actors()
-
+func get_party_front() -> Array[BattleActor]: return party_container.get_actors_front()
+func get_party_back() -> Array[BattleActor]: return party_container.get_actors_back()
 func get_enemies() -> Array[BattleActor]: return enemy_container.get_actors()
+func get_enemies_front() -> Array[BattleActor]: return enemy_container.get_actors_front()
+func get_enemies_back() -> Array[BattleActor]: return enemy_container.get_actors_back()
 
 #
 # Melee
@@ -59,8 +61,9 @@ func get_enemies() -> Array[BattleActor]: return enemy_container.get_actors()
 func check_melee_hit(atkr, tgt) -> bool:
 	return atkr.hit_roll() > tgt.dodge_roll()
 
-func process_melee_attack(attacker : BattleActor, target : BattleActor, sk : Skill = null):
-	if not sk: set_msg("%sの攻撃\n" % attacker.display_name())
+func process_melee_attack(attacker : BattleActor, target : BattleActor, sk : Skill = null, simulate : bool = false):
+	if not simulate:
+		if not sk: set_msg("%sの攻撃\n" % attacker.display_name())
 	var total_damage = 0
 	var times = attacker.actor.get_melee_times(sk)
 	var hit = 0
@@ -69,6 +72,8 @@ func process_melee_attack(attacker : BattleActor, target : BattleActor, sk : Ski
 			var damage = attacker.actor.roll_melee_damage(sk)
 			total_damage += target.apply_dagame(damage)
 			hit += 1
+	if simulate:
+		return
 	if hit > 0:
 		target.floating_damage(total_damage)
 		add_msg("%d回ヒットして%dのダメージ\n" % [hit, total_damage])
@@ -77,14 +82,16 @@ func process_melee_attack(attacker : BattleActor, target : BattleActor, sk : Ski
 		add_msg("%sは回避した。\n" % target.display_name())
 		await message_delay()
 
-func process_skill(attacker : BattleActor, targets : Array[BattleActor], skill : Skill):
+func process_skill(attacker : BattleActor, targets : Array[BattleActor], skill : Skill, simulate : bool = false):
 	if targets.is_empty():
-		set_msg("%sは様子を見ている……。\n" % attacker.display_name())
-		await message_delay()
+		if not simulate:
+			set_msg("%sは様子を見ている……。\n" % attacker.display_name())
+			await message_delay()
 		return
-	set_msg("%sの%s\n" % [attacker.display_name(), skill.display_name()])
+	if not simulate:
+		set_msg("%sの%s\n" % [attacker.display_name(), skill.display_name()])
 	if skill.data.type == SkillData.Type.Melee:
-		for target in targets: await process_melee_attack(attacker, target, skill)
+		for target in targets: await process_melee_attack(attacker, target, skill, simulate)
 	if skill.data.type == SkillData.Type.Magic:
 		pass #todo
 
@@ -189,11 +196,16 @@ func main_loop() -> BattleResult:
 								else:
 									set_msg("逃げられない")
 				if c.is_enemy():
-					var act := c.get_act(
-						by_front,
-						party_container.get_actors_front(),
-						party_container.get_actors_back()
-					)
+					var act : BattleActor.Act
+					var max_value := 0
+					for a in Tactics.enumulate_act(self, c):
+						var value := Tactics.evaluate_act(self, c, a)
+						print(a)
+						print("  %d" % value)
+						if value >= max_value:
+							max_value = value
+							act = a
+					print("-> %s" % act)
 					await process_skill(c, act.targets, act.skill)
 				portrait_hide()
 				c.on_main_exit()
@@ -211,6 +223,11 @@ func main_loop() -> BattleResult:
 
 func is_dead_all(actors : Array[BattleActor]):
 	for e in actors: if !e.is_dead(): return false
+	return true
+
+func is_hostile(a1 : BattleActor, a2 : BattleActor) -> bool:
+	if get_party().has(a1) and get_party().has(a2): return false
+	if get_enemies().has(a1) and get_enemies().has(a2): return false
 	return true
 
 func swap_array(a : Array[BattleActor], b : Array[BattleActor]):

@@ -7,6 +7,8 @@ const FD : PackedScene = preload("res://src/battle/ui/number/floating_damage.tsc
 var live : bool = false
 var available : bool = false
 
+var simulate : bool = false
+
 var actor : Actor:
 	set(_actor):
 		actor = _actor
@@ -78,6 +80,7 @@ func focus():
 	return false
 
 func blink():
+	if simulate: return
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "modulate", Color(1,1,1,0), 0.05).set_trans(Tween.TRANS_ELASTIC)
 	tween.tween_property(self, "modulate", Color(1,1,1,1), 0.05).set_trans(Tween.TRANS_ELASTIC)
@@ -85,6 +88,7 @@ func blink():
 	await tween.finished
 
 func vanish():
+	if simulate: return
 	var tween = get_tree().create_tween()
 	tween.tween_property(self, "modulate", Color(1,1,1,0), 0.5).set_trans(Tween.TRANS_LINEAR)
 	await tween.finished
@@ -133,7 +137,25 @@ func floating_damage(val : int):
 	damage.position = get_center_pos()
 	add_child(damage)
 
+func evaluate_threat() -> int:
+	return actor.level * 100 * hp / hp_max
+
+func spawn_simulator() -> BattleActor:
+	var sim : BattleActor = str_to_var(var_to_str(self))
+	sim.simulate = true
+	return sim
+
 
 class Act:
 	var skill : Skill
 	var targets : Array[BattleActor]
+
+	func _init(_skill : Skill = null, _targets : Array[BattleActor] = []) -> void:
+		if _skill: skill = _skill
+		if not _targets.is_empty(): targets = _targets
+		
+	func _to_string() -> String:
+		var ret : String = skill.display_name()
+		ret += ":"
+		for t in targets: ret += " " + t.display_name()
+		return ret
