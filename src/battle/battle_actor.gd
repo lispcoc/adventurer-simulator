@@ -2,11 +2,8 @@ class_name BattleActor extends Control
 
 signal selected(actor : BattleActor)
 
-const FD : PackedScene = preload("res://src/battle/ui/number/floating_damage.tscn")
-
 var live : bool = false
 var available : bool = false
-
 var simulate : bool = false
 
 var actor : Actor:
@@ -86,7 +83,7 @@ func pop_cursor() -> void:
 	add_child(cursor)
 
 func remove_cursor() -> void:
-	if get_children().has(cursor): remove_child(cursor)
+	for cursor in get_children(): if Game.is_cursor(cursor): remove_child(cursor)
 
 func focus():
 	button.grab_focus()
@@ -147,7 +144,7 @@ func apply_dagame(dam : Damage) -> int:
 	return actual_damage
 
 func floating_damage(val : int):
-	var damage := FD.instantiate() as FloatingDamage
+	var damage := FloatingDamage.instantiate()
 	damage.text = String.num_uint64(val)
 	damage.position = get_center_top()
 	add_child(damage)

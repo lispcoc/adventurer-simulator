@@ -239,7 +239,12 @@ func update_ui() -> void:
 	get_tree().call_group("status_ui", "update")
 
 func spawn_cursor() -> AnimatedSprite2D:
-	return scene_cursor.instantiate()
+	var cursor := scene_cursor.instantiate()
+	cursor.set_meta("cursor", true)
+	return cursor
+
+func is_cursor(cursor : Node) -> bool:
+	return cursor.get_meta("cursor", false)
 
 func debug_dialog() -> void:
 	Dialogic.start_timeline("res://data/dialog/test/debug.dtl")
