@@ -7,7 +7,7 @@ var data : SkillData:
 	set(_v): pass
 
 func display_name() -> String:
-	return data.skill_name
+	return data.display_name
 
 func use(_user : Actor, _target : Actor) -> int:
 	var val : int

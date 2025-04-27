@@ -13,7 +13,7 @@ enum Type {
 }
 
 var id : String = "null"
-var skill_name : String = "null"
+var display_name : String = "null"
 var category : Category = Category.Attack
 var type : Type = Type.Melee
 var range : int = 1
@@ -65,7 +65,7 @@ static func f_heal_hp(_sk : Skill, _user : Actor, _target : Actor) -> int:
 class SkillDataTextDatabase extends TextDatabase:
 	func _initialize():
 		id_name = "no"
-		entry_name = "skill_name"
+		entry_name = "id"
 		define_from_struct(SkillData.new)
 
 	func _schema_initialize():
@@ -74,7 +74,7 @@ class SkillDataTextDatabase extends TextDatabase:
 		override_property_type("target", TYPE_STRING)
 
 	func _postprocess_entry(entry: Dictionary):
-		entry.id = entry.skill_name
+		#entry.id = entry.skill_name
 		if "category" in entry:
 			for i in SkillData.Category.keys().size():
 				if SkillData.Category.keys()[i] == entry.category:

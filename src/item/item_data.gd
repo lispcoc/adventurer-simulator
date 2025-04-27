@@ -12,7 +12,7 @@ enum Type {
 }
 
 var id : String = "null"
-var tname : String = ""
+var display_name : String = ""
 var stackable : bool = false
 var wgt : int = 0
 var type : Type = Type.Consumables
@@ -38,14 +38,14 @@ func instantiate() -> Item:
 class ItemDataTextDatabase extends TextDatabase:
 	func _initialize():
 		id_name = "no"
-		entry_name = "tname"
+		entry_name = "id"
 		define_from_struct(ItemData.new)
 
 	func _schema_initialize():
 		override_property_type("type", TYPE_STRING)
 
 	func _postprocess_entry(entry: Dictionary):
-		entry.id = entry.tname
+		#entry.id = entry.tname
 		if "type" in entry:
 			for i in ItemData.Type.keys().size():
 				if ItemData.Type.keys()[i] == entry.type:

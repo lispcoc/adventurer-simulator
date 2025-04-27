@@ -25,12 +25,12 @@ func message_delay() -> void:
 func init_test_data():
 	var a = BattleActorEnemy.new()
 	a.actor = Actor.new()
-	a.actor.load_from_monster_data(StaticData.monsters["スライム"])
+	a.actor.load_from_monster_data(StaticData.monsters["slime"])
 	a.actor.level = 1
 	enemy_container.add_actor_front(a)
 	var b = BattleActorEnemy.new()
 	b.actor = Actor.new()
-	b.actor.load_from_monster_data(StaticData.monsters["スライム"])
+	b.actor.load_from_monster_data(StaticData.monsters["slime"])
 	b.actor.level = 1
 	enemy_container.add_actor_back(b)
 
@@ -179,7 +179,7 @@ func main_loop() -> BattleResult:
 					# スキルセレクタの構築
 					skill_select.erase_commands()
 					for sk in c.actor.get_skills():
-						skill_select.add_command(sk.data.skill_name, {"skill" : sk})
+						skill_select.add_command(sk.data.display_name, {"skill" : sk})
 					var accept = false
 					while !accept:
 						var ret = await battle_command.start_select()

@@ -16,7 +16,7 @@ var skills : Array[Skill]
 var equip : Equip = Equip.new()
 var inventory : Array[Item] = []
 
-var class_id : String = "戦士"
+var class_id : String = "warrior"
 var level : int = 30:
 	set(v):
 		level = v
@@ -47,7 +47,7 @@ func _on_status_update() -> void:
 func load_from_monster_data(data : MonsterData):
 	class_id = data.class_id
 	initialize_actor()
-	actor_name = data.monster_name
+	actor_name = data.display_name
 	for sid in data.skills:
 		skills.append(StaticData.skill_from_id(sid).instantiate())
 

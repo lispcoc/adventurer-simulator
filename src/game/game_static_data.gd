@@ -21,7 +21,7 @@ func load_classes():
 	Class.load(classes, "res://data/json/classes.cfg")
 	Class.load(classes, "res://data/json/classes_monster.cfg")
 	print(classes)
-	print(classes["スライム"].skills)
+	print(classes["slime"].skills)
 
 func load_skills():
 	SkillData.load(skills, "res://data/json/skills.cfg")

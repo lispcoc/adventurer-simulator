@@ -1,5 +1,6 @@
 class_name Class
 
+var display_name : String
 var base_hp : int = 10
 var grow_hp : int = 2
 
@@ -8,7 +9,7 @@ var grow_mp : int = 0
 
 var skills : PackedStringArray
 
-const DEFAULT_CLASS : String = "戦士"
+const DEFAULT_CLASS : String = "warrior"
 
 static func load(list : Dictionary[String, Class], path : String):
 	var database = ClassTextDatabase.new()
@@ -26,7 +27,7 @@ func from_json(json : Dictionary):
 class ClassTextDatabase extends TextDatabase:
 	func _initialize():
 		id_name = "no"
-		entry_name = "class_name"
+		entry_name = "id"
 		define_from_struct(Class.new)
 
 	func _preprocess_entry(entry):
@@ -36,4 +37,5 @@ class ClassTextDatabase extends TextDatabase:
 			entry.skills = ret
 
 	func _postprocess_entry(entry: Dictionary):
-		entry.id = entry.class_name
+		#entry.id = entry.class_name
+		pass
