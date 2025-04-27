@@ -1,5 +1,7 @@
 class_name FloatingDamage extends Marker2D
 
+const SCENE : PackedScene = preload("res://src/battle/ui/number/floating_damage.tscn")
+
 var label : Label
 
 var velocity = Vector2(0,-120)
@@ -9,6 +11,8 @@ var text_scale = Vector2.ONE * 1
 var text: String:
 	get: return $Label.text
 	set(value): $Label.text = value
+var color : Color:
+	set(_color): $Label.add_theme_color_override("font_color", _color)
 
 func _init() -> void:
 	label = Label.new()
@@ -33,3 +37,6 @@ func _process(delta: float) -> void:
 
 func _destory() -> void:
 	queue_free()
+
+static func instantiate() -> FloatingDamage:
+	return SCENE.instantiate()

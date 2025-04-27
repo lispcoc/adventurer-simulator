@@ -244,3 +244,10 @@ func spawn_cursor() -> AnimatedSprite2D:
 func debug_dialog() -> void:
 	Dialogic.start_timeline("res://data/dialog/test/debug.dtl")
 	await Dialogic.timeline_ended
+
+func get_panels(actor : Actor) -> Array[CharacterPanel]:
+	var panels : Array[CharacterPanel]
+	for panel in get_tree().get_nodes_in_group("character_panel"):
+		if panel is CharacterPanel:
+			if panel.actor == actor: panels.append(panel)
+	return panels

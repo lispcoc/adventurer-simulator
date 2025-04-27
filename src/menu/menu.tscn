@@ -21,20 +21,25 @@ offset_bottom = 480.0
 color = Color(0, 0, 0, 0.25098)
 
 [node name="UIGenericSelector" type="ScrollContainer" parent="." node_paths=PackedStringArray("container")]
-offset_left = 192.0
+offset_left = 176.0
 offset_top = 64.0
-offset_right = 448.0
-offset_bottom = 256.0
+offset_right = 464.0
+offset_bottom = 320.0
+horizontal_scroll_mode = 0
+vertical_scroll_mode = 0
 script = ExtResource("2_56xr1")
 container = NodePath("GridContainer")
+columns = 2
 button_height = 10
 cancelable = true
 metadata/_custom_type_script = "uid://b2m81xdsv3udj"
 
 [node name="GridContainer" type="GridContainer" parent="UIGenericSelector"]
 layout_mode = 2
+columns = 2
 
 [node name="SortSubMenu" type="GridContainer" parent="."]
+visible = false
 offset_left = 240.0
 offset_top = 65.0
 offset_right = 400.0

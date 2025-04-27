@@ -15,7 +15,7 @@ func _init() -> void:
 	if not uid: uid = Uuid.v4()
 
 func display_name():
-	return data.tname
+	return data.display_name
 
 func melee_roll_damage():
 	var amount = data.melee_base_amount

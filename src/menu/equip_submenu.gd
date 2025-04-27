@@ -10,7 +10,7 @@ func _ready() -> void:
 	item_desc.hide()
 	super._ready()
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_pressed("ui_cancel"):
 		if ctrl_inventory and ctrl_inventory.has_focus():
 			exit_item_select()

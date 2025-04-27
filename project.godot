@@ -158,6 +158,7 @@ import/fbx/enabled=false
 [global_group]
 
 status_ui=""
+character_panel=""
 
 [gui]
 

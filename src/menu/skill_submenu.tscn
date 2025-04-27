@@ -1,0 +1,28 @@
+[gd_scene load_steps=4 format=3 uid="uid://dwavcxsv0s6yw"]
+
+[ext_resource type="PackedScene" uid="uid://ia6att62w044" path="res://src/menu/base_submenu_with_party.tscn" id="1_7nox7"]
+[ext_resource type="Script" uid="uid://cdp7uh8xf7haq" path="res://src/menu/skill_submenu.gd" id="2_dh7bc"]
+[ext_resource type="Script" uid="uid://clip8lxle5ouc" path="res://addons/gloot/ui/ctrl_inventory.gd" id="3_hrjxx"]
+
+[node name="SkillSubMenu" instance=ExtResource("1_7nox7")]
+script = ExtResource("2_dh7bc")
+
+[node name="SkillList" type="ItemList" parent="CanvasLayer" index="0"]
+unique_name_in_owner = true
+offset_left = 136.0
+offset_top = 24.0
+offset_right = 264.0
+offset_bottom = 320.0
+script = ExtResource("3_hrjxx")
+metadata/_custom_type_script = "uid://clip8lxle5ouc"
+
+[node name="MessagePanel" type="PanelContainer" parent="CanvasLayer" index="1"]
+unique_name_in_owner = true
+offset_left = 136.0
+offset_top = 328.0
+offset_right = 424.0
+offset_bottom = 360.0
+
+[node name="Message" type="Label" parent="CanvasLayer/MessagePanel" index="0"]
+unique_name_in_owner = true
+layout_mode = 2

@@ -3,6 +3,7 @@ class_name CharacterPanel extends Button
 @export var name_label : Label
 @export var status_container : Container
 var lighter : ColorRect
+var cursor : Node2D
 var timer : Timer
 var actor : Actor:
 	set(v):
@@ -21,14 +22,16 @@ var selectable : bool = false:
 
 func _ready() -> void:
 	lighter = ColorRect.new()
-	add_child(lighter)
 	lighter.color = Color(1.0, 1.0, 1.0, 0.3)
 	lighter.size = size
 	lighter.hide()
+	add_child(lighter)
 	timer = Timer.new()
 	add_child(timer)
 	add_condition(StatusCondision.Burn)
 	selectable = false
+	focus_entered.connect(pop_cursor)
+	focus_exited.connect(remove_cursor)
 
 func update():
 	set_character_name(actor.actor_name)
@@ -67,6 +70,24 @@ func set_mp(val : int, max_val : int):
 	var bar := find_child("ManaBar") as ProgressBar
 	if bar:
 		bar.value = val * 100 / max_val
+
+func get_center_top() -> Vector2:
+	return Vector2(size.x / 2, 0)
+
+func pop_number(num : int, color : Color = Color("white")):
+	var fd := FloatingDamage.instantiate()
+	fd.text = str(num)
+	fd.color = color
+	fd.position = get_center_top()
+	add_child(fd)
+
+func pop_cursor() -> void:
+	cursor = Game.spawn_cursor()
+	cursor.position = get_center_top()
+	add_child(cursor)
+
+func remove_cursor() -> void:
+	if get_children().has(cursor): remove_child(cursor)
 
 func add_condition(cond: int) -> void:
 	status_container.add_child(StatusCondision.to_one_string_label(cond))

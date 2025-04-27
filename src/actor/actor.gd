@@ -139,8 +139,12 @@ func apply_dagame(dam : Damage) -> int:
 	return dam.val
 
 func set_hp(v : int):
-	hp = max(v, 0)
+	hp = min(hp_max, max(v, 0))
 	_on_status_update()
+
+func heal_hp(v : int):
+	hp += v
+	for panel in Game.get_panels(self): panel.pop_number(v, Color("green"))
 
 func add_item(item : Item) -> void:
 	inventory.append(item)

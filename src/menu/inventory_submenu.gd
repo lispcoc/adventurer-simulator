@@ -34,7 +34,7 @@ func _ready() -> void:
 	$CanvasLayer/Add.pressed.connect(test_add_item)
 	$CanvasLayer/Remove.pressed.connect(test_remove_item)
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_pressed("ui_cancel"):
 		if %Actor.has_focus():
 			exit.emit()

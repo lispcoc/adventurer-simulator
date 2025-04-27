@@ -19,6 +19,8 @@ var type : Type = Type.Melee
 var range : int = 1
 var target : Game.Target = Game.Target.EnemyOne
 var effect : String = "default"
+var in_battle : bool = true
+var outside_of_battle : bool = false
 # Messages
 var use_msg : String
 var result_msg : String

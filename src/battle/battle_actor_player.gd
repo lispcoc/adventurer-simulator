@@ -39,5 +39,4 @@ func on_main_exit():
 func is_player() -> bool:
 	return true
 
-func get_center_top() -> Vector2:
-	return Vector2(panel.size.x / 2, 0)
+func pop_cursor() -> void: panel.pop_cursor()

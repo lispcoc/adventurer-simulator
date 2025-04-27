@@ -8,7 +8,7 @@
 [ext_resource type="LabelSettings" uid="uid://bf4jv5du75xt0" path="res://theme/label/outlined_12.tres" id="4_ja8nb"]
 [ext_resource type="Script" uid="uid://co1xt4r7qttvp" path="res://src/common/character_panel/status_condition.gd" id="6_ebrwm"]
 
-[node name="CharacterPanel" type="Button" node_paths=PackedStringArray("name_label", "status_container") groups=["status_ui"]]
+[node name="CharacterPanel" type="Button" node_paths=PackedStringArray("name_label", "status_container") groups=["character_panel", "status_ui"]]
 custom_minimum_size = Vector2(128, 84)
 offset_right = 128.0
 offset_bottom = 84.0
