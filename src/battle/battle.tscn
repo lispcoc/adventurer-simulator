@@ -1,4 +1,4 @@
-[gd_scene load_steps=11 format=3 uid="uid://doy7c5cwvl737"]
+[gd_scene load_steps=44 format=3 uid="uid://doy7c5cwvl737"]
 
 [ext_resource type="Script" uid="uid://dfvrfddsxt8ge" path="res://src/battle/battle_manager.gd" id="1_i4wed"]
 [ext_resource type="Theme" uid="uid://coqyw0byiv6pq" path="res://theme/cursor.tres" id="2_ewtd0"]
@@ -11,6 +11,72 @@
 [ext_resource type="PackedScene" uid="uid://ckj8nx2ww3lvi" path="res://src/portrait/portrait.tscn" id="8_qkyk6"]
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_1utxv"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_htieh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_817hq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_o24p5"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_64noy"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_twqsi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7g5g1"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6vfvu"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7wvlq"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bjipi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_dnkew"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_at780"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_wtjwh"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_m5n8x"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bu0ik"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_libal"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_7sv81"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_06ymc"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_q757b"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_lwvck"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_r5tbi"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_l7blb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_ahnb2"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6mxhp"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_emape"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_qnbd7"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_om0df"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_iayu3"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_73hyb"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_bvy1d"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_6phc8"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_aj4ek"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_i45e0"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_75i87"]
 
 [node name="Battle" type="Node2D" node_paths=PackedStringArray("battle_command", "skill_select", "party_container", "enemy_container", "message", "portrait")]
 script = ExtResource("1_i4wed")
@@ -53,10 +119,31 @@ layout_mode = 2
 custom_minimum_size = Vector2(600, 64)
 layout_mode = 2
 theme_override_styles/focus = SubResource("StyleBoxEmpty_1utxv")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_htieh")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_817hq")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_o24p5")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_64noy")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_twqsi")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_7g5g1")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_6vfvu")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_7wvlq")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_bjipi")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_dnkew")
 
 [node name="Front" type="Button" parent="CanvasLayer/EnemyContainer/Lines"]
 custom_minimum_size = Vector2(600, 64)
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_at780")
+theme_override_styles/disabled_mirrored = SubResource("StyleBoxEmpty_wtjwh")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_m5n8x")
+theme_override_styles/hover_pressed_mirrored = SubResource("StyleBoxEmpty_bu0ik")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_libal")
+theme_override_styles/hover_mirrored = SubResource("StyleBoxEmpty_7sv81")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_06ymc")
+theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_q757b")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_lwvck")
+theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_r5tbi")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_l7blb")
 
 [node name="GridV" type="VBoxContainer" parent="CanvasLayer/EnemyContainer"]
 layout_mode = 2
@@ -100,16 +187,27 @@ layout_mode = 2
 layout_mode = 2
 
 [node name="Lines" type="VBoxContainer" parent="CanvasLayer/PartyPanelContainer"]
-visible = false
 layout_mode = 2
 
 [node name="Front" type="Button" parent="CanvasLayer/PartyPanelContainer/Lines"]
 custom_minimum_size = Vector2(600, 64)
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_ahnb2")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_6mxhp")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_emape")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_qnbd7")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_om0df")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_iayu3")
 
 [node name="Back" type="Button" parent="CanvasLayer/PartyPanelContainer/Lines"]
 custom_minimum_size = Vector2(600, 64)
 layout_mode = 2
+theme_override_styles/focus = SubResource("StyleBoxEmpty_73hyb")
+theme_override_styles/disabled = SubResource("StyleBoxEmpty_bvy1d")
+theme_override_styles/hover_pressed = SubResource("StyleBoxEmpty_6phc8")
+theme_override_styles/hover = SubResource("StyleBoxEmpty_aj4ek")
+theme_override_styles/pressed = SubResource("StyleBoxEmpty_i45e0")
+theme_override_styles/normal = SubResource("StyleBoxEmpty_75i87")
 
 [node name="BattleCommand" type="Container" parent="CanvasLayer" node_paths=PackedStringArray("container", "commands")]
 offset_left = 102.0
