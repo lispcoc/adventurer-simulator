@@ -30,12 +30,12 @@ func update_base_status(actor : Actor) -> void:
 		" Lv ", " %d " % [actor.level],
 		" HP ", " %d/%d " % [actor.hp, actor.hp_max],
 		" MP ", " %d/%d " % [actor.mp, actor.mp_max],
-		" 筋力 ", " %d " % [actor.strength],
-		" 耐久 ", " %d " % [actor.constitution],
-		" 器用 ", " %d " % [actor.dexterity],
-		" 魔力 ", " %d " % [actor.intelligence],
-		" 精神 ", " %d " % [actor.mind],
 	])
+	for id in Actor.Status.Id.values():
+		base_status.add_array([
+			" %s " % Actor.Status.string(id),
+			" %d " % actor.get_status(id)
+		])
 
 func update_weapon_info(actor : Actor) -> void:
 	weapon_info.erase()

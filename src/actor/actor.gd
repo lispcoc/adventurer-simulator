@@ -35,14 +35,36 @@ var dexterity : int = 10
 var intelligence : int = 10
 var mind : int = 10
 
-class Status:
-	var a
+class Status extends RefCounted:
+	enum Id{
+		STR = 0,
+		CON,
+		DEX,
+		INT,
+		MND
+	}
+	const _list : PackedStringArray = [
+		"strength",
+		"constitution",
+		"dexterity",
+		"intelligence",
+		"mind",
+	]
+	const _name_list : PackedStringArray = [
+		"筋力",
+		"耐久",
+		"器用",
+		"知力",
+		"精神",
+	]
+	static func from_id(id : Id) -> String: return _list[id]
+	static func keys() -> PackedStringArray: return _list
+	static func string(id : Id) -> String: return _name_list[id]
 
 func _init() -> void:
 	if !init:
 		init = true
 		initialize_actor()
-		#test()
 		pick_random_name()
 
 func _on_status_update() -> void:
@@ -54,11 +76,6 @@ func load_from_monster_data(data : MonsterData):
 	actor_name = data.display_name
 	for sid in data.skills:
 		skills.append(StaticData.skill_from_id(sid).instantiate())
-
-func test():
-	var s = StaticData.skill_from_id("魔神斬り").instantiate()
-	skills.append(s)
-	skills.append(StaticData.skill_from_id("軽傷治癒").instantiate())
 
 func get_skills() -> Array[Skill]:
 	var class_skills : Array[Skill]
@@ -76,8 +93,8 @@ func initialize_actor():
 
 func recalc_status():
 	var cls = get_class_data()
-	hp_max = cls.base_hp + max(0, (cls.grow_hp + constitution / 2.0 + strength / 4.0)) * level
-	mp_max = cls.base_mp + max(0, (cls.grow_mp + intelligence / 2.0 + mind / 4.0)) * level
+	hp_max = cls.base_hp + max(0, (cls.grow_hp + get_status(Status.Id.CON) / 2.0 + get_status(Status.Id.STR) / 4.0)) * level
+	mp_max = cls.base_mp + max(0, (cls.grow_mp + get_status(Status.Id.INT) / 2.0 + get_status(Status.Id.MND) / 4.0)) * level
 	hp = min(hp_max, hp)
 	mp = min(mp_max, mp)
 
@@ -115,8 +132,15 @@ func get_footwear() -> Item:
 	if item: return item
 	else: return Item.new()
 
+func get_status(id : Status.Id) -> int:
+	return get(Status.from_id(id))
+
+func get_bonus(id : Status.Id) -> int:
+	var val : int = get(Status.from_id(id))
+	return int(val / 2.0)
+
 func get_atk() -> int:
-	return int(strength / 2.0)
+	return get_bonus(Status.Id.STR)
 
 # =($D$3+20) * MAX(1, 8 + $B$3 - B9) / 3000
 func get_melee_times(sk : Skill = null, weapon : Item = null) -> int:
@@ -133,10 +157,10 @@ func roll_melee_damage(sk : Skill = null) -> Damage:
 	return Damage.new(val, Attribute.Type.Bash)
 
 func get_hit() -> int:
-	return int(dexterity / 2.0)
+	return get_bonus(Status.Id.DEX)
 
 func get_dodge() -> int:
-	return int(dexterity / 2.0)
+	return get_bonus(Status.Id.DEX)
 
 func apply_dagame(dam : Damage) -> int:
 	hp -= dam.val
