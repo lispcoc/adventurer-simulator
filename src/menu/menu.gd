@@ -29,7 +29,7 @@ func _ready() -> void:
 	selector.add_command("会話", "talk")
 	selector.add_command("デバッグ", "debug")
 	while true:
-		var ret = selector.parse_retval(await selector.start_select())
+		var ret = UIGenericSelector.parse_retval(await selector.start_select())
 		if ret.canceled:
 			break
 		match ret.function:

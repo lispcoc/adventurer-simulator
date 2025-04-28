@@ -46,10 +46,10 @@ func update_weapon_info(actor : Actor) -> void:
 	])
 
 # TODO: Actorに移動する
-func status_text_left(actor : Actor) -> String:
+func status_text_left(_actor : Actor) -> String:
 	var lines : PackedStringArray
 	return "\n".join(lines)
 
-func status_text_right(actor : Actor) -> String:
+func status_text_right(_actor : Actor) -> String:
 	var lines : PackedStringArray
 	return "\n".join(lines)

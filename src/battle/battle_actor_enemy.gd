@@ -23,6 +23,7 @@ func _ready():
 	label_panel.custom_minimum_size = Vector2(200, 32)
 	label_panel.position.y = t_button.texture_normal.get_size().y
 	label_panel.position.x = -100 + t_button.texture_normal.get_size().x / 2
+	label_panel.z_index = 1
 	label = RichTextLabel.new()
 	label_panel.add_child(label)
 	label_panel.hide()

@@ -18,7 +18,7 @@ func _ready() -> void:
 func update():
 	add_base_text()
 	match item.data.type:
-		ItemData.Type.Melee:
+		ItemData.Type.Weapon:
 			add_melee_text()
 
 func add_base_text():

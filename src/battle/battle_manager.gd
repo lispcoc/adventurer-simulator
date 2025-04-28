@@ -170,6 +170,12 @@ func main_loop() -> BattleResult:
 				c.defence = false
 				c.on_main_entered()
 				if c.is_player():
+					var act := pick_act(c)
+					await process_skill(c, act.targets, act.skill)
+				elif c.is_enemy():
+					var act := pick_act(c)
+					await process_skill(c, act.targets, act.skill)
+				else: #npc
 					if !current_actor.actor.portrait.is_empty():
 						portrait.show()
 						portrait.from_string(str(current_actor.actor.portrait))
@@ -204,18 +210,6 @@ func main_loop() -> BattleResult:
 									return BattleResult.Run
 								else:
 									set_msg("逃げられない")
-				if c.is_enemy():
-					var act : BattleActor.Act
-					var max_value := 0
-					for a in Tactics.enumulate_act(self, c):
-						var value := Tactics.evaluate_act(self, c, a)
-						print(a)
-						print("  %d" % value)
-						if value >= max_value:
-							max_value = value
-							act = a
-					print("-> %s" % act)
-					await process_skill(c, act.targets, act.skill)
 				portrait_hide()
 				c.on_main_exit()
 				c.available = false
@@ -229,6 +223,19 @@ func main_loop() -> BattleResult:
 		if is_dead_all(get_enemies()):
 			return BattleResult.Win
 	return BattleResult.Win
+
+func pick_act(actor : BattleActor) -> BattleActor.Act:
+	var act : BattleActor.Act
+	var max_value := 0
+	for a in Tactics.enumulate_act(self, actor):
+		var value := Tactics.evaluate_act(self, actor, a)
+		print(a)
+		print("  %d" % value)
+		if value >= max_value:
+			max_value = value
+			act = a
+	print("-> %s" % act)
+	return act
 
 func is_dead_all(actors : Array[BattleActor]):
 	for e in actors: if !e.is_dead(): return false

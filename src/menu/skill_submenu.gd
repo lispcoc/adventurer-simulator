@@ -12,7 +12,7 @@ func _ready() -> void:
 	%MessagePanel.hide()
 	super._ready()
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_pressed("ui_cancel"):
 		if skill_list.has_focus():
 			resume_actor_select.emit()

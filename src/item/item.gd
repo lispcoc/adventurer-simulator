@@ -12,7 +12,7 @@ var wgt : int:
 	set(_v): pass
 
 func _init() -> void:
-	if not uid: uid = Uuid.v4()
+	if not uid: uid = UUID.v4()
 
 func display_name():
 	return data.display_name

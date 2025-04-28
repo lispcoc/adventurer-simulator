@@ -113,6 +113,7 @@ front_container = NodePath("GridV/Front/FrontGrid")
 back_container = NodePath("GridV/Back/BackGrid")
 
 [node name="Lines" type="VBoxContainer" parent="CanvasLayer/EnemyContainer"]
+visible = false
 layout_mode = 2
 
 [node name="Back" type="Button" parent="CanvasLayer/EnemyContainer/Lines"]

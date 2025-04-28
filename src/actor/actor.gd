@@ -31,8 +31,11 @@ var mp : int = 10
 var strength : int = 10
 var constitution : int = 10
 var dexterity : int = 10
-var magic : int = 10
+var intelligence : int = 10
 var mind : int = 10
+
+class Status:
+	var a
 
 func _init() -> void:
 	if !init:
@@ -73,7 +76,7 @@ func initialize_actor():
 func recalc_status():
 	var cls = get_class_data()
 	hp_max = cls.base_hp + max(0, (cls.grow_hp + constitution / 2.0 + strength / 4.0)) * level
-	mp_max = cls.base_mp + max(0, (cls.grow_mp + magic / 2.0 + mind / 4.0)) * level
+	mp_max = cls.base_mp + max(0, (cls.grow_mp + intelligence / 2.0 + mind / 4.0)) * level
 	hp = min(hp_max, hp)
 	mp = min(mp_max, mp)
 

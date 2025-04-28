@@ -2,7 +2,7 @@ class_name SortSubMenu extends Container
 
 signal sort_exit()
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	if not visible:
 		return
 	if Input.is_action_pressed("ui_cancel"):

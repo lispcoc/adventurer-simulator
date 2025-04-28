@@ -150,7 +150,8 @@ func floating_damage(val : int):
 	add_child(damage)
 
 func evaluate_threat() -> int:
-	return actor.level * 100 * hp / hp_max
+	var hp_rate : float = min(1.0, hp / (hp_max * 0.75))
+	return actor.level * 100 * hp_rate
 
 func spawn_simulator() -> BattleActor:
 	var sim : BattleActor = str_to_var(var_to_str(self))
