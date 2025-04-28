@@ -1,5 +1,6 @@
 class_name GameManager extends Control
 
+@warning_ignore_start("unused_signal")
 signal battle_started
 signal battle_ended
 signal editor_started

@@ -13,7 +13,7 @@ func _ready() -> void:
 		iv.add_item(it)
 	grid.inventory_item_selected.connect(on_selected)
 	search_item.call_deferred()
-	grid.child_entered_tree.connect(func (n): print("aaaaaaaaa"))
+	grid.child_entered_tree.connect(func (_n): print("aaaaaaaaa"))
 
 func _on_item_entered(item : CtrlInventoryItemBase):
 	item.focus_entered.connect(func (): print("focus_entered:" + item.name))
@@ -22,15 +22,12 @@ func search_item():
 	for i in get_tree().get_nodes_in_group("ItemButton"):
 		print(i)
 
-func on_selected(item: InventoryItem):
+func on_selected(_item: InventoryItem):
 	print("select:" )
 
-func _can_drop_data(_at_position: Vector2, data: Variant) -> bool:
+func _can_drop_data(_at_position: Vector2, _data: Variant) -> bool:
 	return false
-	return data is InventoryItem
 
 
-func _drop_data(_at_position: Vector2, data: Variant) -> void:
+func _drop_data(_at_position: Vector2, _data: Variant) -> void:
 	return
-	grid.inventory.remove_item(data)
-	# Add custom logic for handling the item drop here

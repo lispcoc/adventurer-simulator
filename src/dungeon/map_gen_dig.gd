@@ -30,22 +30,15 @@ func run():
 	print("run")
 	set_cell(Vector2i(0, 0), 0,Vector2i(0, 0))
 	print(get_used_cells())
-	return
-	BetterTerrain.set_cells(self, get_used_cells(), -1)
-	generate()
-	data.dump()
-	for x in range(map_width): for y in range(map_height):
-		BetterTerrain.set_cell(self, Vector2i(x, y), id_map[data.get_v(x, y)])
-	BetterTerrain.update_terrain_cells(self, get_used_cells())
 
 func generate() -> Array2D:
 	data = Array2D.new(map_width, map_height)
-	fill(data, TILE_WALL)
-	dig(data, 0, 0)
+	fill(TILE_WALL)
+	dig(0, 0)
 	# 追加で穴を開ける
 	for x in range(map_width): for y in range(map_height):
 		if randf() < passable_probability:
-			set_v(data, x, y, TILE_PASSABLE)
+			set_v(x, y, TILE_PASSABLE)
 	# 適当な位置にスタートとゴールを設定
 	var distance = Distance2D.new(data.filtered_points(TILE_PASSABLE))
 	var max_dist = 0
@@ -60,12 +53,12 @@ func generate() -> Array2D:
 		if max_dist <= path.size():
 			max_dist = path.size()
 			goal_cell = cell
-	set_v(data, start_cell.x, start_cell.y, TILE_START)
-	set_v(data, goal_cell.x, goal_cell.y, TILE_GOAL)
+	set_v(start_cell.x, start_cell.y, TILE_START)
+	set_v(goal_cell.x, goal_cell.y, TILE_GOAL)
 	return data
 
-func dig(data : Array2D, x := 0, y := 0):
-	set_v(data, x, y, TILE_PASSABLE)
+func dig(x := 0, y := 0):
+	set_v(x, y, TILE_PASSABLE)
 	var dir_list = [
 		Vector2i(-1, 0),
 		Vector2i(0, -1),
@@ -75,16 +68,16 @@ func dig(data : Array2D, x := 0, y := 0):
 	dir_list.shuffle()
 	for dir in dir_list:
 		if get_v(x + dir.x * 2, y + dir.y * 2) == TILE_WALL:
-			set_v(data, x + dir.x, y + dir.y, TILE_PASSABLE)
-			dig(data, x + dir.x * 2, y + dir.y * 2)
+			set_v(x + dir.x, y + dir.y, TILE_PASSABLE)
+			dig(x + dir.x * 2, y + dir.y * 2)
 
 func get_v(x : int, y : int):
 	return data.get_v(x, y)
 
-func set_v(data : Array2D, x : int, y : int, v : int):
+func set_v(x : int, y : int, v : int):
 	data.set_v(x, y, v)
 
-func fill(data : Array2D, v : int):
+func fill(v : int):
 	data.fill(v)
 
 
