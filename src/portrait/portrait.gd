@@ -164,7 +164,7 @@ func _on_interval():
 	interval_count = interval_count + 1
 	#nod()
 	if interval_count % 3 == 0:
-		eye_close(0.2)
+		close_eye(0.2)
 
 func nod():
 	for part in get_children():if part.is_in_group("portrait_head"):
@@ -177,7 +177,7 @@ func nod():
 		tw.tween_interval(1.0)
 		tw.tween_property(part, "position", Vector2(0, 0), 0.3)
 
-func eye_close(duration : float):
+func close_eye(duration : float):
 	var eye : AnimatedSprite2D = find_child("eye")
 	var eye_close : AnimatedSprite2D = find_child("eye_close")
 	if eye and eye_close:

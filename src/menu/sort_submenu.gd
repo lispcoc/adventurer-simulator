@@ -44,8 +44,8 @@ func start_sort():
 			c.grab_focus()
 			break
 
-func sort_button_pressed(toggled_on : bool):
-	var btn1 : Button
+func sort_button_pressed(_toggled_on : bool):
+	var btn1 : Button = null
 	var btn2 : Button
 	var num1 : int
 	var num2 : int
@@ -61,9 +61,7 @@ func sort_button_pressed(toggled_on : bool):
 				btn1 = c
 				num1 = i
 		i = i + 1
-	print("sort_button_pressed")
 	if btn1 and btn2:
-		print("aaa")
 		move_child(btn1, num2)
 		move_child(btn2, num1)
 		for c in get_children():

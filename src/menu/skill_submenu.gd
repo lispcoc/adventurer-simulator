@@ -43,11 +43,11 @@ func _on_skill_selected(inv_skill : InventoryItem):
 		%Message.text = "%sは戦闘中にしか使用できません。" % skill.display_name()
 		return
 	used_skill = skill
-	if skill.data.target == Game.Target.PartyOne:
+	if skill.data.target_type == Game.Target.PartyOne:
 		%MessagePanel.show()
 		%Message.text = "%sを誰に使用しますか？" % skill.display_name()
 		CharacterPanelUi.start_select()
-	elif skill.data.target == Game.Target.PartyLine or skill.data.target == Game.Target.PartyAll:
+	elif skill.data.target_type in [Game.Target.PartyLine, Game.Target.PartyAll]:
 		%MessagePanel.show()
 		%Message.text = "%sを誰に使用しますか？" % skill.display_name()
 		CharacterPanelUi.start_select(true)
@@ -62,5 +62,5 @@ func _on_target_selected(targets : Array[Actor]) -> void:
 	for target in targets:
 		var chk := used_skill.can_use(user, target)
 		if chk.success:
-			var ret := used_skill.use(user, target)
+			var _ret := used_skill.use(user, target)
 		else: %Message.text = chk.fail_message

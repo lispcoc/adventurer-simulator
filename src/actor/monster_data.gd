@@ -23,6 +23,4 @@ class MonsterTextDatabase extends TextDatabase:
 			for s in entry.skills: ret.append(s)
 			entry.skills = ret
 
-	func _postprocess_entry(entry: Dictionary):
-		#entry.id = entry.monster_name
-		pass
+	func _postprocess_entry(_entry: Dictionary): pass

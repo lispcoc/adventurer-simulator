@@ -38,7 +38,7 @@ func _ready() -> void:
 	#	commands.front().focus_neighbor_top = commands.back().get_path()
 	if hide_inactive: hide()
 
-func _unhandled_input(event: InputEvent) -> void:
+func _unhandled_input(_event: InputEvent) -> void:
 	if not processing:
 		return
 	if Input.is_action_pressed("ui_cancel"):
@@ -47,7 +47,7 @@ func _unhandled_input(event: InputEvent) -> void:
 			on_canceled()
 			get_viewport().set_input_as_handled()
 
-func get_button_width() -> int: return size.x / columns
+func get_button_width() -> int: return int(size.x / columns)
 
 func connect_command(cmd : UIGenericSelectorButton):
 	cmd.selected.connect(on_selected)

@@ -83,7 +83,7 @@ func pop_cursor() -> void:
 	add_child(cursor)
 
 func remove_cursor() -> void:
-	for cursor in get_children(): if Game.is_cursor(cursor): remove_child(cursor)
+	for _cursor in get_children(): if Game.is_cursor(_cursor): remove_child(_cursor)
 
 func focus():
 	button.grab_focus()
@@ -151,7 +151,7 @@ func floating_damage(val : int):
 
 func evaluate_threat() -> int:
 	var hp_rate : float = min(1.0, hp / (hp_max * 0.75))
-	return actor.level * 100 * hp_rate
+	return int(actor.level * 100 * hp_rate)
 
 func spawn_simulator() -> BattleActor:
 	var sim : BattleActor = str_to_var(var_to_str(self))

@@ -18,7 +18,7 @@ func _unhandled_input(_event: InputEvent) -> void:
 			resume_actor_select.emit()
 			item_desc.hide()
 
-func on_selected(node):
+func on_selected(_node):
 	equip_list.get_buttons()[0].grab_focus()
 	item_desc.show()
 	await resume_actor_select

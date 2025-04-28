@@ -134,11 +134,11 @@ enum BattleResult {
 	Run,
 }
 
-func select_target(target_type : Game.Target, range : int, by_front : bool):
+func select_target(target_type : Game.Target, target_range : int, by_front : bool):
 	var targets : Array[BattleActor]
-	if not by_front: range -= 1
-	var front_valid : bool = range >= 1
-	var back_valid : bool = range >= 2
+	if not by_front: target_range -= 1
+	var front_valid : bool = target_range >= 1
+	var back_valid : bool = target_range >= 2
 
 	if target_type == Game.Target.PartyOne:
 		return await party_container.start_select_target(true, true)
@@ -198,7 +198,7 @@ func main_loop() -> BattleResult:
 									accept = true
 							"Skill":
 								var sk : Skill = ret["skill"]
-								var targets : Array[BattleActor] = await select_target(sk.data.target, sk.data.range, by_front)
+								var targets : Array[BattleActor] = await select_target(sk.data.target_type, sk.data.target_range, by_front)
 								if not targets.is_empty():
 									await process_skill(c, targets, sk)
 									accept = true

@@ -57,7 +57,6 @@ func run():
 	layer.clear()
 	templates["Grass"] = dungeon_chip.find_child("Grass") as Node2D
 	templates["Upstair"] = dungeon_chip.find_child("Upstair") as Node2D
-	Script
 	map = generator.generate()
 	map.dump()
 	for x in range(generator.map_width): for y in range(generator.map_height):
@@ -116,9 +115,8 @@ func update_surrounded_cells(cell : Vector2i):
 			tile.identified = true
 			tile.set_dark(false)
 
-func _on_player_move(position : Vector2):
+func _on_player_move(_position : Vector2):
 	update_surrounded_cells(player.get_cell())
-	Dialogic.event_handled
 	Game.pass_time(0, 1)
 	Game.update_ui()
 	if randf() < 0.1:

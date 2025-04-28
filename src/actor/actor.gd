@@ -1,5 +1,6 @@
 class_name Actor extends Node
 
+@warning_ignore("unused_signal")
 signal on_dead()
 
 enum Sex {
@@ -155,7 +156,7 @@ func add_item(item : Item) -> void:
 func remove_item(item : Item) -> void:
 	inventory.erase(item)
 
-func spawn_inventory(template : CtrlInventory, filter : Callable = func (item : Item): return true) -> CtrlInventory:
+func spawn_inventory(template : CtrlInventory, filter : Callable = func (_item : Item): return true) -> CtrlInventory:
 	var ctrl_inventory : CtrlInventory = template.duplicate()
 	var _inventory = Inventory.new()
 	ctrl_inventory.set_meta("owner", self)

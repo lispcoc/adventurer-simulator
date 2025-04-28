@@ -87,17 +87,11 @@ func pop_cursor() -> void:
 	add_child(cursor)
 
 func remove_cursor() -> void:
-	for cursor in get_children(): if Game.is_cursor(cursor): remove_child(cursor)
+	for _cursor in get_children(): if Game.is_cursor(_cursor): remove_child(_cursor)
 
 func add_condition(cond: int) -> void:
 	status_container.add_child(StatusCondision.to_one_string_label(cond))
 	return
-	var sc := find_child("StatusCondition") as UIStatusCondision
-	if sc:
-		sc.add_condition(cond)
 
-func remove_condition(cond: int) -> void:
+func remove_condition(_cond: int) -> void:
 	return
-	var sc := find_child("StatusCondition") as UIStatusCondision
-	if sc:
-		sc.add_condition(cond)

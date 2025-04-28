@@ -36,6 +36,4 @@ class ClassTextDatabase extends TextDatabase:
 			for s in entry.skills: ret.append(s)
 			entry.skills = ret
 
-	func _postprocess_entry(entry: Dictionary):
-		#entry.id = entry.class_name
-		pass
+	func _postprocess_entry(_entry: Dictionary): pass
