@@ -52,12 +52,12 @@ func get_center_top() -> Vector2:
 
 func get_act(by_front : bool, enemy_front : Array[BattleActor], enemy_back : Array[BattleActor]) -> Act:
 	var ret = Act.new()
-	var skills = actor.get_skills()
-	skills.shuffle()
-	ret.skill = skills[0]
-	var target_range = ret.skill.data.target_range
+	var abilities = actor.get_abilities()
+	abilities.shuffle()
+	ret.ability = abilities[0]
+	var target_range = ret.ability.data.target_range
 	if by_front: target_range += 1
-	match ret.skill.data.target_type:
+	match ret.ability.data.target_type:
 		Game.Target.EnemyAll:
 			ret.targets = enemy_front + enemy_back
 		Game.Target.EnemyLine:

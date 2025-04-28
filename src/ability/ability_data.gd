@@ -1,4 +1,4 @@
-class_name SkillData extends RefCounted
+class_name AbilityData extends RefCounted
 
 enum Category {
 	Attack,
@@ -34,13 +34,13 @@ var base_constant : int = 0
 var flags : Array[int]
 
 static func load(list : Dictionary, path : String):
-	var database = SkillDataTextDatabase.new()
+	var database = AbilityDataTextDatabase.new()
 	database.id_name = "no"
 	database.load_from_path(path)
 	list.merge(database.get_struct_dictionary(), true)
 
-func instantiate() -> Skill:
-	var s = Skill.new()
+func instantiate() -> Ability:
+	var s = Ability.new()
 	s.id = id
 	return s
 
@@ -50,11 +50,11 @@ static func map_effect(effect_id : String) -> Callable:
 	}
 	return map[effect_id]
 
-static func f_default(_sk : Skill, _user : BattleActor, _target : BattleActor) -> int:
-	print("Warning: Skill has no function.")
+static func f_default(_sk : Ability, _user : BattleActor, _target : BattleActor) -> int:
+	print("Warning: Ability has no function.")
 	return 0
 
-static func f_heal_hp(_sk : Skill, _user : Actor, _target : Actor) -> int:
+static func f_heal_hp(_sk : Ability, _user : Actor, _target : Actor) -> int:
 	var val := DiceRoller.roll_dices(
 		_sk.data.base_amount,
 		_sk.data.base_sides,
@@ -64,11 +64,11 @@ static func f_heal_hp(_sk : Skill, _user : Actor, _target : Actor) -> int:
 	return true
 
 
-class SkillDataTextDatabase extends TextDatabase:
+class AbilityDataTextDatabase extends TextDatabase:
 	func _initialize():
 		id_name = "no"
 		entry_name = "id"
-		define_from_struct(SkillData.new)
+		define_from_struct(AbilityData.new)
 
 	func _schema_initialize():
 		override_property_type("category", TYPE_STRING)
@@ -76,15 +76,14 @@ class SkillDataTextDatabase extends TextDatabase:
 		override_property_type("target_type", TYPE_STRING)
 
 	func _postprocess_entry(entry: Dictionary):
-		#entry.id = entry.skill_name
 		if "category" in entry:
-			for i in SkillData.Category.keys().size():
-				if SkillData.Category.keys()[i] == entry.category:
+			for i in AbilityData.Category.keys().size():
+				if AbilityData.Category.keys()[i] == entry.category:
 					entry.category = i
 					break
 		if "type" in entry:
-			for i in SkillData.Type.keys().size():
-				if SkillData.Type.keys()[i] == entry.type:
+			for i in AbilityData.Type.keys().size():
+				if AbilityData.Type.keys()[i] == entry.type:
 					entry.type = i
 					break
 		if "target_type" in entry:

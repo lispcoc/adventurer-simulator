@@ -1,7 +1,7 @@
 [gd_scene load_steps=4 format=3 uid="uid://dwavcxsv0s6yw"]
 
 [ext_resource type="PackedScene" uid="uid://ia6att62w044" path="res://src/menu/base_submenu_with_party.tscn" id="1_7nox7"]
-[ext_resource type="Script" uid="uid://cdp7uh8xf7haq" path="res://src/menu/skill_submenu.gd" id="2_dh7bc"]
+[ext_resource type="Script" uid="uid://cdp7uh8xf7haq" path="res://src/menu/ability_submenu.gd" id="2_dh7bc"]
 [ext_resource type="Script" uid="uid://clip8lxle5ouc" path="res://addons/gloot/ui/ctrl_inventory.gd" id="3_hrjxx"]
 
 [node name="SkillSubMenu" instance=ExtResource("1_7nox7")]

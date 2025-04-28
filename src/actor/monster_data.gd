@@ -2,7 +2,7 @@ class_name MonsterData extends RefCounted
 
 var display_name : String
 var class_id : String
-var skills : PackedStringArray
+var abilities : PackedStringArray
 
 static func load(list : Dictionary[String, MonsterData], path : String):
 	var database = MonsterTextDatabase.new()
@@ -18,9 +18,9 @@ class MonsterTextDatabase extends TextDatabase:
 		define_from_struct(MonsterData.new)
 
 	func _preprocess_entry(entry):
-		if entry.has("skills"):
+		if entry.has("abilities"):
 			var ret : PackedStringArray
-			for s in entry.skills: ret.append(s)
-			entry.skills = ret
+			for s in entry.abilities: ret.append(s)
+			entry.abilities = ret
 
 	func _postprocess_entry(_entry: Dictionary): pass

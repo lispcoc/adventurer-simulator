@@ -3,7 +3,7 @@ class_name GameStaticData extends Node
 signal loaded
 
 var classes : Dictionary[String, Class] = {}
-var skills : Dictionary = {}
+var abilities : Dictionary[String, AbilityData] = {}
 var items : Dictionary[String, ItemData] = {}
 var monsters : Dictionary[String, MonsterData] = {}
 var names : NameList
@@ -11,7 +11,7 @@ var names : NameList
 func _ready() -> void:
 	print("GameStaticData._ready")
 	load_classes()
-	load_skills()
+	load_abilities()
 	load_items()
 	load_names()
 	load_monsters()
@@ -21,11 +21,11 @@ func load_classes():
 	Class.load(classes, "res://data/json/classes.cfg")
 	Class.load(classes, "res://data/json/classes_monster.cfg")
 	print(classes)
-	print(classes["slime"].skills)
+	print(classes["slime"].abilities)
 
-func load_skills():
-	SkillData.load(skills, "res://data/json/skills.cfg")
-	print(skills)
+func load_abilities():
+	AbilityData.load(abilities, "res://data/json/abilities.cfg")
+	print(abilities)
 
 func load_items():
 	ItemData.load(items, "res://data/json/items.cfg")
@@ -42,5 +42,5 @@ func load_monsters():
 func item_from_id(id : String) -> ItemData:
 	return items[id]
 
-func skill_from_id(id : String) -> SkillData:
-	return skills[id]
+func ability_from_id(id : String) -> AbilityData:
+	return abilities[id]

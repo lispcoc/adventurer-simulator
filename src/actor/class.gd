@@ -7,7 +7,7 @@ var grow_hp : int = 2
 var base_mp : int = 0
 var grow_mp : int = 0
 
-var skills : PackedStringArray
+var abilities : PackedStringArray
 
 const DEFAULT_CLASS : String = "warrior"
 
@@ -31,9 +31,9 @@ class ClassTextDatabase extends TextDatabase:
 		define_from_struct(Class.new)
 
 	func _preprocess_entry(entry):
-		if entry.has("skills"):
+		if entry.has("abilities"):
 			var ret : PackedStringArray
-			for s in entry.skills: ret.append(s)
-			entry.skills = ret
+			for s in entry.abilities: ret.append(s)
+			entry.abilities = ret
 
 	func _postprocess_entry(_entry: Dictionary): pass

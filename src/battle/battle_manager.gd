@@ -3,7 +3,7 @@ class_name BattleManager extends Node
 signal exit_battle
 
 @export var battle_command : UICommandSelector
-@export var skill_select : UICommandSelector
+@export var ability_select : UICommandSelector
 @export var party_container : UIBattleActorContainer
 @export var enemy_container : UIBattleActorContainer
 @export var message : RichTextLabel
@@ -61,7 +61,7 @@ func get_enemies_back() -> Array[BattleActor]: return enemy_container.get_actors
 func check_melee_hit(atkr, tgt) -> bool:
 	return atkr.hit_roll() > tgt.dodge_roll()
 
-func process_melee_attack(attacker : BattleActor, target : BattleActor, sk : Skill = null, simulate : bool = false):
+func process_melee_attack(attacker : BattleActor, target : BattleActor, sk : Ability = null, simulate : bool = false):
 	if not simulate:
 		if not sk: set_msg("%sの攻撃\n" % attacker.display_name())
 	var total_damage = 0
@@ -82,25 +82,25 @@ func process_melee_attack(attacker : BattleActor, target : BattleActor, sk : Ski
 		add_msg("%sは回避した。\n" % target.display_name())
 		await message_delay()
 
-func process_skill(attacker : BattleActor, targets : Array[BattleActor], skill : Skill, simulate : bool = false):
+func process_ability(attacker : BattleActor, targets : Array[BattleActor], ability : Ability, simulate : bool = false):
 	if targets.is_empty():
 		if not simulate:
 			set_msg("%sは様子を見ている……。\n" % attacker.display_name())
 			await message_delay()
 		return
 	if not simulate:
-		if skill.data.use_msg.is_empty():
-			set_msg("%sの%s\n" % [attacker.display_name(), skill.display_name()])
+		if ability.data.use_msg.is_empty():
+			set_msg("%sの%s\n" % [attacker.display_name(), ability.display_name()])
 		else:
-			set_msg(skill.data.use_msg.format({ "user" : attacker.display_name(), "skill_name" : skill.display_name()}))
+			set_msg(ability.data.use_msg.format({ "user" : attacker.display_name(), "ability_name" : ability.display_name()}))
 			add_msg("\n")
-	if skill.data.type == SkillData.Type.Melee:
-		for target in targets: await process_melee_attack(attacker, target, skill, simulate)
-	if skill.data.type == SkillData.Type.Magic:
+	if ability.data.type == AbilityData.Type.Melee:
+		for target in targets: await process_melee_attack(attacker, target, ability, simulate)
+	if ability.data.type == AbilityData.Type.Magic:
 		for target in targets:
-			print(skill.data.effect)
-			var value : int = await skill.use(attacker.actor, target.actor)
-			add_msg(skill.data.result_msg.format({ "target" : target.display_name(), "value" : value}))
+			print(ability.data.effect)
+			var value : int = await ability.use(attacker.actor, target.actor)
+			add_msg(ability.data.result_msg.format({ "target" : target.display_name(), "value" : value}))
 			add_msg("\n")
 			await message_delay()
 
@@ -171,10 +171,10 @@ func main_loop() -> BattleResult:
 				c.on_main_entered()
 				if c.is_player():
 					var act := pick_act(c)
-					await process_skill(c, act.targets, act.skill)
+					await process_ability(c, act.targets, act.ability)
 				elif c.is_enemy():
 					var act := pick_act(c)
-					await process_skill(c, act.targets, act.skill)
+					await process_ability(c, act.targets, act.ability)
 				else: #npc
 					if !current_actor.actor.portrait.is_empty():
 						portrait.show()
@@ -183,9 +183,9 @@ func main_loop() -> BattleResult:
 					await portrait_fade_in()
 					set_msg("%sの行動" % current_actor.display_name())
 					# スキルセレクタの構築
-					skill_select.erase_commands()
-					for sk in c.actor.get_skills():
-						skill_select.add_command(sk.data.display_name, {"skill" : sk})
+					ability_select.erase_commands()
+					for sk in c.actor.get_abilities():
+						ability_select.add_command(sk.data.display_name, {"ability" : sk})
 					var accept = false
 					while !accept:
 						var ret = await battle_command.start_select()
@@ -196,11 +196,11 @@ func main_loop() -> BattleResult:
 									for t in targets:
 										await process_melee_attack(c, t)
 									accept = true
-							"Skill":
-								var sk : Skill = ret["skill"]
+							"Ability":
+								var sk : Ability = ret["ability"]
 								var targets : Array[BattleActor] = await select_target(sk.data.target_type, sk.data.target_range, by_front)
 								if not targets.is_empty():
-									await process_skill(c, targets, sk)
+									await process_ability(c, targets, sk)
 									accept = true
 							"Defence":
 								c.defence = true

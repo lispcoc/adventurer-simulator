@@ -1,6 +1,6 @@
-class_name Skill
+class_name Ability
 
-class SkillCheck:
+class Check:
 	var success : bool
 	var fail_message : String
 	func _init(_success : bool, _fail_message : String = "") -> void:
@@ -9,15 +9,15 @@ class SkillCheck:
 
 var id = "null"
 
-var data : SkillData:
-	get: return StaticData.skills[id]
+var data : AbilityData:
+	get: return StaticData.abilities[id]
 	set(_v): pass
 
 func display_name() -> String:
 	return data.display_name
 
-func can_use(_user : Actor, _target : Actor) -> SkillCheck:
-	return SkillCheck.new(true)
+func can_use(_user : Actor, _target : Actor) -> Check:
+	return Check.new(true)
 
 func use(_user : Actor, target : Actor) -> int:
 	var val : int

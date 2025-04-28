@@ -160,15 +160,15 @@ func spawn_simulator() -> BattleActor:
 
 
 class Act:
-	var skill : Skill
+	var ability : Ability
 	var targets : Array[BattleActor]
 
-	func _init(_skill : Skill = null, _targets : Array[BattleActor] = []) -> void:
-		if _skill: skill = _skill
+	func _init(_ability : Ability = null, _targets : Array[BattleActor] = []) -> void:
+		if _ability: ability = _ability
 		if not _targets.is_empty(): targets = _targets
 		
 	func _to_string() -> String:
-		var ret : String = skill.display_name()
+		var ret : String = ability.display_name()
 		ret += ":"
 		for t in targets: ret += " " + t.display_name()
 		return ret

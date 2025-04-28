@@ -13,7 +13,7 @@ var sex : Sex = Sex.Female
 
 var portrait : String = ""
 
-var skills : Array[Skill]
+var abilities : Array[Ability]
 var equip : Equip = Equip.new()
 var inventory : Array[Item] = []
 
@@ -74,14 +74,14 @@ func load_from_monster_data(data : MonsterData):
 	class_id = data.class_id
 	initialize_actor()
 	actor_name = data.display_name
-	for sid in data.skills:
-		skills.append(StaticData.skill_from_id(sid).instantiate())
+	for sid in data.abilities:
+		abilities.append(StaticData.ability_from_id(sid).instantiate())
 
-func get_skills() -> Array[Skill]:
-	var class_skills : Array[Skill]
-	for sid in get_class_data().skills:
-		class_skills.append(StaticData.skill_from_id(sid).instantiate())
-	return skills + class_skills
+func get_abilities() -> Array[Ability]:
+	var class_abilities : Array[Ability]
+	for sid in get_class_data().abilities:
+		class_abilities.append(StaticData.ability_from_id(sid).instantiate())
+	return abilities + class_abilities
 
 func pick_random_name():
 	actor_name = StaticData.names.get_female_name()
@@ -143,14 +143,14 @@ func get_atk() -> int:
 	return get_bonus(Status.Id.STR)
 
 # =($D$3+20) * MAX(1, 8 + $B$3 - B9) / 3000
-func get_melee_times(sk : Skill = null, weapon : Item = null) -> int:
+func get_melee_times(sk : Ability = null, weapon : Item = null) -> int:
 	if sk:
 		if sk.data.melee_time_override: return sk.data.melee_time_override
 	if weapon == null: weapon = get_weapon()
 	var grow_rate = (dexterity + 20) * max(1, 8 + strength - get_weapon().wgt) / 3000.0 
 	return get_weapon().data.melee_base_times + grow_rate * level
 
-func roll_melee_damage(sk : Skill = null) -> Damage:
+func roll_melee_damage(sk : Ability = null) -> Damage:
 	var val = get_weapon().melee_roll_damage() + get_atk()
 	if sk:
 		val *= sk.data.melee_damage_mul

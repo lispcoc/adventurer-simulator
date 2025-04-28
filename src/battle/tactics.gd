@@ -12,42 +12,42 @@ static func enumulate_act(bm : BattleManager, actor : BattleActor) -> Array[Batt
 		eb = bm.get_party_back()
 	var by_front := pf.has(actor)
 	var acts : Array[BattleActor.Act]
-	for skill in actor.actor.get_skills(): if skill.data.in_battle:
-		var target_range = skill.data.target_range
+	for ability in actor.actor.get_abilities(): if ability.data.in_battle:
+		var target_range = ability.data.target_range
 		if by_front: target_range = target_range + 1
-		match skill.data.target_type:
+		match ability.data.target_type:
 			Game.Target.All:
-				acts.append(BattleActor.Act.new(skill, pf + pb + ef + eb))
+				acts.append(BattleActor.Act.new(ability, pf + pb + ef + eb))
 			Game.Target.Self:
-				acts.append(BattleActor.Act.new(skill, [actor]))
+				acts.append(BattleActor.Act.new(ability, [actor]))
 			Game.Target.PartyAll:
-				acts.append(BattleActor.Act.new(skill, pf + pb))
+				acts.append(BattleActor.Act.new(ability, pf + pb))
 			Game.Target.PartyLine:
 				if target_range >= 3 and not eb.is_empty():
-					acts.append(BattleActor.Act.new(skill, pb))
+					acts.append(BattleActor.Act.new(ability, pb))
 				if target_range >= 2:
-					acts.append(BattleActor.Act.new(skill, pf))
+					acts.append(BattleActor.Act.new(ability, pf))
 			Game.Target.PartyOne:
 				var possible : Array[BattleActor]
 				if target_range >= 3 and not eb.is_empty():
 					possible = pf + pb
 				elif target_range >= 2:
 					possible = pf
-				for t in possible: acts.append(BattleActor.Act.new(skill, [t]))
+				for t in possible: acts.append(BattleActor.Act.new(ability, [t]))
 			Game.Target.EnemyAll:
-				acts.append(BattleActor.Act.new(skill, ef + eb))
+				acts.append(BattleActor.Act.new(ability, ef + eb))
 			Game.Target.EnemyLine:
 				if target_range >= 3 and not eb.is_empty():
-					acts.append(BattleActor.Act.new(skill, eb))
+					acts.append(BattleActor.Act.new(ability, eb))
 				if target_range >= 2:
-					acts.append(BattleActor.Act.new(skill, ef))
+					acts.append(BattleActor.Act.new(ability, ef))
 			Game.Target.EnemyOne:
 				var possible : Array[BattleActor]
 				if target_range >= 3 and not eb.is_empty():
 					possible = ef + eb
 				elif target_range >= 2:
 					possible = ef
-				for t in possible: acts.append(BattleActor.Act.new(skill, [t]))
+				for t in possible: acts.append(BattleActor.Act.new(ability, [t]))
 	return acts
 
 static func evaluate_act(bm : BattleManager, actor : BattleActor, act : BattleActor.Act) -> int:
@@ -57,7 +57,7 @@ static func evaluate_act(bm : BattleManager, actor : BattleActor, act : BattleAc
 		is_hostile = bm.is_hostile(actor, t)
 		var sim := t.spawn_simulator()
 		var pre_value := sim.evaluate_threat()
-		bm.process_skill(actor, [sim], act.skill, true)
+		bm.process_ability(actor, [sim], act.ability, true)
 		var post_value := sim.evaluate_threat()
 		if is_hostile: value += pre_value - post_value
 		else: value += post_value - pre_value

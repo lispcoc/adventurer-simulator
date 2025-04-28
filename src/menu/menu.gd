@@ -7,7 +7,7 @@ signal exit()
 var status_submenu : PackedScene = load("res://src/menu/status_submenu.tscn")
 var inventory_submenu : PackedScene = load("res://src/menu/inventory_submenu.tscn")
 var equip_submenu : PackedScene = load("res://src/menu/equip_submenu.tscn")
-var skill_submenu : PackedScene = load("res://src/menu/skill_submenu.tscn")
+var ability_submenu : PackedScene = load("res://src/menu/ability_submenu.tscn")
 
 var sort_submenu : SortSubMenu
 
@@ -23,7 +23,7 @@ func _ready() -> void:
 	selector.erase_commands()
 	selector.add_command("アイテム", "item")
 	selector.add_command("装備", "equip")
-	selector.add_command("スキル", "skill")
+	selector.add_command("アビリティ", "ability")
 	selector.add_command("ステータス", "status")
 	selector.add_command("並び替え", "sort")
 	selector.add_command("会話", "talk")
@@ -43,9 +43,9 @@ func _ready() -> void:
 				var sub := equip_submenu.instantiate()
 				add_child(sub)
 				await sub.exit
-			"skill":
+			"ability":
 				submenu_active = true
-				var sub := skill_submenu.instantiate()
+				var sub := ability_submenu.instantiate()
 				add_child(sub)
 				await sub.exit
 			"status":
