@@ -73,7 +73,7 @@ class SkillDataTextDatabase extends TextDatabase:
 	func _schema_initialize():
 		override_property_type("category", TYPE_STRING)
 		override_property_type("type", TYPE_STRING)
-		override_property_type("target", TYPE_STRING)
+		override_property_type("target_type", TYPE_STRING)
 
 	func _postprocess_entry(entry: Dictionary):
 		#entry.id = entry.skill_name
@@ -87,8 +87,8 @@ class SkillDataTextDatabase extends TextDatabase:
 				if SkillData.Type.keys()[i] == entry.type:
 					entry.type = i
 					break
-		if "target" in entry:
+		if "target_type" in entry:
 			for i in Game.Target.keys().size():
-				if Game.Target.keys()[i] == entry.target:
-					entry.target = i
+				if Game.Target.keys()[i] == entry.target_type:
+					entry.target_type = i
 					break

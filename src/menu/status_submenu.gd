@@ -33,7 +33,7 @@ func update_base_status(actor : Actor) -> void:
 		" 筋力 ", " %d " % [actor.strength],
 		" 耐久 ", " %d " % [actor.constitution],
 		" 器用 ", " %d " % [actor.dexterity],
-		" 魔力 ", " %d " % [actor.magic],
+		" 魔力 ", " %d " % [actor.intelligence],
 		" 精神 ", " %d " % [actor.mind],
 	])
 

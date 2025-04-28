@@ -251,7 +251,8 @@ func _to_string() -> String:
 	return var_to_str(parameters)
 
 func from_string(s : String) -> void:
-	var parameters : Dictionary = str_to_var(s)
+	var parameters = str_to_var(s)
+	if parameters is not Dictionary: return
 	skin_color = parameters.skin_color
 	data = parameters.parts
 	parts_color = parameters.parts_color
