@@ -32,7 +32,7 @@ var dialog_doing : bool = false
 var scene_stack : Array[GameScene]
 
 var menu_active : bool = false
-var prohibit_menu : bool = false
+var prohibit_menu : bool = true
 
 #
 # Constants
@@ -103,8 +103,19 @@ func sort_ui() -> void:
 	get_parent().move_child.call_deferred(DialogUi, get_parent().get_child_count() - 1)
 	get_parent().move_child.call_deferred(Transition, get_parent().get_child_count() - 1)
 
+func start_new_game() -> void:
+	game_data = GameData.new()
+	var player := Actor.new()
+	player = await start_character_edit(player)
+	print("add_party")
+	print(add_party(player))
+
 func on_game_loaded() -> void:
-	load_data()
+	if not load_data():
+		await start_new_game()
+	print("on_game_loaded")
+	reload_ui()
+	prohibit_menu = false
 
 func on_game_scene_change_start() -> void:
 	await Transition.cover(0.5)
@@ -122,15 +133,16 @@ func on_dialog_end() -> void:
 	show_ui()
 	prohibit_menu = false
 
-func load_data() -> void:
-	make_dummy_data()
-	if FileAccess.file_exists(PATH_SAVEDATA) == false:
+func load_data() -> bool:
+	if FileAccess.file_exists(PATH_SAVEDATA):
+		var f = FileAccess.open(PATH_SAVEDATA, FileAccess.READ)
+		print(f.get_as_text())
+		game_data = str_to_var(f.get_as_text())
+	else:
 		print("セーブデータが存在しません: %s"%PATH_SAVEDATA)
-		return
-	var f = FileAccess.open(PATH_SAVEDATA, FileAccess.READ)
-	print(f.get_as_text())
-	game_data = str_to_var(f.get_as_text())
-	reload_ui()
+	if not game_data:
+		return false
+	return true
 
 func save_data() -> bool:
 	var f = FileAccess.open(PATH_SAVEDATA, FileAccess.WRITE)
@@ -167,6 +179,16 @@ func start_battle() -> bool:
 	battle_ended.emit()
 	prohibit_menu = false
 	return true
+
+func start_character_edit(ch : Actor) -> Actor:
+	hide_ui()
+	var scene := CharacterEdit.instantiate()
+	get_tree().root.add_child.call_deferred(scene)
+	scene.actor = ch
+	await scene.edit_ended
+	await menu_delay()
+	show_ui()
+	return scene.actor
 
 func start_portrait_edit(ch : Actor) -> bool:
 	prohibit_menu = true
@@ -227,8 +249,10 @@ func damage_party(dam : Damage):
 
 func show_ui() ->  void:
 	if not dialog_doing: CharacterPanelUi.show()
+	ClockUi.show()
 
 func hide_ui() ->  void:
+	ClockUi.hide()
 	CharacterPanelUi.hide()
 
 func reload_ui() -> void:
@@ -245,6 +269,12 @@ func spawn_cursor() -> AnimatedSprite2D:
 
 func is_cursor(cursor : Node) -> bool:
 	return cursor.get_meta("cursor", false)
+
+func query_yn(message : String = "よろしいですか？") -> bool:
+	Dialogic.VAR.Query.Message = message
+	Dialogic.start_timeline("query_yn")
+	await Dialogic.timeline_ended
+	return Dialogic.VAR.RetVal.Success
 
 func debug_dialog() -> void:
 	Dialogic.start_timeline("res://data/dialog/test/debug.dtl")

@@ -54,9 +54,9 @@ func pass_year() -> void:
 	on_pass_year.emit()
 
 func string_format(fmt : String):
-	fmt = fmt.replace("YYYY", "%d" % year)
-	fmt = fmt.replace("MM", "%02d" % mon)
-	fmt = fmt.replace("DD", "%02d" % day)
+	fmt = fmt.replace("YYYY", "%2d" % year)
+	fmt = fmt.replace("MM", "%2d" % mon)
+	fmt = fmt.replace("DD", "%2d" % day)
 	fmt = fmt.replace("hh", "%02d" % hour)
 	fmt = fmt.replace("mm", "%02d" % minute)
 	fmt = fmt.replace("ss", "%02d" % second)

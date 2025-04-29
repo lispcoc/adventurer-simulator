@@ -2,7 +2,7 @@ class_name BattleActorEnemy extends BattleActor
 
 var default_sprite : Texture2D = preload("res://assets/monsters/Battlers/World01_001_GreenGoo.png")
 
-var sprite : Sprite2D
+var sprite_id : String
 var label : RichTextLabel
 var label_panel : PanelContainer
 
@@ -10,15 +10,16 @@ func _init() -> void:
 	button = TextureButton.new()
 	super._init()
 
-func _ready():
+func _ready() -> void:
 	super._ready()
 	button.focus_entered.connect(on_focus_entered)
 	button.focus_exited.connect(on_focus_exited)
 	var t_button : TextureButton = button
-	t_button.texture_normal = default_sprite
-	#t_button.custom_minimum_size = t_button.texture_normal.get_size()
+	if not sprite_id.is_empty() and SpriteManager.load_battle_actor(sprite_id):
+		t_button.texture_normal = SpriteManager.load_battle_actor(sprite_id)
+	else:
+		t_button.texture_normal = default_sprite
 	t_button.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
-
 	label_panel = PanelContainer.new()
 	label_panel.custom_minimum_size = Vector2(200, 32)
 	label_panel.position.y = t_button.texture_normal.get_size().y
@@ -29,26 +30,31 @@ func _ready():
 	label_panel.hide()
 	t_button.add_child(label_panel)
 
-func on_focus_entered():
+func load_from_monster_data(data : MonsterData) -> void:
+	actor = Actor.new()
+	actor.class_id = data.class_id
+	actor.initialize_actor()
+	actor.actor_name = data.display_name
+	sprite_id = data.sprite_id
+	for sid in data.abilities:
+		actor.abilities.append(StaticData.ability_from_id(sid).instantiate())
+
+func on_focus_entered() -> void:
 	label_panel.show()
 	label.text = display_name()
 	label.horizontal_alignment = HORIZONTAL_ALIGNMENT_CENTER
 	label.vertical_alignment = VERTICAL_ALIGNMENT_CENTER
 	pop_cursor()
 
-func on_focus_exited():
+func on_focus_exited() -> void:
 	label_panel.hide()
 	remove_cursor()
 
-func on_dead():
+func on_dead() -> void:
 	await vanish()
 	hide()
 
-func is_enemy() -> bool:
-	return true
-
-func get_center_top() -> Vector2:
-	return Vector2(0, 0)
+func is_enemy() -> bool: return true
 
 func get_act(by_front : bool, enemy_front : Array[BattleActor], enemy_back : Array[BattleActor]) -> Act:
 	var ret = Act.new()

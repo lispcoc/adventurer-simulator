@@ -37,6 +37,7 @@ DialogFunctions="*res://src/dialog/dialog_functions.gd"
 BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
 ClockUi="*res://src/common/clock/clock_ui.tscn"
 Uuid="*res://addons/uuid/uuid.gd"
+SpriteManager="*res://src/sprite/sprite_manager.gd"
 Dialogic="*res://addons/dialogic/Core/DialogicGameHandler.gd"
 
 [debug]
@@ -94,6 +95,9 @@ variables={
 "Name_3": "",
 "Name_4": ""
 },
+"Query": {
+"Message": ""
+},
 "RedWandCount": 0,
 "RetVal": {
 "Success": true
@@ -124,7 +128,8 @@ directories/dtl_directory={
 "damage_test": "res://data/dungeon_event/damage_test.dtl",
 "debug": "res://data/dialog/test/debug.dtl",
 "opening_cutscene": "res://maps/opening_cutscene.dtl",
-"party": "res://data/dialog/test/party.dtl"
+"party": "res://data/dialog/test/party.dtl",
+"query_yn": "res://data/dialog/common/query_yn.dtl"
 }
 text/initial_text_reveal_skippable=true
 text/text_reveal_skip_delay=0.05
@@ -146,9 +151,15 @@ window/stretch/aspect="expand"
 
 project/assembly_name="OpenRPG"
 
+[editor]
+
+movie_writer/mjpeg_quality=1.0
+movie_writer/movie_file="movie.avi"
+movie_writer/fps=30
+
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/better-terrain/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/gloot/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/better-terrain/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/gloot/plugin.cfg", "res://addons/spin_button/plugin.cfg")
 
 [filesystem]
 

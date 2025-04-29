@@ -2,6 +2,7 @@ class_name Item extends Node
 
 var id = "null"
 var uid : String
+var stack_size : int = 1
 
 var data : ItemData:
 	get: return StaticData.items[id]
@@ -16,6 +17,37 @@ func _init() -> void:
 
 func display_name():
 	return data.display_name
+
+func has_property() -> bool:
+	return is_equipment()
+
+func is_equipment() -> bool:
+	return data.type in [
+		ItemData.Type.Weapon,
+		ItemData.Type.Shield,
+		ItemData.Type.Torso,
+		ItemData.Type.Headwear,
+		ItemData.Type.Footwear,
+		ItemData.Type.Amulet,
+		ItemData.Type.Ring,
+	]
+
+static func from_inventory_item(inv_item : InventoryItem) -> Item:
+	if inv_item.get_property("item", null):
+		return inv_item.get_property("item")
+	var item := StaticData.items[inv_item.get_prototype().get_id()].instantiate()
+	item.stack_size = inv_item.get_stack_size()
+	return item
+
+func to_inventory_item() -> InventoryItem:
+	var inv_item = InventoryItem.new(null, id)
+	if has_property():
+		inv_item.set_property("item", self)
+		inv_item.set_property("uid", uid)
+	inv_item.set_property("name", display_name())
+	inv_item.set_max_stack_size(99)
+	inv_item.set_stack_size(1)
+	return inv_item
 
 func melee_roll_damage():
 	var amount = data.melee_base_amount

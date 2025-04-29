@@ -1,0 +1,5 @@
+{Query.Message}
+- はい
+	set {RetVal.Success} = true
+- いいえ
+	set {RetVal.Success} = false

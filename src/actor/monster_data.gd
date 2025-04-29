@@ -1,6 +1,7 @@
 class_name MonsterData extends RefCounted
 
 var display_name : String
+var sprite_id : String
 var class_id : String
 var abilities : PackedStringArray
 

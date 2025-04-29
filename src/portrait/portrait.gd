@@ -10,19 +10,19 @@ class_name Portrait extends DialogicPortrait
 		_on_update()
 
 var data : Dictionary[String, int] = {
-	"hat_back": 1,
-	"hair_back": 1,
-	"body": 1,
-	"face": 1,
-	"eye": 1,
-	"eyebrow": 1,
-	"eyelid": 1,
-	"mouth": 1,
-	"cheek": 1,
-	"glasses": 1,
-	"clothing": 1,
-	"hair_front": 1,
-	"hat": 1,
+	"face": 0,
+	"body": 0,
+	"eye": 0,
+	"eyebrow": 0,
+	"eyelid": 0,
+	"mouth": 0,
+	"cheek": 0,
+	"glasses": 0,
+	"hair_front": 0,
+	"hair_back": 0,
+	"hat": 0,
+	"hat_back": 0,
+	"clothing": 0,
 }:
 	set(v):
 		for k in v.keys():
@@ -72,6 +72,7 @@ var color_interlock_set : Dictionary[String, PackedStringArray] = {
 }
 
 var type_interlock_set : Dictionary[String, PackedStringArray] = {
+	"clothing": ["body"],
 	"hat": ["hat_back"],
 	"eye": ["eye_close"],
 }
@@ -222,8 +223,16 @@ func get_color_count(key : String) -> int:
 	if part: return part.get_color_count()
 	return 0
 
-func get_keys() -> Array[String]:
-	return data.keys()
+func get_keys() -> PackedStringArray:
+	var ret : PackedStringArray
+	for key in data.keys():
+		var is_slave = false
+		for slaves in type_interlock_set.values():
+			if key in slaves:
+				is_slave = true
+				break
+		if not is_slave: ret.append(key)
+	return ret
 
 func get_color_keys() -> Array[String]:
 	var keys : Array[String]

@@ -15,7 +15,7 @@ var portrait : String = ""
 
 var abilities : Array[Ability]
 var equip : Equip = Equip.new()
-var inventory : Array[Item] = []
+var inventory : Array[Item]
 
 var class_id : String = "warrior"
 var level : int = 30:
@@ -70,12 +70,17 @@ func _init() -> void:
 func _on_status_update() -> void:
 	if Game.is_inside_tree(): Game.get_tree().call_group("status_ui", "update")
 
-func load_from_monster_data(data : MonsterData):
-	class_id = data.class_id
-	initialize_actor()
-	actor_name = data.display_name
-	for sid in data.abilities:
-		abilities.append(StaticData.ability_from_id(sid).instantiate())
+func get_usable_bonus_point() -> int:
+	return 200
+
+func get_used_bonus_point() -> int:
+	var val := 0
+	# 6-12 10Pt, 13-16 20pt 17-20 40pt
+	for id in Actor.Status.Id.values():
+		val += max(get_status(id) - 6, 0) * 10
+		val += max(get_status(id) - 12, 0) * 10
+		val += max(get_status(id) - 16, 0) * 20
+	return val
 
 func get_abilities() -> Array[Ability]:
 	var class_abilities : Array[Ability]
@@ -135,6 +140,9 @@ func get_footwear() -> Item:
 func get_status(id : Status.Id) -> int:
 	return get(Status.from_id(id))
 
+func set_status(id : Status.Id, value : int):
+	set(Status.from_id(id), value)
+
 func get_bonus(id : Status.Id) -> int:
 	var val : int = get(Status.from_id(id))
 	return int(val / 2.0)
@@ -174,34 +182,25 @@ func heal_hp(v : int):
 	hp += v
 	for panel in Game.get_panels(self): panel.pop_number(v, Color("green"))
 
-func add_item(item : Item) -> void:
-	inventory.append(item)
-
-func remove_item(item : Item) -> void:
-	inventory.erase(item)
-
 func spawn_inventory(template : CtrlInventory, filter : Callable = func (_item : Item): return true) -> CtrlInventory:
 	var ctrl_inventory : CtrlInventory = template.duplicate()
-	var _inventory = Inventory.new()
+	ctrl_inventory.inventory = Inventory.new()
+	for id in StaticData.items.keys():
+		if not ctrl_inventory.inventory.get_prototree().has_prototype(id):
+			ctrl_inventory.inventory.get_prototree().create_prototype(id)
 	ctrl_inventory.set_meta("owner", self)
-	ctrl_inventory.inventory = _inventory
-	for item in self.inventory: if filter.call(item):
-		var inv_item = InventoryItem.new()
-		inv_item.set_property("item", item)
-		inv_item.set_property("owner", self)
-		if self.get_weapon() == item:
-			inv_item.set_property("name", "(E)" + item.display_name())
-		else:
-			inv_item.set_property("name", item.display_name())
-		_inventory.add_item(inv_item)
-	_inventory.item_added.connect(
-		func (inv_item : InventoryItem):
-			var item : Item = inv_item.get_property("item")
-			self.add_item(item)
+	for item in inventory: if filter.call(item):
+		ctrl_inventory.inventory.add_item_automerge(item.to_inventory_item())
+	ctrl_inventory.inventory.item_added.connect(
+		func (_item: InventoryItem):
+			inventory.clear()
+			for inv_item in ctrl_inventory.inventory.get_items():
+				inventory.append(Item.from_inventory_item(inv_item))
 	)
-	_inventory.item_removed.connect(
-		func (inv_item : InventoryItem):
-			var item : Item = inv_item.get_property("item")
-			self.remove_item(item)
+	ctrl_inventory.inventory.item_removed.connect(
+		func (_item: InventoryItem):
+			inventory.clear()
+			for inv_item in ctrl_inventory.inventory.get_items():
+				inventory.append(Item.from_inventory_item(inv_item))
 	)
 	return ctrl_inventory

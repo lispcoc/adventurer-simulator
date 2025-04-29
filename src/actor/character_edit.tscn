@@ -1,0 +1,93 @@
+[gd_scene load_steps=7 format=3 uid="uid://dydoj6l1s0h5j"]
+
+[ext_resource type="Script" uid="uid://btehgpi26b1d1" path="res://src/actor/character_edit.gd" id="1_bsvpr"]
+[ext_resource type="Script" uid="uid://72xsud65eowi" path="res://src/common/ui/grid/tiled_string_grid.gd" id="2_sr671"]
+[ext_resource type="StyleBox" uid="uid://cr82ufnn2ph6u" path="res://theme/tiled_box/tiled_box_left.tres" id="3_bjk8g"]
+[ext_resource type="StyleBox" uid="uid://bmo0iuclwd050" path="res://theme/tiled_box/tiled_box_right.tres" id="4_cadkv"]
+[ext_resource type="PackedScene" uid="uid://ckj8nx2ww3lvi" path="res://src/portrait/portrait.tscn" id="5_bjk8g"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_cadkv"]
+bg_color = Color(0.639216, 0.564706, 0.505882, 1)
+border_width_left = 1
+border_width_top = 1
+border_width_right = 1
+border_width_bottom = 1
+border_color = Color(0, 0, 0, 1)
+expand_margin_left = 1.0
+expand_margin_top = 1.0
+expand_margin_right = 1.0
+expand_margin_bottom = 1.0
+
+[node name="CharacterEdit" type="Node2D"]
+script = ExtResource("1_bsvpr")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="Panel" type="PanelContainer" parent="CanvasLayer"]
+offset_left = 8.0
+offset_top = 8.0
+offset_right = 632.0
+offset_bottom = 472.0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Panel"]
+layout_mode = 2
+theme_override_constants/margin_top = 4
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/Panel/MarginContainer"]
+layout_mode = 2
+
+[node name="NameEdit" type="LineEdit" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 0)
+layout_mode = 2
+size_flags_horizontal = 0
+placeholder_text = "名無し"
+
+[node name="PortraitEditButton" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_font_sizes/font_size = 14
+text = "ポートレートの編集"
+
+[node name="BonusPoint" type="Label" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_font_sizes/font_size = 14
+
+[node name="Status" type="GridContainer" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 2
+script = ExtResource("2_sr671")
+odd_style = ExtResource("3_bjk8g")
+even_style = ExtResource("4_cadkv")
+font_size = 14
+odd_minimum_size = Vector2(32, 0)
+even_minimum_size = Vector2(96, 0)
+metadata/_custom_type_script = "uid://72xsud65eowi"
+
+[node name="Accept" type="Button" parent="CanvasLayer/Panel/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 4
+text = "決定"
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+clip_contents = true
+offset_left = 440.0
+offset_top = 24.0
+offset_right = 612.0
+offset_bottom = 263.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_cadkv")
+
+[node name="Portrait" parent="CanvasLayer/PanelContainer" instance=ExtResource("5_bjk8g")]
+unique_name_in_owner = true
+position = Vector2(88, 120)
+
+[node name="Help" type="Marker2D" parent="CanvasLayer"]
+unique_name_in_owner = true
+position = Vector2(440, 280)

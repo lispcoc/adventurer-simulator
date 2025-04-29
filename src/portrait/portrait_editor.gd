@@ -16,15 +16,20 @@ var values : Dictionary
 @export var portrait : Portrait
 @export var tab : TabContainer
 
+func show_hint() -> void:
+	var hint := ControlHint.new()
+	%Hint.add_child(hint)
+	hint.add_hint("direction_lr", "パーツ・色の変更")
+	hint.add_hint("ui_accept", "決定")
+	hint.add_hint("ui_cancel", "キャンセル")
+
 func _ready() -> void:
 	var grid : GridContainer = parts_grid
 	var label_name : Label
 	var slider : HSlider
 	var label_value : Label
-
 	if target and not target.portrait.is_empty():
 		portrait.from_string(target.portrait)
-
 	label_name = Label.new()
 	label_name.text = "肌"
 	colors_grid.add_child(label_name)
@@ -71,6 +76,7 @@ func _ready() -> void:
 		values[k] = label_value
 	_on_update(0)
 	tab.get_tab_bar().grab_focus()
+	show_hint()
 
 func _process(_delta):
 	if Input.is_action_pressed("ui_accept"):

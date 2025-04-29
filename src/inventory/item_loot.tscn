@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://csikxj4u71mq0"]
+
+[ext_resource type="Script" uid="uid://2iganwleybxs" path="res://src/inventory/item_loot.gd" id="1_r26j5"]
+[ext_resource type="Script" uid="uid://clip8lxle5ouc" path="res://addons/gloot/ui/ctrl_inventory.gd" id="2_8avkk"]
+
+[node name="ItemLoot" type="Node2D"]
+script = ExtResource("1_r26j5")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="ActorlInventoryTemplate" type="ItemList" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+offset_left = 96.0
+offset_top = 64.0
+offset_right = 288.0
+offset_bottom = 320.0
+script = ExtResource("2_8avkk")
+metadata/_custom_type_script = "uid://clip8lxle5ouc"
+
+[node name="ItemBoxTemplate" type="ItemList" parent="CanvasLayer"]
+unique_name_in_owner = true
+visible = false
+offset_left = 352.0
+offset_top = 64.0
+offset_right = 544.0
+offset_bottom = 320.0
+script = ExtResource("2_8avkk")
+metadata/_custom_type_script = "uid://clip8lxle5ouc"

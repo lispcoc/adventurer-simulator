@@ -24,13 +24,11 @@ func message_delay() -> void:
 
 func init_test_data():
 	var a = BattleActorEnemy.new()
-	a.actor = Actor.new()
-	a.actor.load_from_monster_data(StaticData.monsters["slime"])
+	a.load_from_monster_data(StaticData.monsters["slime"])
 	a.actor.level = 1
 	enemy_container.add_actor_front(a)
 	var b = BattleActorEnemy.new()
-	b.actor = Actor.new()
-	b.actor.load_from_monster_data(StaticData.monsters["slime"])
+	b.load_from_monster_data(StaticData.monsters["slime"])
 	b.actor.level = 1
 	enemy_container.add_actor_back(b)
 

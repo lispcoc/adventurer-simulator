@@ -119,6 +119,32 @@ metadata/_aseprite_wizard_config_ = {
 }
 metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 
+[node name="clothing" type="AnimatedSprite2D" parent="." groups=["portrait_body"]]
+texture_filter = 1
+material = SubResource("ShaderMaterial_qdlo0")
+sprite_frames = ExtResource("8_xw80p")
+frame = 1
+script = ExtResource("15_1xxpq")
+metadata/_aseprite_wizard_interface_config_ = {
+"animation_section": true,
+"layer_section": true,
+"output_section": true,
+"pending_changes": {},
+"slice_section": true
+}
+metadata/_aseprite_wizard_config_ = {
+"embed_tex": true,
+"layers": [],
+"o_ex_p": "",
+"o_folder": "",
+"o_name": "",
+"only_visible": true,
+"should_round_fps": true,
+"slice": "",
+"source": "res://assets/characters/portraits/parts/スプライト-0001.aseprite"
+}
+metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
+
 [node name="face" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 texture_filter = 1
 sprite_frames = ExtResource("3_ym1tx")
@@ -289,32 +315,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 [node name="glasses" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 texture_filter = 1
 sprite_frames = ExtResource("11_37xmf")
-metadata/_aseprite_wizard_interface_config_ = {
-"animation_section": true,
-"layer_section": true,
-"output_section": true,
-"pending_changes": {},
-"slice_section": true
-}
-metadata/_aseprite_wizard_config_ = {
-"embed_tex": true,
-"layers": [],
-"o_ex_p": "",
-"o_folder": "",
-"o_name": "",
-"only_visible": true,
-"should_round_fps": true,
-"slice": "",
-"source": "res://assets/characters/portraits/parts/スプライト-0001.aseprite"
-}
-metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
-
-[node name="clothing" type="AnimatedSprite2D" parent="." groups=["portrait_body"]]
-texture_filter = 1
-material = SubResource("ShaderMaterial_qdlo0")
-sprite_frames = ExtResource("8_xw80p")
 frame = 1
-script = ExtResource("15_1xxpq")
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
 "layer_section": true,

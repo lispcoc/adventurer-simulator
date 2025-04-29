@@ -8,7 +8,7 @@
 script = ExtResource("1_na2xr")
 parts_grid = NodePath("CanvasLayer/PanelContainer/HBoxContainer/Tab/Parts/Grid")
 colors_grid = NodePath("CanvasLayer/PanelContainer/HBoxContainer/Tab/Colors/Grid")
-portrait = NodePath("CanvasLayer/PanelContainer/Portrait")
+portrait = NodePath("CanvasLayer/PanelContainer2/Portrait")
 tab = NodePath("CanvasLayer/PanelContainer/HBoxContainer/Tab")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
@@ -18,13 +18,13 @@ layer = 4
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
+offset_left = 64.0
+offset_top = 64.0
+offset_right = -64.0
+offset_bottom = -48.0
 grow_horizontal = 2
 grow_vertical = 2
 theme = ExtResource("2_g4oy6")
-
-[node name="Portrait" parent="CanvasLayer/PanelContainer" instance=ExtResource("1_iw4ei")]
-position = Vector2(411, 237)
-flip_v = false
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PanelContainer"]
 layout_mode = 2
@@ -36,6 +36,7 @@ current_tab = 0
 
 [node name="Parts" type="ScrollContainer" parent="CanvasLayer/PanelContainer/HBoxContainer/Tab"]
 layout_mode = 2
+follow_focus = true
 metadata/_tab_index = 0
 
 [node name="Grid" type="GridContainer" parent="CanvasLayer/PanelContainer/HBoxContainer/Tab/Parts"]
@@ -54,3 +55,16 @@ columns = 3
 [node name="PanelContainer" type="CenterContainer" parent="CanvasLayer/PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="Hint" type="Marker2D" parent="CanvasLayer/PanelContainer"]
+unique_name_in_owner = true
+position = Vector2(360, 288)
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer"]
+offset_left = 304.0
+offset_top = 96.0
+offset_right = 480.0
+offset_bottom = 336.0
+
+[node name="Portrait" parent="CanvasLayer/PanelContainer2" instance=ExtResource("1_iw4ei")]
+position = Vector2(88, 120)

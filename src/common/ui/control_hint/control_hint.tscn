@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://c4607cjhacs7b"]
+
+[ext_resource type="Script" uid="uid://bkwimtvvmmcmn" path="res://src/common/ui/control_hint/control_hint.gd" id="1_5xkkb"]
+
+[node name="ControlHint" type="PanelContainer"]
+offset_right = 8.0
+offset_bottom = 2.0
+script = ExtResource("1_5xkkb")
