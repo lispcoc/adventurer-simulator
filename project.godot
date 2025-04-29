@@ -159,7 +159,7 @@ movie_writer/fps=30
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/better-terrain/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/gloot/plugin.cfg", "res://addons/spin_button/plugin.cfg")
+enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/better-terrain/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/gloot/plugin.cfg")
 
 [filesystem]
 
