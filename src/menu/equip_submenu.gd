@@ -49,7 +49,7 @@ func on_pressed_category(idx : int, actor : Actor, category : ItemData.Type):
 	equip_list.set_meta("last_select", idx)
 	ctrl_inventory.show()
 	ctrl_inventory.grab_focus()
-	ctrl_inventory.select(0)
+	if ctrl_inventory.inventory.get_item_count(): ctrl_inventory.select(0)
 
 func reflesh_equip_list(actor : Actor):
 	equip_list.erase()

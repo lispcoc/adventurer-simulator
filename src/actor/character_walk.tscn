@@ -1,0 +1,123 @@
+[gd_scene load_steps=12 format=3 uid="uid://be40guapq4umc"]
+
+[ext_resource type="Script" uid="uid://cxokpnh4gemh1" path="res://src/actor/character_walk.gd" id="1_c1yxf"]
+[ext_resource type="Texture2D" uid="uid://dtuj3afj2iwbs" path="res://assets/characters/pawn/walk_base.png" id="2_g7wr3"]
+[ext_resource type="Texture2D" uid="uid://dwdl6cwtjv2xb" path="res://assets/characters/pawn/walk_eye.png" id="3_laf4a"]
+[ext_resource type="Texture2D" uid="uid://cqohj0cldeexc" path="res://assets/characters/pawn/walk_hair.png" id="4_cgngi"]
+[ext_resource type="Texture2D" uid="uid://bhhco4rhf6tsb" path="res://assets/characters/pawn/walk_armor.png" id="5_t4no7"]
+
+[sub_resource type="Animation" id="Animation_pv067"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Base:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+
+[sub_resource type="Animation" id="Animation_laf4a"]
+resource_name = "walk_s"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Base:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [0, 1, 2]
+}
+
+[sub_resource type="Animation" id="Animation_cgngi"]
+resource_name = "walk_w"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Base:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [3, 4, 5]
+}
+
+[sub_resource type="Animation" id="Animation_t4no7"]
+resource_name = "walk_e"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Base:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [6, 7, 8]
+}
+
+[sub_resource type="Animation" id="Animation_vbkq8"]
+resource_name = "walk_n"
+loop_mode = 2
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Base:frame")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.5, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [9, 10, 11]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_v0lga"]
+_data = {
+&"RESET": SubResource("Animation_pv067"),
+&"walk_e": SubResource("Animation_t4no7"),
+&"walk_n": SubResource("Animation_vbkq8"),
+&"walk_s": SubResource("Animation_laf4a"),
+&"walk_w": SubResource("Animation_cgngi")
+}
+
+[node name="CharacterWalk" type="Node2D"]
+script = ExtResource("1_c1yxf")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_v0lga")
+}
+
+[node name="Base" type="Sprite2D" parent="."]
+texture = ExtResource("2_g7wr3")
+hframes = 12
+region_rect = Rect2(0, 0, 32, 64)
+
+[node name="Eye" type="Sprite2D" parent="."]
+texture = ExtResource("3_laf4a")
+hframes = 12
+region_rect = Rect2(0, 0, 32, 64)
+
+[node name="Hair" type="Sprite2D" parent="."]
+texture = ExtResource("4_cgngi")
+hframes = 12
+region_rect = Rect2(0, 0, 32, 64)
+
+[node name="Armor" type="Sprite2D" parent="."]
+texture = ExtResource("5_t4no7")
+hframes = 12
+region_rect = Rect2(0, 0, 32, 64)

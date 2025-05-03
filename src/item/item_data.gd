@@ -16,6 +16,8 @@ var display_name : String = ""
 var stackable : bool = false
 var wgt : int = 0
 var type : Type = Type.Consumables
+var icon : String = "sword_1"
+var icon_path : String
 
 var melee_base_times = 2
 var melee_base_amount = 2
@@ -34,6 +36,10 @@ func instantiate() -> Item:
 	var i = Item.new()
 	i.id = id
 	return i
+
+func get_icon_path() -> String:
+	if icon_path.is_empty(): icon_path = SpriteManager.get_item_icon_path(icon)
+	return icon_path
 
 class ItemDataTextDatabase extends TextDatabase:
 	func _initialize():

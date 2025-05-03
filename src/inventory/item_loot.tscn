@@ -7,10 +7,10 @@
 script = ExtResource("1_r26j5")
 
 [node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 11
 
 [node name="ActorlInventoryTemplate" type="ItemList" parent="CanvasLayer"]
 unique_name_in_owner = true
-visible = false
 offset_left = 96.0
 offset_top = 64.0
 offset_right = 288.0
@@ -20,10 +20,38 @@ metadata/_custom_type_script = "uid://clip8lxle5ouc"
 
 [node name="ItemBoxTemplate" type="ItemList" parent="CanvasLayer"]
 unique_name_in_owner = true
-visible = false
 offset_left = 352.0
 offset_top = 64.0
 offset_right = 544.0
 offset_bottom = 320.0
 script = ExtResource("2_8avkk")
 metadata/_custom_type_script = "uid://clip8lxle5ouc"
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+offset_left = 96.0
+offset_top = 40.0
+offset_right = 288.0
+offset_bottom = 64.0
+
+[node name="LeftName" type="Label" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+text = "持ち物"
+horizontal_alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer"]
+offset_left = 352.0
+offset_top = 40.0
+offset_right = 544.0
+offset_bottom = 64.0
+
+[node name="RightName" type="Label" parent="CanvasLayer/PanelContainer2"]
+layout_mode = 2
+text = "入手したアイテム"
+horizontal_alignment = 1
+
+[node name="Help" type="PanelContainer" parent="CanvasLayer"]
+unique_name_in_owner = true
+offset_left = 456.0
+offset_top = 336.0
+offset_right = 584.0
+offset_bottom = 408.0

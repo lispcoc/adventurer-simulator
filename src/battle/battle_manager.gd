@@ -56,8 +56,9 @@ func get_enemies_back() -> Array[BattleActor]: return enemy_container.get_actors
 #
 # Melee
 #
-func check_melee_hit(atkr, tgt) -> bool:
-	return atkr.hit_roll() > tgt.dodge_roll()
+func check_melee_hit(atkr : BattleActor, tgt : BattleActor) -> bool:
+	print(75.0 * pow(2.0,  float(atkr.get_hit() - tgt.get_dodge()) / 10.0))
+	return DiceRoller.roll_dices(1, 100) < 50.0 * pow(2.0,  float(atkr.get_hit() - tgt.get_dodge()) / 10.0)
 
 func process_melee_attack(attacker : BattleActor, target : BattleActor, sk : Ability = null, simulate : bool = false):
 	if not simulate:

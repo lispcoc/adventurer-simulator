@@ -129,8 +129,14 @@ func get_center_top() -> Vector2:
 func hit_roll() -> int:
 	return DiceRoller.roll_dices(1, 20) + actor.get_hit()
 
+func get_hit() -> int:
+	return actor.get_hit()
+
 func dodge_roll() -> int:
 	return DiceRoller.roll_dices(1, 20) + actor.get_dodge()
+
+func get_dodge() -> int:
+	return actor.get_dodge()
 
 func apply_dagame(dam : Damage) -> int:
 	var actual_damage : int

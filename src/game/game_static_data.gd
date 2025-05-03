@@ -4,6 +4,7 @@ signal loaded
 
 var classes : Dictionary[String, Class] = {}
 var abilities : Dictionary[String, AbilityData] = {}
+var skills : Dictionary[String, Skill] = {}
 var items : Dictionary[String, ItemData] = {}
 var monsters : Dictionary[String, MonsterData] = {}
 var names : NameList
@@ -12,6 +13,7 @@ func _ready() -> void:
 	print("GameStaticData._ready")
 	load_classes()
 	load_abilities()
+	load_skills()
 	load_items()
 	load_names()
 	load_monsters()
@@ -21,7 +23,10 @@ func load_classes():
 	Class.load(classes, "res://data/json/classes.cfg")
 	Class.load(classes, "res://data/json/classes_monster.cfg")
 	print(classes)
-	print(classes["slime"].abilities)
+
+func load_skills():
+	Skill.load(skills, "res://data/json/skills.cfg")
+	print(skills)
 
 func load_abilities():
 	AbilityData.load(abilities, "res://data/json/abilities.cfg")

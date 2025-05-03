@@ -54,14 +54,15 @@ func request_move():
 		var dir = target_next - pos
 		if dir.x: h_dir = dir.x
 		if dir.y: v_dir = dir.y
-		sprite.flip_h = h_dir > 0
+		$CharacterWalk.set_dir(dir)
 		var tw = create_tween()
 		tw.tween_property(self, "position", Vector2(gb.cell_to_pixel(target_next)), 0.15 )
 		tw.finished.connect(func(): on_move.emit(position))
 		tw.finished.connect(request_move)
-		tw = create_tween()
-		tw.tween_property(sprite, "position", sprite.position - Vector2(0, 8), 0.15 / 2.0 )
-		tw.tween_property(sprite, "position", sprite.position, 0.15 / 2.0 )
+		#tw = create_tween()
+		#sprite.flip_h = h_dir > 0
+		#tw.tween_property(sprite, "position", sprite.position - Vector2(0, 8), 0.15 / 2.0 )
+		#tw.tween_property(sprite, "position", sprite.position, 0.15 / 2.0 )
 
 func _unhandled_input(_event: InputEvent) -> void:
 	if not is_active: return

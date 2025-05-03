@@ -45,12 +45,12 @@ func _unhandled_input(_event: InputEvent) -> void:
 			get_viewport().set_input_as_handled()
 
 func on_selected(inv_item : InventoryItem) -> void:
-	var item : Item = inv_item.get_property("item")
+	var item : Item = Item.from_inventory_item(inv_item)
 	%ItemDescription.text = item.short_description()
 	selected = inv_item
 
 func on_activated(inv_item : InventoryItem) -> void:
-	inv_item.get_property("owner").set_weapon(inv_item.get_property("item"))
+	inv_item.get_property("owner").set_weapon(Item.from_inventory_item(inv_item))
 	reflesh_inventory()
 
 func reflesh_inventory() -> void:

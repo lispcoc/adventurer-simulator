@@ -8,22 +8,38 @@ enum Sex {
 	Female
 }
 
+#
+# Meta
+#
+var init : bool = false
 var actor_name : String = "名無し"
 var sex : Sex = Sex.Female
-
 var portrait : String = ""
+var class_id : String = "warrior"
 
+#
+# 付帯データ
+#
 var abilities : Array[Ability]
 var equip : Equip = Equip.new()
 var inventory : Array[Item]
 
-var class_id : String = "warrior"
+#
+# 経験値
+#
+var experience : int = 0
+var phy_experience : int = 0
+var tec_experience : int = 0
+var mnd_experience : int = 0
+
+#
+# ステータス
+#
 var level : int = 30:
 	set(v):
 		level = v
 		recalc_status()
 
-var init : bool = false
 var hp_max : int = 10
 var mp_max : int = 10
 var hp : int = 10:
@@ -60,6 +76,11 @@ class Status extends RefCounted:
 	static func from_id(id : Id) -> String: return _list[id]
 	static func keys() -> PackedStringArray: return _list
 	static func string(id : Id) -> String: return _name_list[id]
+
+#
+# スキル
+#
+var skills : Dictionary[String, int]
 
 func _init() -> void:
 	if !init:
@@ -182,6 +203,49 @@ func heal_hp(v : int):
 	hp += v
 	for panel in Game.get_panels(self): panel.pop_number(v, Color("green"))
 
+#
+# スキル
+#
+func get_skill_level(skill : Skill) -> int:
+	if not skills.has(skill.id): return 0
+	return skills[skill.id]
+
+func mod_skill_level(skill : Skill, level : int) -> void:
+	set_skill_level(skill, get_skill_level(skill) + level)
+
+func set_skill_level(skill : Skill, level : int) -> void:
+	skills[skill.id] = level
+
+
+#
+# 経験値
+#
+func get_phy_exp() -> int: return phy_experience
+func get_tec_exp() -> int: return tec_experience
+func get_mnd_exp() -> int: return mnd_experience
+
+func gain_phy_exp(val : int) -> void: phy_experience += val
+func gain_tec_exp(val : int) -> void: tec_experience += val
+func gain_mnd_exp(val : int) -> void: mnd_experience += val
+
+func has_exp_to_skill(skill : Skill) -> bool:
+	var next := get_skill_level(skill) + 1
+	if phy_experience < skill.next_phy(next): return false
+	if tec_experience < skill.next_tec(next): return false
+	if mnd_experience < skill.next_mnd(next): return false
+	return true
+
+func consume_exp_to_skill(skill : Skill) -> bool:
+	if not has_exp_to_skill(skill): return false
+	var next := get_skill_level(skill) + 1
+	phy_experience -= skill.next_phy(next)
+	tec_experience -= skill.next_tec(next)
+	mnd_experience -= skill.next_mnd(next)
+	return true
+
+#
+# アイテム
+#
 func spawn_inventory(template : CtrlInventory, filter : Callable = func (_item : Item): return true) -> CtrlInventory:
 	var ctrl_inventory : CtrlInventory = template.duplicate()
 	ctrl_inventory.inventory = Inventory.new()
@@ -195,12 +259,14 @@ func spawn_inventory(template : CtrlInventory, filter : Callable = func (_item :
 		func (_item: InventoryItem):
 			inventory.clear()
 			for inv_item in ctrl_inventory.inventory.get_items():
-				inventory.append(Item.from_inventory_item(inv_item))
+				for _i in inv_item.get_stack_size():
+					inventory.append(Item.from_inventory_item(inv_item))
 	)
 	ctrl_inventory.inventory.item_removed.connect(
 		func (_item: InventoryItem):
 			inventory.clear()
 			for inv_item in ctrl_inventory.inventory.get_items():
-				inventory.append(Item.from_inventory_item(inv_item))
+				for _i in inv_item.get_stack_size():
+					inventory.append(Item.from_inventory_item(inv_item))
 	)
 	return ctrl_inventory

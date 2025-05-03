@@ -46,10 +46,10 @@ size = Vector2(16, 16)
 [node name="KnightGFX" instance=ExtResource("1_c58iv")]
 
 [node name="AnimationPlayer" parent="." index="0"]
-autoplay = "idle"
 libraries = {
-"": SubResource("AnimationLibrary_6yooh")
+&"": SubResource("AnimationLibrary_6yooh")
 }
+autoplay = "idle"
 
 [node name="CollisionShape2D" parent="Area2D" index="0"]
 shape = SubResource("RectangleShape2D_b20ad")

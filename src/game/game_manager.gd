@@ -276,6 +276,12 @@ func query_yn(message : String = "よろしいですか？") -> bool:
 	await Dialogic.timeline_ended
 	return Dialogic.VAR.RetVal.Success
 
+func popup_yn(message : String = "よろしいですか？", default : bool = true) -> bool:
+	var popup := GamePopup.instantiate()
+	popup.default = false
+	add_child(popup)
+	return await popup.start(message, default)
+
 func debug_dialog() -> void:
 	Dialogic.start_timeline("res://data/dialog/test/debug.dtl")
 	await Dialogic.timeline_ended
@@ -286,3 +292,6 @@ func get_panels(actor : Actor) -> Array[CharacterPanel]:
 		if panel is CharacterPanel:
 			if panel.actor == actor: panels.append(panel)
 	return panels
+
+func dev_tbi() -> void:
+	print("to be implemented")

@@ -12,8 +12,8 @@ func _ready() -> void:
 	v_container = VBoxContainer.new()
 	v_container.position.x = 8
 	panel.add_child(v_container)
-	print(StaticData.item_from_id("剣"))
-	item = StaticData.item_from_id("剣").instantiate()
+	print(StaticData.item_from_id("sword"))
+	item = StaticData.item_from_id("sword").instantiate()
 
 func update():
 	add_base_text()

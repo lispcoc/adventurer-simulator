@@ -45,6 +45,7 @@ func to_inventory_item() -> InventoryItem:
 		inv_item.set_property("item", self)
 		inv_item.set_property("uid", uid)
 	inv_item.set_property("name", display_name())
+	inv_item.set_property("image", data.get_icon_path())
 	inv_item.set_max_stack_size(99)
 	inv_item.set_stack_size(1)
 	return inv_item
