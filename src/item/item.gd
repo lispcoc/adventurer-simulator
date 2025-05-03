@@ -40,12 +40,12 @@ static func from_inventory_item(inv_item : InventoryItem) -> Item:
 	return item
 
 func to_inventory_item() -> InventoryItem:
-	var inv_item = InventoryItem.new(null, id)
+	var inv_item = CustomInventoryItem.new(null, id)
 	if has_property():
 		inv_item.set_property("item", self)
 		inv_item.set_property("uid", uid)
 	inv_item.set_property("name", display_name())
-	inv_item.set_property("image", data.get_icon_path())
+	inv_item.set_property("image", data.icon)
 	inv_item.set_max_stack_size(99)
 	inv_item.set_stack_size(1)
 	return inv_item
@@ -89,3 +89,11 @@ func short_description() ->  String:
 
 func description() ->  String:
 	return short_description()
+
+func get_normal_attack() -> Ability:
+	return StaticData.ability_from_id(data.normal_attack).instantiate()
+
+class CustomInventoryItem extends InventoryItem:
+	func get_texture() -> Texture2D:
+		var icon := SpriteManager.load_item_icon(get_property(_KEY_IMAGE))
+		return icon

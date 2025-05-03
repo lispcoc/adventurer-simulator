@@ -13,13 +13,13 @@ static func load(list : Dictionary[String, Skill], path : String):
 	list.merge(database.get_struct_dictionary(), true)
 
 func next_phy(next_level : int) -> int:
-	return phy_consume * pow(1.5, next_level - 1)
+	return int(phy_consume * pow(1.5, next_level - 1))
 
 func next_tec(next_level : int) -> int:
-	return tec_consume * pow(1.5, next_level - 1)
+	return int(tec_consume * pow(1.5, next_level - 1))
 
 func next_mnd(next_level : int) -> int:
-	return mnd_consume * pow(1.5, next_level - 1)
+	return int(mnd_consume * pow(1.5, next_level - 1))
 
 class SkillTextDatabase extends TextDatabase:
 	func _initialize():
@@ -27,6 +27,6 @@ class SkillTextDatabase extends TextDatabase:
 		entry_name = "id"
 		define_from_struct(Skill.new)
 
-	func _preprocess_entry(entry): pass
+	func _preprocess_entry(_entry): pass
 
 	func _postprocess_entry(_entry: Dictionary): pass

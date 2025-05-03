@@ -19,10 +19,11 @@ var type : Type = Type.Consumables
 var icon : String = "sword_1"
 var icon_path : String
 
-var melee_base_times = 2
-var melee_base_amount = 2
-var melee_base_sides = 4
-var melee_base_attack = 0
+var normal_attack : String = "attack"
+var melee_base_times : int = 2
+var melee_base_amount : int = 2
+var melee_base_sides : int = 4
+var melee_base_attack : int = 0
 
 var armour_base_defense = 0
 
@@ -37,9 +38,8 @@ func instantiate() -> Item:
 	i.id = id
 	return i
 
-func get_icon_path() -> String:
-	if icon_path.is_empty(): icon_path = SpriteManager.get_item_icon_path(icon)
-	return icon_path
+func get_icon() -> Texture2D:
+	return SpriteManager.load_item_icon(icon)
 
 class ItemDataTextDatabase extends TextDatabase:
 	func _initialize():

@@ -114,10 +114,13 @@ func get_act(_by_front : bool, _enemy_front : Array[BattleActor], _enemy_back : 
 func speed() -> int:
 	return actor.dexterity
 
-func is_player() -> bool:
+func is_ally() -> bool:
 	return false
 
 func is_enemy() -> bool:
+	return false
+
+func is_player() -> bool:
 	return false
 
 func is_dead() -> bool:

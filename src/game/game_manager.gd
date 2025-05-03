@@ -206,6 +206,10 @@ func start_portrait_edit(ch : Actor) -> bool:
 func menu_delay() -> void:
 	await get_tree().create_timer(0.5).timeout
 
+func get_player() -> Actor:
+	dev_tbi("get_player")
+	return get_party()[0]
+
 func get_party(front : bool = true, back : bool = true) -> Array[Actor]:
 	var party : Array[Actor] = []
 	if front: party.append_array(game_data.party_front)
@@ -293,5 +297,5 @@ func get_panels(actor : Actor) -> Array[CharacterPanel]:
 			if panel.actor == actor: panels.append(panel)
 	return panels
 
-func dev_tbi() -> void:
-	print("to be implemented")
+func dev_tbi(function_name : String) -> void:
+	print("[Debug]%s to be implemented" % function_name)

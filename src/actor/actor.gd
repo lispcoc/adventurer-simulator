@@ -103,6 +103,10 @@ func get_used_bonus_point() -> int:
 		val += max(get_status(id) - 16, 0) * 20
 	return val
 
+func get_actions() -> Array[Ability]:
+	var ret : Array[Ability] = [get_weapon().get_normal_attack()]
+	return ret + get_abilities()
+
 func get_abilities() -> Array[Ability]:
 	var class_abilities : Array[Ability]
 	for sid in get_class_data().abilities:
@@ -210,11 +214,11 @@ func get_skill_level(skill : Skill) -> int:
 	if not skills.has(skill.id): return 0
 	return skills[skill.id]
 
-func mod_skill_level(skill : Skill, level : int) -> void:
-	set_skill_level(skill, get_skill_level(skill) + level)
+func mod_skill_level(skill : Skill, level_ : int) -> void:
+	set_skill_level(skill, get_skill_level(skill) + level_)
 
-func set_skill_level(skill : Skill, level : int) -> void:
-	skills[skill.id] = level
+func set_skill_level(skill : Skill, level_ : int) -> void:
+	skills[skill.id] = level_
 
 
 #

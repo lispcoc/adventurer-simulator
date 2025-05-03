@@ -30,9 +30,6 @@ func _ready() -> void:
 	%Actor.grab_focus()
 	%Actor.select(0)
 	%Actor.item_selected.emit(0)
-	
-	$CanvasLayer/Add.pressed.connect(test_add_item)
-	$CanvasLayer/Remove.pressed.connect(test_remove_item)
 
 func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_pressed("ui_cancel"):
@@ -49,8 +46,7 @@ func on_selected(inv_item : InventoryItem) -> void:
 	%ItemDescription.text = item.short_description()
 	selected = inv_item
 
-func on_activated(inv_item : InventoryItem) -> void:
-	inv_item.get_property("owner").set_weapon(Item.from_inventory_item(inv_item))
+func on_activated(_inv_item : InventoryItem) -> void:
 	reflesh_inventory()
 
 func reflesh_inventory() -> void:
@@ -61,15 +57,3 @@ func reflesh_inventory() -> void:
 			inv_item.set_property("name", "(E)" + item.display_name())
 		else:
 			inv_item.set_property("name", item.display_name())
-
-func test_add_item() -> void:
-	var tmp : Array[String] = StaticData.items.keys()
-	tmp.shuffle()
-	var item = StaticData.items[tmp[0]].instantiate()
-	var inv_item = InventoryItem.new()
-	inv_item.set_property("name", item.display_name())
-	inv_item.set_property("item", item)
-	ctrl_inventory.inventory.add_item(inv_item)
-
-func test_remove_item() -> void:
-	ctrl_inventory.inventory.remove_item(ctrl_inventory.get_selected_inventory_item())

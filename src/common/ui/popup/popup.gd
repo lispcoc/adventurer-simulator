@@ -16,10 +16,10 @@ func _ready() -> void:
 	%Yes.pressed.connect(_yes_pressed)
 	%No.pressed.connect(_no_pressed)
 
-func start(message : String, default : bool = true, yes_only : bool = false) -> bool:
+func start(message : String, default_val : bool = true, yes_only : bool = false) -> bool:
 	%Message.text = message
 	if yes_only: %No.hide()
-	if default: %Yes.grab_focus()
+	if default_val: %Yes.grab_focus()
 	else: %No.grab_focus()
 	get_tree().paused = true
 	await pressed

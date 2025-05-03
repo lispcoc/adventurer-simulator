@@ -12,7 +12,7 @@ static func enumulate_act(bm : BattleManager, actor : BattleActor) -> Array[Batt
 		eb = bm.get_party_back()
 	var by_front := pf.has(actor)
 	var acts : Array[BattleActor.Act]
-	for ability in actor.actor.get_abilities(): if ability.data.in_battle:
+	for ability in actor.actor.get_actions(): if ability.data.in_battle:
 		var target_range = ability.data.target_range
 		if by_front: target_range = target_range + 1
 		match ability.data.target_type:

@@ -3,7 +3,7 @@ class_name BattleManager extends Node
 signal exit_battle
 
 @export var battle_command : UICommandSelector
-@export var ability_select : UICommandSelector
+@export var action_select : UICommandSelector
 @export var party_container : UIBattleActorContainer
 @export var enemy_container : UIBattleActorContainer
 @export var message : RichTextLabel
@@ -168,13 +168,10 @@ func main_loop() -> BattleResult:
 				var by_front : bool = party_container.get_actors_front().has(c) || enemy_container.get_actors_front().has(c)
 				c.defence = false
 				c.on_main_entered()
-				if c.is_player():
+				if not c.is_player():
 					var act := pick_act(c)
 					await process_ability(c, act.targets, act.ability)
-				elif c.is_enemy():
-					var act := pick_act(c)
-					await process_ability(c, act.targets, act.ability)
-				else: #npc
+				else:
 					if !current_actor.actor.portrait.is_empty():
 						portrait.show()
 						portrait.from_string(str(current_actor.actor.portrait))
@@ -182,12 +179,13 @@ func main_loop() -> BattleResult:
 					await portrait_fade_in()
 					set_msg("%sの行動" % current_actor.display_name())
 					# スキルセレクタの構築
-					ability_select.erase_commands()
-					for sk in c.actor.get_abilities():
-						ability_select.add_command(sk.data.display_name, {"ability" : sk})
+					action_select.erase_commands()
+					for action in c.actor.get_actions():
+						action_select.add_command(action.data.display_name, {"ability" : action})
 					var accept = false
 					while !accept:
 						var ret = await battle_command.start_select()
+						print(ret)
 						match ret["command"]:
 							"Attack":
 								var targets = await select_target(Game.Target.EnemyOne, 1, by_front)
@@ -195,7 +193,7 @@ func main_loop() -> BattleResult:
 									for t in targets:
 										await process_melee_attack(c, t)
 									accept = true
-							"Ability":
+							"Action":
 								var sk : Ability = ret["ability"]
 								var targets : Array[BattleActor] = await select_target(sk.data.target_type, sk.data.target_range, by_front)
 								if not targets.is_empty():

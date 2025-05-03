@@ -36,8 +36,11 @@ func on_main_entered():
 func on_main_exit():
 	panel.highlight(false)
 
-func is_player() -> bool:
+func is_ally() -> bool:
 	return true
+
+func is_player() -> bool:
+	return Game.get_player() == actor
 
 func pop_cursor() -> void: panel.pop_cursor()
 func remove_cursor() -> void: panel.remove_cursor()

@@ -4,11 +4,11 @@ signal value_changed(value : int)
 
 const SCENE : PackedScene = preload("res://src/common/ui/spin_value/spin_value.tscn")
 
-@export var min : int = 0
-@export var max : int = 100
+@export var _min : int = 0
+@export var _max : int = 100
 @export var value : int = 0:
 	set(v):
-		value = min(self.max, max(self.min, v))
+		value = min(self._max, max(self._min, v))
 		value_changed.emit(value)
 
 var _button : Button
@@ -24,7 +24,7 @@ func _ready() -> void:
 func _update() -> void:
 	_button.text = " %d " % value
 
-func _input(event: InputEvent) -> void:
+func _input(_event: InputEvent) -> void:
 	if _button.has_focus():
 		if Input.is_action_pressed("ui_right"):
 			_button.grab_focus()

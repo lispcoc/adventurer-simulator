@@ -18,9 +18,9 @@ func _ready() -> void:
 	for id in Actor.Status.Id.values():
 		%Status.add(Actor.Status.string(id))
 		var spin_value := SpinValue.new()
-		spin_value.min = 6
+		spin_value._min = 6
 		spin_value.value = actor.get_status(id)
-		spin_value.max = 20
+		spin_value._max = 20
 		spin_value.value_changed.connect(_on_value_changed.bind(id))
 		%Status.add_child(spin_value)
 	%NameEdit.placeholder_text = actor.actor_name

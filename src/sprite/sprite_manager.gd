@@ -11,8 +11,7 @@ var controller_buttons : Dictionary[String, Texture2D] = {
 	"direction_lr" : preload("res://assets/gui/controller/direction_lr.png"),
 }
 
-var item_icons : Dictionary[String, String] = {
-}
+var item_icons : Dictionary[String, Texture2D]
 
 func _ready() -> void:
 	#load_battle_actors()
@@ -20,17 +19,10 @@ func _ready() -> void:
 
 func load_battle_actor(id : String) -> Texture2D:
 	if not battle_actors.has(id):
-		var dir = DirAccess.open(ProjectSettings.globalize_path("res://assets/battle_actors/"))
-		print("load_battle_actors: %s" % dir.get_current_dir())
-		for file in dir.get_files():
-			var _id := file.split(".")[0]
-			if file.ends_with(".png") and id == _id:
-				var path := dir.get_current_dir().path_join(file)
-				print("load_battle_actors: %s" % path)
-				var image = Image.new()
-				image.load(path)
-				var texture = ImageTexture.create_from_image(image)
-				battle_actors[id] = texture
+		for path in get_files_recursive("res://assets/battle_actors/", ".png"):
+			if path.ends_with(id + ".png"):
+				battle_actors[id] = load(path)
+				return battle_actors[id]
 	if battle_actors.has(id): return battle_actors[id]
 	return null
 
@@ -38,12 +30,23 @@ func load_controller_button(id):
 	if controller_buttons.has(id): return controller_buttons[id]
 	return null
 
-func get_item_icon_path(id):
-	var dir := DirAccess.open(ProjectSettings.globalize_path("res://assets/items/"))
-	for subdir_name in dir.get_directories():
-		var subdir := DirAccess.open(ProjectSettings.globalize_path("res://assets/items/" + subdir_name))
-		for file in subdir.get_files():
-			var _id := file.split(".")[0]
-			if file.ends_with(".png") and id == _id:
-				return subdir.get_current_dir().path_join(file)
+func load_item_icon(id) -> Texture2D:
+	if not item_icons.has(id):
+		for path in get_files_recursive("res://assets/items/", ".png"):
+			if path.ends_with(id + ".png"):
+				item_icons[id] = load(path)
+				return item_icons[id]
+	if item_icons.has(id): return item_icons[id]
 	return null
+
+func get_files_recursive(path : String, ext : String) -> PackedStringArray:
+	var ret : PackedStringArray
+	var dir := DirAccess.open(ProjectSettings.globalize_path(path))
+	for subdir_name in dir.get_directories():
+		var subdir_path := dir.get_current_dir().path_join(subdir_name)
+		ret.append_array(get_files_recursive(subdir_path, ext))
+	for file in dir.get_files():
+		var _id := file.split(".")[0]
+		if file.ends_with(ext):
+			ret.append(dir.get_current_dir().path_join(file))
+	return ret
