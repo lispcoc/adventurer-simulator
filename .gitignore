@@ -21,3 +21,4 @@ mono_crash.*.json
 /audio
 /godot/debug/save
 .godot/
+movie.avi

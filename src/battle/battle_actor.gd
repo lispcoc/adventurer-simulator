@@ -127,7 +127,7 @@ func is_dead() -> bool:
 	return hp <= 0
 
 func get_center_top() -> Vector2:
-	return Vector2(0, 0)
+	return Vector2(size.x / 2, 0)
 
 func hit_roll() -> int:
 	return DiceRoller.roll_dices(1, 20) + actor.get_hit()

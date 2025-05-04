@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=3 uid="uid://c5puwcb2jicrp"]
+
+[ext_resource type="Script" uid="uid://b5o5hs5je3fib" path="res://src/menu/system_submenu.gd" id="1_hkrb2"]
+[ext_resource type="Script" uid="uid://bakjh3jnhiqfb" path="res://addons/spin_button/src/controls/sb_slider_button.gd" id="2_k0mje"]
+
+[sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_5aqin"]
+
+[node name="SystemSubmenu" type="Node2D"]
+script = ExtResource("1_hkrb2")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+layer = 11
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+offset_left = 128.0
+offset_top = 64.0
+offset_right = 512.0
+offset_bottom = 408.0
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+
+[node name="BattleMessageSpeed" type="Button" parent="CanvasLayer/PanelContainer/GridContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/normal = SubResource("StyleBoxEmpty_5aqin")
+script = ExtResource("2_k0mje")
+max_value = 10.0
+value_label_visibility = 1
+value_label_placement = 2
+value_label_custom_format = "%d"
+keyboard_allow_echo = true
+title = "戦闘時メッセージスピード
+(0で手動送り)"
+metadata/_custom_type_script = "uid://bakjh3jnhiqfb"

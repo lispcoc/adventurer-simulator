@@ -20,6 +20,7 @@ func _ready() -> void:
 	else:
 		t_button.texture_normal = default_sprite
 	t_button.set_anchors_and_offsets_preset(Control.PRESET_CENTER_BOTTOM)
+	custom_minimum_size = t_button.texture_normal.get_size() + Vector2(32, 32)
 	label_panel = PanelContainer.new()
 	label_panel.custom_minimum_size = Vector2(200, 32)
 	label_panel.position.y = t_button.texture_normal.get_size().y

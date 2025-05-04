@@ -60,7 +60,7 @@ func _ready() -> void:
 	editor_ended.connect(show_ui)
 
 func _unhandled_input(_event: InputEvent) -> void:
-	if Input.is_action_pressed("ui_cancel"):
+	if Input.is_action_just_pressed("ui_cancel"):
 		if not prohibit_menu and not menu_active:
 			open_menu()
 			get_viewport().set_input_as_handled()

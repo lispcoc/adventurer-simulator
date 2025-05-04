@@ -41,6 +41,7 @@ func start():
 	tiles.resize(width * height)
 	Game.battle_started.connect(suspend)
 	Game.battle_ended.connect(resume)
+	ClockUi.set_place("はじまりの洞窟")
 	run()
 
 func suspend():

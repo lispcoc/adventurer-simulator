@@ -28,7 +28,6 @@ func _ready() -> void:
 	add_child(lighter)
 	timer = Timer.new()
 	add_child(timer)
-	add_condition(StatusCondision.Burn)
 	selectable = false
 	focus_entered.connect(pop_cursor)
 	focus_exited.connect(remove_cursor)

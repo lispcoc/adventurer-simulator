@@ -12,10 +12,10 @@ var controller_buttons : Dictionary[String, Texture2D] = {
 }
 
 var item_icons : Dictionary[String, Texture2D]
+var item_icons_with_bg : Dictionary[String, SubViewport]
 
-func _ready() -> void:
-	#load_battle_actors()
-	pass
+
+func _ready() -> void: pass
 
 func load_battle_actor(id : String) -> Texture2D:
 	if not battle_actors.has(id):
@@ -30,14 +30,29 @@ func load_controller_button(id):
 	if controller_buttons.has(id): return controller_buttons[id]
 	return null
 
-func load_item_icon(id) -> Texture2D:
+func load_item_icon(id, rarelity : int = 0) -> Texture2D:
 	if not item_icons.has(id):
 		for path in get_files_recursive("res://assets/items/", ".png"):
 			if path.ends_with(id + ".png"):
 				item_icons[id] = load(path)
-				return item_icons[id]
-	if item_icons.has(id): return item_icons[id]
-	return null
+				break
+	if not item_icons.has(id): return null
+	if rarelity == 0: return item_icons[id]
+
+	if not item_icons_with_bg.has(id):
+		item_icons_with_bg[id] = SubViewport.new()
+		item_icons_with_bg[id].size = item_icons[id].get_size() + Vector2(4, 4)
+		var sp := Sprite2D.new()
+		sp.texture = item_icons[id]
+		sp.centered = false
+		sp.position = Vector2(2, 2)
+		var bg := ColorRect.new()
+		bg.color = Color("#ee82ee")
+		bg.size = item_icons_with_bg[id].size
+		add_child(item_icons_with_bg[id])
+		item_icons_with_bg[id].add_child(bg)
+		item_icons_with_bg[id].add_child(sp)
+	return item_icons_with_bg[id].get_texture()
 
 func get_files_recursive(path : String, ext : String) -> PackedStringArray:
 	var ret : PackedStringArray

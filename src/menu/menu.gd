@@ -9,6 +9,7 @@ var inventory_submenu : PackedScene = load("res://src/menu/inventory_submenu.tsc
 var equip_submenu : PackedScene = load("res://src/menu/equip_submenu.tscn")
 var ability_submenu : PackedScene = load("res://src/menu/ability_submenu.tscn")
 var skill_up_submenu : PackedScene = load("res://src/menu/skill_up_submenu.tscn")
+var system_submenu : PackedScene = load("res://src/menu/system_submenu.tscn")
 
 var sort_submenu : SortSubMenu
 
@@ -29,6 +30,7 @@ func _ready() -> void:
 	selector.add_command("並び替え", "sort")
 	selector.add_command("成長", "skill_up")
 	selector.add_command("会話", "talk")
+	selector.add_command("システム", "system")
 	selector.add_command("デバッグ", "debug")
 	selector.add_command("デバッグ(アイテム)", "debug_item")
 	while true:
@@ -65,6 +67,11 @@ func _ready() -> void:
 				submenu_active = true
 				sort_submenu.start_sort()
 				await sort_submenu.sort_exit
+			"system":
+				submenu_active = true
+				var sub := system_submenu.instantiate() as SystemSubMenu
+				add_child(sub)
+				await sub.exit
 			"debug":
 				Game.start_town()
 				break

@@ -1,6 +1,7 @@
 class_name BattleManager extends Node
 
 signal exit_battle
+signal flip_message
 
 @export var battle_command : UICommandSelector
 @export var action_select : UICommandSelector
@@ -13,11 +14,19 @@ var can_escape : bool = true
 
 var current_actor : BattleActor
 
+var turn_pause : bool = false
+
 func _ready() -> void:
 	portrait_hide()
 
 func _process(_delta: float) -> void:
 	pass
+
+func _unhandled_input(event: InputEvent) -> void:
+	if turn_pause:
+		if event.is_action_released("ui_accept"):
+			flip_message.emit()
+			get_viewport().set_input_as_handled()
 
 func message_delay() -> void:
 	await get_tree().create_timer(0.5).timeout
@@ -27,10 +36,11 @@ func init_test_data():
 	a.load_from_monster_data(StaticData.monsters["slime"])
 	a.actor.level = 1
 	enemy_container.add_actor_front(a)
-	var b = BattleActorEnemy.new()
-	b.load_from_monster_data(StaticData.monsters["slime"])
-	b.actor.level = 1
-	enemy_container.add_actor_back(b)
+	for _i in 3:
+		var b = BattleActorEnemy.new()
+		b.load_from_monster_data(StaticData.monsters["slime"])
+		b.actor.level = 1
+		enemy_container.add_actor_front(b)
 
 func start() -> void:
 	for ch in Game.game_data.party_front:
@@ -214,12 +224,24 @@ func main_loop() -> BattleResult:
 				break
 			party_container.reflesh()
 			enemy_container.reflesh()
+			await battle_message_delay()
 		# Cleanup
 		if is_dead_all(get_party()):
 			return BattleResult.Lose
 		if is_dead_all(get_enemies()):
 			return BattleResult.Win
 	return BattleResult.Win
+
+func battle_message_delay() -> void:
+	var delay := Game.game_data.battle_message_speed
+	delay = clamp(11 - delay, 0, 10)
+	print(delay)
+	if delay > 10:
+		turn_pause = true
+		await flip_message
+		turn_pause = false
+	else:
+		await get_tree().create_timer(delay * 0.05).timeout
 
 func pick_act(actor : BattleActor) -> BattleActor.Act:
 	var act : BattleActor.Act

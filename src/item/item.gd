@@ -95,5 +95,4 @@ func get_normal_attack() -> Ability:
 
 class CustomInventoryItem extends InventoryItem:
 	func get_texture() -> Texture2D:
-		var icon := SpriteManager.load_item_icon(get_property(_KEY_IMAGE))
-		return icon
+		return SpriteManager.load_item_icon(get_property(_KEY_IMAGE), 1)
