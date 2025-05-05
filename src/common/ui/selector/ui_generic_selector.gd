@@ -63,8 +63,8 @@ func disconnect_command(cmd : UIGenericSelectorButton):
 func erase_commands():
 	for cmd in commands:
 		disconnect_command(cmd)
-		container.remove_child(cmd)
 	commands.clear()
+	for c in container.get_children(): container.remove_child(c)
 
 func add_command(text : String, function : String, args : Array = [], focus_callback : Callable = func ():, info : Array[Control] = []):
 	var cmd = UIGenericSelectorButton.new()

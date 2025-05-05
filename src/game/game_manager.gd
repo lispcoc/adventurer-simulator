@@ -61,7 +61,7 @@ func _ready() -> void:
 
 func _unhandled_input(_event: InputEvent) -> void:
 	if Input.is_action_just_pressed("ui_cancel"):
-		if not prohibit_menu and not menu_active:
+		if not dialog_doing and not prohibit_menu and not menu_active:
 			open_menu()
 			get_viewport().set_input_as_handled()
 
@@ -85,13 +85,11 @@ func start_dungeon() -> void:
 	await on_game_scene_change_end()
 
 func end_current_scene():
-	print("end_current_scene")
 	await on_game_scene_change_start()
 	scene_stack.pop_back()
 	scene_stack.back().enable()
 	scene_stack.back().start()
 	await on_game_scene_change_end()
-	print("end_current_scene")
 
 func open_menu() -> void:
 	menu_active = true
@@ -107,8 +105,7 @@ func start_new_game() -> void:
 	game_data = GameData.new()
 	var player := Actor.new()
 	player = await start_character_edit(player)
-	print("add_party")
-	print(add_party(player))
+	add_party(player)
 
 func on_game_loaded() -> void:
 	if not load_data():
@@ -116,6 +113,7 @@ func on_game_loaded() -> void:
 	print("on_game_loaded")
 	reload_ui()
 	prohibit_menu = false
+	start_town()
 
 func on_game_scene_change_start() -> void:
 	await Transition.cover(0.5)
@@ -294,6 +292,8 @@ func generic_conversation(actor : Actor) -> bool:
 	return true
 
 func debug_dialog() -> void:
+	var dch := DialogicResourceUtil.get_character_resource("character")
+	get_player().load_dialogic_character(dch)
 	Dialogic.start_timeline("res://data/dialog/test/debug.dtl")
 	await Dialogic.timeline_ended
 

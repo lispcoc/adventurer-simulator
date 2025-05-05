@@ -69,7 +69,6 @@ label_settings = SubResource("LabelSettings_yvra3")
 horizontal_alignment = 1
 
 [node name="ConversationSubMenu" type="CenterContainer" parent="."]
-visible = false
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -82,8 +81,9 @@ layout_mode = 2
 
 [node name="Actors" type="ScrollContainer" parent="ConversationSubMenu/PanelContainer"]
 unique_name_in_owner = true
-custom_minimum_size = Vector2(240, 160)
+custom_minimum_size = Vector2(360, 400)
 layout_mode = 2
+follow_focus = true
 script = ExtResource("2_56xr1")
-columns = 2
+columns = 3
 metadata/_custom_type_script = "uid://b2m81xdsv3udj"

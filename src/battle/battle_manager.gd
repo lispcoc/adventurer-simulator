@@ -277,11 +277,11 @@ func get_phase() -> Phase:
 	return Phase.Initiative
 
 func portrait_hide():
-	var portrait_container : Container = portrait.get_parent() as Control
+	var portrait_container : Control = portrait.get_parent() as Control
 	portrait_container.hide()
 	
 func portrait_fade_in():
-	var portrait_container : Container = portrait.get_parent() as Control
+	var portrait_container : Control = portrait.get_parent() as Control
 	portrait_container.show()
 	var pos = portrait_container.position
 	portrait_container.position.x = -portrait_container.size.x

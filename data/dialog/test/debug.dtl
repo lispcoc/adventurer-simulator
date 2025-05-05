@@ -1,4 +1,6 @@
-character: 何をテストしますか？
+[style name="New_File"]
+[background arg="res://assets/backgrounds/Village landscape Free Pixel Art Background1.png" fade="0.0"]
+character (Default): 何をテストしますか？
 - 戦闘
 	jump battle/
 - 仲間

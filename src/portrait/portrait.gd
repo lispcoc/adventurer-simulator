@@ -131,11 +131,10 @@ func _process(delta: float) -> void:
 		reflesh()
 
 func _update_portrait(passed_character : DialogicCharacter, passed_portrait : String) -> void:
-	var actor : Actor = passed_character.get_meta("actor", null)
-	if actor:
-		from_string(actor.portrait)
-	else:
-		from_string(passed_character.portraits[passed_portrait].data_str)
+	if passed_character.has_meta("actor"):
+		var actor : Actor = passed_character.get_meta("actor", null)
+		if actor: from_string(actor.portrait)
+		else: from_string(passed_character.portraits[passed_portrait].data_str)
 
 func reflesh():
 	for c in get_children(): if c is AnimatedSprite2D:

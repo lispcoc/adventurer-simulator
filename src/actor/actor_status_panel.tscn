@@ -1,0 +1,97 @@
+[gd_scene load_steps=6 format=3 uid="uid://lw0juppyq3yf"]
+
+[ext_resource type="Script" uid="uid://cblpyhmwhrxda" path="res://src/actor/actor_status_panel.gd" id="1_juqda"]
+[ext_resource type="Script" uid="uid://72xsud65eowi" path="res://src/common/ui/grid/tiled_string_grid.gd" id="2_fq2sf"]
+[ext_resource type="StyleBox" uid="uid://cr82ufnn2ph6u" path="res://theme/tiled_box/tiled_box_left.tres" id="3_6eex3"]
+[ext_resource type="StyleBox" uid="uid://bmo0iuclwd050" path="res://theme/tiled_box/tiled_box_right.tres" id="4_q5myd"]
+[ext_resource type="PackedScene" uid="uid://ckj8nx2ww3lvi" path="res://src/portrait/portrait.tscn" id="5_01lon"]
+
+[node name="ActorStatusPanel" type="TabContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+current_tab = 0
+script = ExtResource("1_juqda")
+
+[node name="Page1" type="TabBar" parent="."]
+layout_mode = 2
+metadata/_tab_index = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="Page1"]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Page1/MarginContainer"]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Page1/MarginContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="BaseStatus" type="GridContainer" parent="Page1/MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 32)
+layout_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 2
+script = ExtResource("2_fq2sf")
+odd_style = ExtResource("3_6eex3")
+even_style = ExtResource("4_q5myd")
+odd_color = Color(1, 1, 1, 1)
+even_color = Color(1, 1, 1, 1)
+metadata/_custom_type_script = "uid://72xsud65eowi"
+
+[node name="WeaponInfo" type="GridContainer" parent="Page1/MarginContainer/HBoxContainer/VBoxContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(128, 32)
+layout_mode = 2
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 2
+script = ExtResource("2_fq2sf")
+odd_style = ExtResource("3_6eex3")
+even_style = ExtResource("4_q5myd")
+odd_color = Color(1, 1, 1, 1)
+even_color = Color(1, 1, 1, 1)
+metadata/_custom_type_script = "uid://72xsud65eowi"
+
+[node name="Portrait" parent="Page1/MarginContainer/HBoxContainer" instance=ExtResource("5_01lon")]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 8
+size_flags_vertical = 0
+color = Color(0.639216, 0.564706, 0.505882, 1)
+
+[node name="TextL" type="RichTextLabel" parent="Page1"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_top = 213.0
+offset_right = 164.0
+offset_bottom = 445.0
+bbcode_enabled = true
+
+[node name="TextR" type="RichTextLabel" parent="Page1"]
+unique_name_in_owner = true
+layout_mode = 0
+offset_left = 164.0
+offset_top = 237.0
+offset_right = 324.0
+offset_bottom = 445.0
+bbcode_enabled = true
+
+[node name="Page2" type="TabBar" parent="."]
+visible = false
+layout_mode = 2
+metadata/_tab_index = 1
+
+[node name="RichTextLabel" type="RichTextLabel" parent="Page2"]
+visible = false
+layout_mode = 0
+offset_right = 500.0
+offset_bottom = 453.0
+text = "bbbbb"

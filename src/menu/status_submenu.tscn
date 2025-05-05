@@ -23,6 +23,7 @@ expand_margin_bottom = 1.0
 script = ExtResource("1_dpenu")
 
 [node name="TabContainer" type="TabContainer" parent="CanvasLayer" index="1"]
+visible = false
 offset_left = 128.0
 offset_right = 640.0
 offset_bottom = 480.0
@@ -93,7 +94,7 @@ theme_override_styles/panel = SubResource("StyleBoxFlat_fqa48")
 
 [node name="Portrait" parent="CanvasLayer/TabContainer/TabBar/PanelContainer" index="0" instance=ExtResource("3_lhm85")]
 unique_name_in_owner = true
-position = Vector2(88, 120)
+layout_mode = 2
 
 [node name="TabBar2" type="TabBar" parent="CanvasLayer/TabContainer" index="2"]
 visible = false
@@ -106,3 +107,11 @@ layout_mode = 0
 offset_right = 500.0
 offset_bottom = 453.0
 text = "bbbbb"
+
+[node name="Holder" type="Container" parent="CanvasLayer" index="2"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 128.0
+grow_horizontal = 2
+grow_vertical = 2

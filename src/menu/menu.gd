@@ -33,8 +33,7 @@ func _ready() -> void:
 	selector.add_command("成長", "skill_up")
 	selector.add_command("会話", "conversation")
 	selector.add_command("システム", "system")
-	selector.add_command("デバッグ", "debug")
-	selector.add_command("デバッグ(会話)", "debug_conversation")
+	selector.add_command("デバッグ(市民)", "debug_people")
 	selector.add_command("デバッグ(アイテム)", "debug_item")
 	while true:
 		main.show()
@@ -85,12 +84,10 @@ func _ready() -> void:
 				var sub := system_submenu.instantiate() as SystemSubMenu
 				add_child(sub)
 				await sub.exit
-			"debug":
-				Game.start_town()
-				break
-			"debug_conversation":
-				Game.generic_conversation(Game.get_player())
-				break
+			"debug_people":
+				var person := Actor.new()
+				Game.game_data.people.append(person)
+				print("%sを生成。" % person.actor_name)
 			"debug_item":
 				submenu_active = true
 				var sub := ItemLoot.instantiate()

@@ -114,7 +114,7 @@ layout/styles={
 "layout": "res://dialogue_layout.tscn"
 }
 }
-layout/default_style="Default"
+layout/default_style="res://src/dialog/New_File.tres"
 text/letter_speed=0.02
 animations/join_default="res://addons/dialogic/Modules/Character/DefaultAnimations/instant_in_or_out.gd"
 animations/leave_default="res://addons/dialogic/Modules/Character/DefaultAnimations/instant_in_or_out.gd"
@@ -139,9 +139,10 @@ text/autoadvance_ignored_characters_enabled=true
 save/encryption_on_exports_only=true
 text/advance_delay=0.1
 portraits/default_portrait="res://src/portrait/portrait.tscn"
-layout/style_list=[]
+layout/style_list=["res://src/dialog/New_File.tres"]
 extensions_folder="res://addons/dialogic_additions"
 history/simple_history_enabled=true
+choices/hotkey_behaviour=1
 
 [display]
 
@@ -185,7 +186,7 @@ character_panel=""
 [gui]
 
 theme/custom="uid://dbtpqwsmsli2p"
-theme/custom_font="uid://bvsq0cqgf54y7"
+theme/custom_font="uid://dcwikt2g8tgw5"
 
 [importer_defaults]
 
@@ -195,6 +196,12 @@ aseprite_wizard.plugin.spriteframes-split={
 
 [input]
 
+ui_cancel={
+"deadzone": 0.5,
+"events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194305,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)
+, Object(InputEventMouseButton,"resource_local_to_scene":false,"resource_name":"","device":-1,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"button_mask":2,"position":Vector2(202, 12),"global_position":Vector2(211, 60),"factor":1.0,"button_index":2,"canceled":false,"pressed":true,"double_click":false,"script":null)
+]
+}
 ui_left={
 "deadzone": 0.5,
 "events": [Object(InputEventKey,"resource_local_to_scene":false,"resource_name":"","device":0,"window_id":0,"alt_pressed":false,"shift_pressed":false,"ctrl_pressed":false,"meta_pressed":false,"pressed":false,"keycode":4194319,"physical_keycode":0,"key_label":0,"unicode":0,"location":0,"echo":false,"script":null)

@@ -47,8 +47,12 @@ func load_item_icon(id, rarelity : int = 0) -> Texture2D:
 		sp.centered = false
 		sp.position = Vector2(2, 2)
 		var bg := ColorRect.new()
-		bg.color = Color("#ee82ee")
+		bg.color = Color("#888888")
 		bg.size = item_icons_with_bg[id].size
+		bg = ColorRect.new()
+		bg.color = Color("#ee82ee")
+		bg.size = item_icons_with_bg[id].size - Vector2i(2, 2)
+		bg.position = Vector2(1, 1)
 		add_child(item_icons_with_bg[id])
 		item_icons_with_bg[id].add_child(bg)
 		item_icons_with_bg[id].add_child(sp)

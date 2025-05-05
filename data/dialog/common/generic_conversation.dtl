@@ -1,5 +1,7 @@
-label main
 character (Default): conversation test.
+label main
+- あなたについて教えてほしい。
+	do DialogFunctions.show_status(0.0)
 - 見た目を変更したい。
 	do DialogFunctions.portrait_edit(0.0)
 - やめる

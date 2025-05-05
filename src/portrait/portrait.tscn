@@ -39,13 +39,18 @@ shader = ExtResource("13_iqhcp")
 shader_parameter/og_color = PackedColorArray(0.4, 0.278431, 0.317647, 1, 0.25098, 0.14902, 0.235294, 1, 0.2, 0.109804, 0.2, 1, 0.2, 0.109804, 0.2, 0, 0.2, 0.109804, 0.2, 0, 0.2, 0.109804, 0.2, 0, 0.2, 0.109804, 0.2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 shader_parameter/new_color = PackedColorArray(0.4, 0.278431, 0.317647, 1, 0.25098, 0.14902, 0.235294, 1, 0.2, 0.109804, 0.2, 1, 0.2, 0.109804, 0.2, 0, 0.2, 0.109804, 0.2, 0, 0.2, 0.109804, 0.2, 0, 0.2, 0.109804, 0.2, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0)
 
-[node name="Portrait" type="Node2D"]
+[node name="Portrait" type="ColorRect"]
+custom_minimum_size = Vector2(160, 240)
+offset_right = 160.0
+offset_bottom = 240.0
+color = Color(1, 1, 1, 0)
 script = ExtResource("1_nopd3")
 default_palette = ExtResource("16_c0ulj")
 
 [node name="hat_back" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 texture_filter = 1
 sprite_frames = ExtResource("2_b7wet")
+centered = false
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
 "layer_section": true,
@@ -70,6 +75,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 texture_filter = 1
 material = SubResource("ShaderMaterial_c0ulj")
 sprite_frames = ExtResource("2_01wiw")
+centered = false
 script = ExtResource("15_1xxpq")
 ref_palette = PackedColorArray(0.25098, 0.14902, 0.235294, 1, 0.141176, 0.0745098, 0.14902, 1)
 palettes = Array[PackedColorArray]([PackedColorArray(0.753067, 0.8, 0.544, 1, 0.19768, 0.21, 0.1428, 1)])
@@ -96,6 +102,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 [node name="body" type="AnimatedSprite2D" parent="." groups=["portrait_body"]]
 texture_filter = 1
 sprite_frames = ExtResource("2_1srbf")
+centered = false
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
 "layer_section": true,
@@ -120,6 +127,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 texture_filter = 1
 material = SubResource("ShaderMaterial_qdlo0")
 sprite_frames = ExtResource("8_xw80p")
+centered = false
 script = ExtResource("15_1xxpq")
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
@@ -144,6 +152,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 [node name="face" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 texture_filter = 1
 sprite_frames = ExtResource("3_ym1tx")
+centered = false
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
 "layer_section": true,
@@ -167,6 +176,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 [node name="cheek" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 texture_filter = 1
 sprite_frames = ExtResource("10_ahuyi")
+centered = false
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
 "layer_section": true,
@@ -189,6 +199,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 
 [node name="eye" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 sprite_frames = ExtResource("4_yr8g5")
+centered = false
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
 "layer_section": true,
@@ -212,6 +223,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 [node name="eye_close" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 visible = false
 sprite_frames = ExtResource("11_7djfg")
+centered = false
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
 "layer_section": true,
@@ -235,6 +247,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 [node name="eyebrow" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 texture_filter = 1
 sprite_frames = ExtResource("5_yr8g5")
+centered = false
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
 "layer_section": true,
@@ -258,6 +271,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 [node name="eyelid" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 texture_filter = 1
 sprite_frames = ExtResource("7_gywy8")
+centered = false
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
 "layer_section": true,
@@ -281,6 +295,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 [node name="mouth" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 texture_filter = 1
 sprite_frames = ExtResource("9_2lwib")
+centered = false
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
 "layer_section": true,
@@ -304,6 +319,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 [node name="glasses" type="AnimatedSprite2D" parent="." groups=["portrait_head"]]
 texture_filter = 1
 sprite_frames = ExtResource("11_37xmf")
+centered = false
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
 "layer_section": true,
@@ -328,6 +344,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 texture_filter = 1
 material = SubResource("ShaderMaterial_uxjvr")
 sprite_frames = ExtResource("9_hmk5t")
+centered = false
 script = ExtResource("15_1xxpq")
 ref_palette = PackedColorArray(0.141176, 0.0745098, 0.14902, 1, 0.25098, 0.14902, 0.235294, 1, 0.4, 0.278431, 0.317647, 1, 0.34902, 0.243137, 0.298039, 1, 0.2, 0.109804, 0.2, 1)
 palettes = Array[PackedColorArray]([PackedColorArray(0.19768, 0.21, 0.1428, 1, 0.470667, 0.5, 0.34, 1, 0.941333, 1, 0.68, 1, 0.753067, 0.8, 0.544, 1, 0.357707, 0.38, 0.2584, 1)])
@@ -355,6 +372,7 @@ metadata/_aseprite_wizard_source_file_hash_ = "e41684248b16667028563257aa20a0cc"
 texture_filter = 1
 material = SubResource("ShaderMaterial_vnlt0")
 sprite_frames = ExtResource("10_b7wet")
+centered = false
 script = ExtResource("15_1xxpq")
 metadata/_aseprite_wizard_interface_config_ = {
 "animation_section": true,
@@ -377,3 +395,9 @@ metadata/_aseprite_wizard_config_ = {
 metadata/_aseprite_wizard_source_file_hash_ = "ca305c9e6845b58b8f1310a22909e0e6"
 
 [node name="Timer" type="Timer" parent="."]
+
+[node name="ColorRect" type="ColorRect" parent="."]
+visible = false
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0

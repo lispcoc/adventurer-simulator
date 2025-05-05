@@ -1,7 +1,12 @@
 extends Node
 
+var dialog_subwin_layer : CanvasLayer
+
 func _ready() -> void:
 	Dialogic.signal_event.connect(recieve_signal)
+	dialog_subwin_layer = CanvasLayer.new()
+	dialog_subwin_layer.layer = 20
+	add_child(dialog_subwin_layer)
 
 func recieve_signal(_arg : Dictionary) -> void:
 	pass
@@ -33,6 +38,16 @@ func remove_party(num : int) -> bool:
 
 func damage_party(val : int):
 	Game.damage_party(Damage.new(val, Attribute.Type.None))
+
+func show_status(character_idx : int) -> void:
+	if character_idx == 0:
+		var dch := DialogicResourceUtil.get_character_resource("character")
+		if dch.get_meta("actor", null) is Actor:
+			var panel := ActorStatusPanel.instantiate()
+			panel.closable = true
+			dialog_subwin_layer.add_child(panel)
+			panel.update(dch.get_meta("actor"))
+			await panel.tree_exited
 
 func portrait_edit(character_idx : int) -> void:
 	if character_idx == 0:
