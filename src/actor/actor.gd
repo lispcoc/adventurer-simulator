@@ -91,6 +91,11 @@ func _init() -> void:
 func _on_status_update() -> void:
 	if Game.is_inside_tree(): Game.get_tree().call_group("status_ui", "update")
 
+#
+# Meta
+#
+func deep_clone() -> Actor: return str_to_var(var_to_str(self))
+
 func get_usable_bonus_point() -> int:
 	return 200
 

@@ -1,7 +1,9 @@
-character (Default): conversation test.
 label main
+character (Default): conversation test.
 - あなたについて教えてほしい。
 	do DialogFunctions.show_status(0.0)
+- 手合わせしたい。
+	do DialogFunctions.start_battle_character()
 - 見た目を変更したい。
 	do DialogFunctions.portrait_edit(0.0)
 - やめる

@@ -12,9 +12,20 @@ func recieve_signal(_arg : Dictionary) -> void:
 	pass
 
 func start_battle(_monster_group : String) -> bool:
-	DialogUi.hide()
-	var ret = await Game.start_battle()
-	DialogUi.show()
+	Dialogic.VAR.Battle.Result = "Run"
+	return await Game.start_battle_test()
+
+func start_battle_character() -> bool:
+	var ret := true
+	var dch := DialogicResourceUtil.get_character_resource("character")
+	if dch.has_meta("actor"):
+		var actor : Actor = dch.get_meta("actor", null)
+		if actor is Actor:
+			DialogUi.hide()
+			var front : Array[Actor]
+			front.append(actor.deep_clone())
+			ret = await Game.start_battle(front)
+			DialogUi.show()
 	Dialogic.VAR.Battle.Result = "Run"
 	return ret
 

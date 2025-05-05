@@ -1,4 +1,7 @@
-[gd_resource type="FontVariation" format=3 uid="uid://vk82c4oiprta"]
+[gd_resource type="FontVariation" load_steps=2 format=3 uid="uid://vk82c4oiprta"]
+
+[ext_resource type="FontFile" uid="uid://bvsq0cqgf54y7" path="res://theme/DotGothic16-Regular.ttf" id="1_giqli"]
 
 [resource]
+base_font = ExtResource("1_giqli")
 spacing_glyph = 2

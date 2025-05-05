@@ -112,6 +112,23 @@ script = ExtResource("5_i4wed")
 front_container = NodePath("GridV/Front/FrontGrid")
 back_container = NodePath("GridV/Back/BackGrid")
 
+[node name="GridV" type="VBoxContainer" parent="CanvasLayer/EnemyContainer"]
+layout_mode = 2
+
+[node name="Back" type="CenterContainer" parent="CanvasLayer/EnemyContainer/GridV"]
+layout_mode = 2
+
+[node name="BackGrid" type="HBoxContainer" parent="CanvasLayer/EnemyContainer/GridV/Back"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
+[node name="Front" type="CenterContainer" parent="CanvasLayer/EnemyContainer/GridV"]
+layout_mode = 2
+
+[node name="FrontGrid" type="HBoxContainer" parent="CanvasLayer/EnemyContainer/GridV/Front"]
+custom_minimum_size = Vector2(0, 64)
+layout_mode = 2
+
 [node name="Lines" type="VBoxContainer" parent="CanvasLayer/EnemyContainer"]
 visible = false
 layout_mode = 2
@@ -145,23 +162,6 @@ theme_override_styles/pressed_mirrored = SubResource("StyleBoxEmpty_q757b")
 theme_override_styles/pressed = SubResource("StyleBoxEmpty_lwvck")
 theme_override_styles/normal_mirrored = SubResource("StyleBoxEmpty_r5tbi")
 theme_override_styles/normal = SubResource("StyleBoxEmpty_l7blb")
-
-[node name="GridV" type="VBoxContainer" parent="CanvasLayer/EnemyContainer"]
-layout_mode = 2
-
-[node name="Back" type="CenterContainer" parent="CanvasLayer/EnemyContainer/GridV"]
-layout_mode = 2
-
-[node name="BackGrid" type="HBoxContainer" parent="CanvasLayer/EnemyContainer/GridV/Back"]
-custom_minimum_size = Vector2(0, 64)
-layout_mode = 2
-
-[node name="Front" type="CenterContainer" parent="CanvasLayer/EnemyContainer/GridV"]
-layout_mode = 2
-
-[node name="FrontGrid" type="HBoxContainer" parent="CanvasLayer/EnemyContainer/GridV/Front"]
-custom_minimum_size = Vector2(0, 64)
-layout_mode = 2
 
 [node name="PartyPanelContainer" type="CenterContainer" parent="CanvasLayer" node_paths=PackedStringArray("front_container", "back_container")]
 offset_top = 312.0

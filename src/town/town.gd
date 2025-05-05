@@ -29,7 +29,7 @@ func main_loop() -> void:
 			"dialog":
 				await Game.debug_dialog()
 			"battle":
-				await Game.start_battle()
+				await Game.start_battle_test()
 			"portrait_edit":
 				await Game.start_portrait_edit(Game.game_data.party_front[0])
 			"enter_dungeon":

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="DialogicStyle" load_steps=4 format=3 uid="uid://b246tmxwjvvx4"]
+
+[ext_resource type="Script" uid="uid://cv81bexn0aj07" path="res://addons/dialogic/Resources/dialogic_style_layer.gd" id="1_7vgdt"]
+[ext_resource type="PackedScene" uid="uid://dtsuaa538pb5r" path="res://src/dialog/dialogue_layout.tscn" id="1_axbin"]
+[ext_resource type="Script" uid="uid://ch5ckrm6mqskk" path="res://addons/dialogic/Resources/dialogic_style.gd" id="2_axbin"]
+
+[resource]
+script = ExtResource("2_axbin")
+name = "DialogStyle"
+base_scene = ExtResource("1_axbin")
+base_overrides = {}
+layers = Array[ExtResource("1_7vgdt")]([])
+metadata/_latest_layer = -1

@@ -122,7 +122,7 @@ func _on_player_move(_position : Vector2):
 	Game.update_ui()
 	if randf() < 0.1:
 		player.cancel_move()
-		Game.start_battle()
+		Game.start_battle_test()
 
 func _input(event: InputEvent) -> void:
 	if handle_input:

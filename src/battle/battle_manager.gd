@@ -42,6 +42,16 @@ func init_test_data():
 		b.actor.level = 1
 		enemy_container.add_actor_front(b)
 
+func add_enemies(front : Array[Actor], back : Array[Actor] = []) -> void:
+	for actor in front:
+		var b := BattleActorEnemy.new()
+		b.actor = actor
+		enemy_container.add_actor_front(b)
+	for actor in back:
+		var b := BattleActorEnemy.new()
+		b.actor = actor
+		enemy_container.add_actor_back(b)
+
 func start() -> void:
 	for ch in Game.game_data.party_front:
 		var ac = BattleActorPlayer.new()

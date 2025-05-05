@@ -114,7 +114,7 @@ layout/styles={
 "layout": "res://dialogue_layout.tscn"
 }
 }
-layout/default_style="res://src/dialog/New_File.tres"
+layout/default_style="res://theme/DialogStyle.tres"
 text/letter_speed=0.02
 animations/join_default="res://addons/dialogic/Modules/Character/DefaultAnimations/instant_in_or_out.gd"
 animations/leave_default="res://addons/dialogic/Modules/Character/DefaultAnimations/instant_in_or_out.gd"
@@ -139,7 +139,7 @@ text/autoadvance_ignored_characters_enabled=true
 save/encryption_on_exports_only=true
 text/advance_delay=0.1
 portraits/default_portrait="res://src/portrait/portrait.tscn"
-layout/style_list=["res://src/dialog/New_File.tres"]
+layout/style_list=["res://theme/DialogStyle.tres"]
 extensions_folder="res://addons/dialogic_additions"
 history/simple_history_enabled=true
 choices/hotkey_behaviour=1

@@ -125,6 +125,7 @@ func on_dialog_start() -> void:
 	prohibit_menu = true
 	hide_ui()
 	dialog_doing = true
+	Dialogic.Styles.load_style("DialogStyle")
 
 func on_dialog_end() -> void:
 	dialog_doing = false
@@ -164,13 +165,21 @@ func pass_time(seconds : int, minutes : int = 0, hours : int = 0):
 	for _s in range(0, seconds + minutes * 60 + hours * 3600):
 		game_data.time.pass_second()
 
-func start_battle() -> bool:
+func start_battle_test() -> bool:
+	var a = BattleActorEnemy.new()
+	a.load_from_monster_data(StaticData.monsters["slime"])
+	a.actor.level = 1
+	var front : Array[Actor]
+	front.append(a.actor)
+	return await start_battle(front)
+	
+func start_battle(front : Array[Actor], back : Array[Actor] = []) -> bool:
 	prohibit_menu = true
 	battle_started.emit()
 	await Transition.cover(0.5)
 	var battle = scene_battle.instantiate() as BattleManager
 	get_tree().root.add_child(battle)
-	battle.init_test_data()
+	battle.add_enemies(front, back)
 	await Transition.clear(0.5)
 	await battle.start()
 	await Transition.clear(0.5)
