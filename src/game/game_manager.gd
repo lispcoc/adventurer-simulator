@@ -136,7 +136,7 @@ func on_dialog_end() -> void:
 func load_data() -> bool:
 	if FileAccess.file_exists(PATH_SAVEDATA):
 		var f = FileAccess.open(PATH_SAVEDATA, FileAccess.READ)
-		print(f.get_as_text())
+		#print(f.get_as_text())
 		game_data = str_to_var(f.get_as_text())
 	else:
 		print("セーブデータが存在しません: %s"%PATH_SAVEDATA)

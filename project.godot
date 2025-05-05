@@ -161,6 +161,14 @@ movie_writer/fps=30
 
 enabled=PackedStringArray("res://addons/AsepriteWizard/plugin.cfg", "res://addons/better-terrain/plugin.cfg", "res://addons/dialogic/plugin.cfg", "res://addons/gloot/plugin.cfg", "res://addons/spin_button/plugin.cfg")
 
+[file_customization]
+
+folder_colors={
+"res://assets/": "red",
+"res://data/": "yellow",
+"res://src/": "green"
+}
+
 [filesystem]
 
 import/blender/enabled=false
