@@ -32,7 +32,7 @@ Game="*res://src/game/game_manager.gd"
 StaticData="*res://src/game/game_static_data.gd"
 DiceRoller="*res://addons/ninetailsrabbit.indie_blueprint_rpg/src/probability/dice/dice_roller.gd"
 CharacterPanelUi="*res://src/common/character_panel/character_panel_ui.tscn"
-DialogUi="*res://src/common/ui/dialog/dialog_ui.tscn"
+DialogUi="*res://src/dialog/dialog_ui.tscn"
 DialogFunctions="*res://src/dialog/dialog_functions.gd"
 BetterTerrain="*res://addons/better-terrain/BetterTerrain.gd"
 ClockUi="*res://src/common/clock/clock_ui.tscn"
@@ -127,6 +127,7 @@ directories/dtl_directory={
 "battle": "res://data/dialog/test/battle.dtl",
 "damage_test": "res://data/dungeon_event/damage_test.dtl",
 "debug": "res://data/dialog/test/debug.dtl",
+"generic_conversation": "res://data/dialog/common/generic_conversation.dtl",
 "opening_cutscene": "res://maps/opening_cutscene.dtl",
 "party": "res://data/dialog/test/party.dtl",
 "query_yn": "res://data/dialog/common/query_yn.dtl"
@@ -139,6 +140,8 @@ save/encryption_on_exports_only=true
 text/advance_delay=0.1
 portraits/default_portrait="res://src/portrait/portrait.tscn"
 layout/style_list=[]
+extensions_folder="res://addons/dialogic_additions"
+history/simple_history_enabled=true
 
 [display]
 

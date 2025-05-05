@@ -12,6 +12,7 @@ class Result:
 @export var cancelable : bool = false
 @export var horizonal : bool = false
 @export var hide_inactive : bool = true
+@export var info_line : bool = false
 
 signal exit
 @warning_ignore("unused_signal")
@@ -65,7 +66,7 @@ func erase_commands():
 		container.remove_child(cmd)
 	commands.clear()
 
-func add_command(text : String, function : String, args : Array = [], focus_callback : Callable = func ():):
+func add_command(text : String, function : String, args : Array = [], focus_callback : Callable = func ():, info : Array[Control] = []):
 	var cmd = UIGenericSelectorButton.new()
 	cmd.text = text
 	cmd.variable = {}
@@ -77,6 +78,10 @@ func add_command(text : String, function : String, args : Array = [], focus_call
 	connect_command(cmd)
 	commands.append(cmd)
 	container.add_child(cmd)
+	if info_line:
+		for i in columns - 1:
+			if info.size() > i: container.add_child(info[i])
+			else: container.add_child(Label.new())
 
 func on_selected(variable : Dictionary):
 	retvar = variable.duplicate()

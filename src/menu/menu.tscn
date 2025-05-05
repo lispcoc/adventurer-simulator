@@ -1,8 +1,9 @@
-[gd_scene load_steps=6 format=3 uid="uid://cevep23neb3g2"]
+[gd_scene load_steps=7 format=3 uid="uid://cevep23neb3g2"]
 
 [ext_resource type="Script" uid="uid://cjn6iylu2ncdj" path="res://src/menu/menu.gd" id="1_45w1x"]
 [ext_resource type="Script" uid="uid://b2m81xdsv3udj" path="res://src/common/ui/selector/ui_generic_selector.gd" id="2_56xr1"]
 [ext_resource type="Script" uid="uid://bx3uhvkeu1oyj" path="res://src/menu/sort_submenu.gd" id="3_56xr1"]
+[ext_resource type="Script" uid="uid://bmwt3hqniajl" path="res://src/menu/conversation_submenu.gd" id="4_yvra3"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_56xr1"]
 font_color = Color(0.160784, 0.145098, 0.133333, 1)
@@ -13,14 +14,14 @@ font_color = Color(0.160784, 0.145098, 0.133333, 1)
 [node name="Menu" type="CanvasLayer" node_paths=PackedStringArray("selector")]
 layer = 10
 script = ExtResource("1_45w1x")
-selector = NodePath("UIGenericSelector")
+selector = NodePath("MenuMain")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 offset_right = 640.0
 offset_bottom = 480.0
 color = Color(0, 0, 0, 0.25098)
 
-[node name="UIGenericSelector" type="ScrollContainer" parent="." node_paths=PackedStringArray("container")]
+[node name="MenuMain" type="ScrollContainer" parent="." node_paths=PackedStringArray("container")]
 offset_left = 176.0
 offset_top = 64.0
 offset_right = 464.0
@@ -34,7 +35,7 @@ button_height = 10
 cancelable = true
 metadata/_custom_type_script = "uid://b2m81xdsv3udj"
 
-[node name="GridContainer" type="GridContainer" parent="UIGenericSelector"]
+[node name="GridContainer" type="GridContainer" parent="MenuMain"]
 layout_mode = 2
 columns = 2
 
@@ -66,3 +67,23 @@ layout_mode = 2
 text = "<<後衛>>"
 label_settings = SubResource("LabelSettings_yvra3")
 horizontal_alignment = 1
+
+[node name="ConversationSubMenu" type="CenterContainer" parent="."]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("4_yvra3")
+
+[node name="PanelContainer" type="PanelContainer" parent="ConversationSubMenu"]
+layout_mode = 2
+
+[node name="Actors" type="ScrollContainer" parent="ConversationSubMenu/PanelContainer"]
+unique_name_in_owner = true
+custom_minimum_size = Vector2(240, 160)
+layout_mode = 2
+script = ExtResource("2_56xr1")
+columns = 2
+metadata/_custom_type_script = "uid://b2m81xdsv3udj"

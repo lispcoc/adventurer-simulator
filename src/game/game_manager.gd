@@ -286,6 +286,13 @@ func popup_yn(message : String = "よろしいですか？", default : bool = tr
 	add_child(popup)
 	return await popup.start(message, default)
 
+func generic_conversation(actor : Actor) -> bool:
+	var dch := DialogicResourceUtil.get_character_resource("character")
+	actor.load_dialogic_character(dch)
+	Dialogic.start_timeline("generic_conversation")
+	await Dialogic.timeline_ended
+	return true
+
 func debug_dialog() -> void:
 	Dialogic.start_timeline("res://data/dialog/test/debug.dtl")
 	await Dialogic.timeline_ended

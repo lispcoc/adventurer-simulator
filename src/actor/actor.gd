@@ -274,3 +274,12 @@ func spawn_inventory(template : CtrlInventory, filter : Callable = func (_item :
 					inventory.append(Item.from_inventory_item(inv_item))
 	)
 	return ctrl_inventory
+
+#
+# ダイアログ
+#
+func load_dialogic_character(dch : DialogicCharacter) -> void:
+	dch.display_name = actor_name
+	dch.portraits["Default"] = {"data_str" : portrait}
+	dch.default_portrait = "Default"
+	dch.set_meta("actor", self)

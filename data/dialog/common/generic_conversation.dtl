@@ -1,0 +1,7 @@
+label main
+character (Default): conversation test.
+- 見た目を変更したい。
+	do DialogFunctions.portrait_edit(0.0)
+- やめる
+	return
+jump main

@@ -18,10 +18,12 @@ var submenu_active : bool = false
 var last_focus : Control
 
 func _ready() -> void:
+	var main : Control = $MenuMain
 	last_focus = Game.current_focus
 	if not selector: return
 	sort_submenu = $SortSubMenu
 	sort_submenu.hide()
+	var conversation_submenu : ConversationSubMenu = $ConversationSubMenu
 	selector.erase_commands()
 	selector.add_command("アイテム", "item")
 	selector.add_command("装備", "equip")
@@ -29,14 +31,17 @@ func _ready() -> void:
 	selector.add_command("ステータス", "status")
 	selector.add_command("並び替え", "sort")
 	selector.add_command("成長", "skill_up")
-	selector.add_command("会話", "talk")
+	selector.add_command("会話", "conversation")
 	selector.add_command("システム", "system")
 	selector.add_command("デバッグ", "debug")
+	selector.add_command("デバッグ(会話)", "debug_conversation")
 	selector.add_command("デバッグ(アイテム)", "debug_item")
 	while true:
+		main.show()
 		var ret = UIGenericSelector.parse_retval(await selector.start_select())
 		if ret.canceled:
 			break
+		main.hide()
 		match ret.function:
 			"item":
 				submenu_active = true
@@ -67,6 +72,14 @@ func _ready() -> void:
 				submenu_active = true
 				sort_submenu.start_sort()
 				await sort_submenu.sort_exit
+			"conversation":
+				submenu_active = true
+				var target := await conversation_submenu.select_target()
+				if target:
+					hide()
+					Game.generic_conversation(target)
+					show()
+					break
 			"system":
 				submenu_active = true
 				var sub := system_submenu.instantiate() as SystemSubMenu
@@ -74,6 +87,9 @@ func _ready() -> void:
 				await sub.exit
 			"debug":
 				Game.start_town()
+				break
+			"debug_conversation":
+				Game.generic_conversation(Game.get_player())
 				break
 			"debug_item":
 				submenu_active = true
