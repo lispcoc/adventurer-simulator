@@ -8,10 +8,14 @@ func _ready() -> void:
 	panel = $Panel
 	time_label = $Panel/Time
 	place_label = $Panel/Place
+	await Game.title_exit
 	Game.get_time().on_pass_minute.connect(update)
 	start()
 
 func start():
+	update()
+
+func reload():
 	update()
 
 func update():

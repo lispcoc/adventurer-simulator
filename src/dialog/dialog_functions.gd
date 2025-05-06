@@ -21,11 +21,9 @@ func start_battle_character() -> bool:
 	if dch.has_meta("actor"):
 		var actor : Actor = dch.get_meta("actor", null)
 		if actor is Actor:
-			DialogUi.hide()
 			var front : Array[Actor]
 			front.append(actor.deep_clone())
 			ret = await Game.start_battle(front)
-			DialogUi.show()
 	Dialogic.VAR.Battle.Result = "Run"
 	return ret
 

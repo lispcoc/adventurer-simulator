@@ -9,10 +9,14 @@ var processing : bool = false
 var select_all : bool = false
 
 func _ready() -> void:
-	reload()
 	get_viewport().gui_focus_changed.connect(_on_focus_changed)
 	%AllButton.pressed.connect(_on_all_pressed)
 	%AllButton.hide()
+	hide()
+	Game.title_exit.connect(_on_title_exit)
+
+func _on_title_exit() -> void:
+	show()
 
 func _unhandled_input(_event: InputEvent) -> void:
 	if processing:

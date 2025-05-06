@@ -11,6 +11,7 @@ signal on_pass_hour
 signal on_pass_day
 signal on_pass_mon
 signal on_pass_year
+signal title_exit
 
 const MAX_PARTY_MEMBER = 5
 const MAX_LINE_MEMBER = 3
@@ -98,22 +99,36 @@ func open_menu() -> void:
 	get_tree().root.add_child.call_deferred(menu)
 
 func sort_ui() -> void:
-	get_parent().move_child.call_deferred(DialogUi, get_parent().get_child_count() - 1)
 	get_parent().move_child.call_deferred(Transition, get_parent().get_child_count() - 1)
 
 func start_new_game() -> void:
 	game_data = GameData.new()
 	var player := Actor.new()
-	player = await start_character_edit(player)
+	await start_character_edit(player)
 	add_party(player)
 
 func on_game_loaded() -> void:
-	if not load_data():
-		await start_new_game()
-	print("on_game_loaded")
+	hide_ui()
+	var title := TitleMenu.instantiate()
+	title.continue_pressed.connect(continue_game)
+	title.newgame_pressed.connect(new_game)
+	add_child(title)
+
+func continue_game() -> void:
+	load_data()
 	reload_ui()
 	prohibit_menu = false
-	start_town()
+	await start_town()
+	title_exit.emit()
+	show_ui()
+
+func new_game() -> void:
+	await start_new_game()
+	reload_ui()
+	prohibit_menu = false
+	await start_town()
+	title_exit.emit()
+	show_ui()
 
 func on_game_scene_change_start() -> void:
 	await Transition.cover(0.5)
@@ -195,7 +210,7 @@ func start_character_edit(ch : Actor) -> Actor:
 	await scene.edit_ended
 	await menu_delay()
 	show_ui()
-	return scene.actor
+	return ch
 
 func start_portrait_edit(ch : Actor) -> bool:
 	prohibit_menu = true
@@ -267,6 +282,7 @@ func hide_ui() ->  void:
 	CharacterPanelUi.hide()
 
 func reload_ui() -> void:
+	ClockUi.reload()
 	CharacterPanelUi.reload()
 
 func update_ui() -> void:
