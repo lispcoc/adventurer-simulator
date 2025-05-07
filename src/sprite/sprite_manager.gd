@@ -14,6 +14,7 @@ var controller_buttons : Dictionary[String, Texture2D] = {
 var item_icons : Dictionary[String, Texture2D]
 var item_icons_with_bg : Dictionary[String, SubViewport]
 
+const ITEM_ICON_BG_EPIT : PackedScene = preload("res://src/sprite/item_epic.tscn")
 
 func _ready() -> void: pass
 
@@ -46,13 +47,8 @@ func load_item_icon(id, rarelity : int = 0) -> Texture2D:
 		sp.texture = item_icons[id]
 		sp.centered = false
 		sp.position = Vector2(2, 2)
-		var bg := ColorRect.new()
-		bg.color = Color("#888888")
+		var bg := ITEM_ICON_BG_EPIT.instantiate() as Panel
 		bg.size = item_icons_with_bg[id].size
-		bg = ColorRect.new()
-		bg.color = Color("#ee82ee")
-		bg.size = item_icons_with_bg[id].size - Vector2i(2, 2)
-		bg.position = Vector2(1, 1)
 		add_child(item_icons_with_bg[id])
 		item_icons_with_bg[id].add_child(bg)
 		item_icons_with_bg[id].add_child(sp)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=4 uid="uid://b8hosc0iwudew"]
+[gd_scene load_steps=10 format=4 uid="uid://b8hosc0iwudew"]
 
 [ext_resource type="Script" uid="uid://d1d2me86kigce" path="res://src/field/field.gd" id="1_ssgcd"]
 [ext_resource type="Resource" uid="uid://0giun82m84vb" path="res://src/dungeon/dungeon.tres" id="2_r12w5"]
@@ -6,6 +6,21 @@
 [ext_resource type="PackedScene" uid="uid://b626e0bngfvjj" path="res://src/field/gamepieces/gamepiece.tscn" id="3_ssgcd"]
 [ext_resource type="PackedScene" uid="uid://cdkha7cc72h35" path="res://assets/characters/generic_character_gfx.tscn" id="4_td0di"]
 [ext_resource type="Script" uid="uid://b6axhjepfoytx" path="res://src/field/field_cursor.gd" id="5_r12w5"]
+[ext_resource type="Texture2D" uid="uid://cnv2djdv1v1pi" path="res://assets/battle_actors/angel.png" id="7_td0di"]
+[ext_resource type="Texture2D" uid="uid://d4c58bldfevl3" path="res://assets/items/weapons/sword_1.png" id="8_jt4ta"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_weohm"]
+bg_color = Color(0.8, 0.8, 0.8, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.8, 0, 0.8, 1)
+border_blend = true
+corner_radius_top_left = 2
+corner_radius_top_right = 2
+corner_radius_bottom_right = 2
+corner_radius_bottom_left = 2
 
 [node name="Field" type="Node2D" node_paths=PackedStringArray("focused_game_piece")]
 script = ExtResource("1_ssgcd")
@@ -25,3 +40,33 @@ gameboard = ExtResource("2_r12w5")
 gameboard = ExtResource("2_r12w5")
 
 [node name="GenericCharacterAnimation" parent="Gamepiece" instance=ExtResource("4_td0di")]
+
+[node name="Angel" type="Sprite2D" parent="."]
+position = Vector2(56, 16)
+texture = ExtResource("7_td0di")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+offset_left = -128.0
+offset_top = -56.0
+offset_right = -88.0
+offset_bottom = -16.0
+color = Color(0.8, 0, 0.8, 1)
+
+[node name="ColorRect" type="ColorRect" parent="ColorRect"]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 2.0
+offset_right = 38.0
+offset_bottom = 38.0
+
+[node name="Sword1" type="Sprite2D" parent="."]
+position = Vector2(-108, 4)
+scale = Vector2(1.5, 1.5)
+texture = ExtResource("8_jt4ta")
+
+[node name="Panel" type="Panel" parent="."]
+offset_left = -128.0
+offset_top = -16.0
+offset_right = -88.0
+offset_bottom = 24.0
+theme_override_styles/panel = SubResource("StyleBoxFlat_weohm")
